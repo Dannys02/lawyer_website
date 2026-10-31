@@ -164,139 +164,39 @@
                 </p>
             </div>
 
-            <!-- Practice Grid (7 Layanan) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 01: Flagship Featured Card (Spans 2 columns on desktop) -->
-                <article class="md:col-span-2 bg-ns-navy-900 text-ns-light-100 border border-ns-navy-800 border-t-4 border-t-ns-gold-400 rounded-lg overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-12 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl">
-                    <div class="relative md:col-span-5 min-h-[220px] bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/1.jpg') }}" alt="Ilustrasi Litigasi dan Penyelesaian Sengketa di Pengadilan"
-                            width="640" height="420" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">01</span>
-                    </div>
-                    <div class="md:col-span-7 p-6 sm:p-7 flex flex-col justify-center">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-400 mb-1.5">Penanganan Perkara Pengadilan</div>
-                        <h3 class="font-display font-bold text-xl sm:text-2xl text-ns-light-100 mb-4">Litigasi &amp; Penyelesaian Sengketa</h3>
-                        <ul class="space-y-2 text-sm text-ns-light-300 list-none p-0 m-0">
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-400">
-                                <strong class="text-ns-light-100">Perdata:</strong> Gugatan wanprestasi, Perbuatan Melawan Hukum (PMH), waris, dan perdata agraria.
-                            </li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-400">
-                                <strong class="text-ns-light-100">Pidana:</strong> Pendampingan tersangka/terdakwa, penyusunan eksepsi, dan nota pembelaan (pleidoi).
-                            </li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-400">
-                                <strong class="text-ns-light-100">Tata Usaha Negara:</strong> Sengketa administrasi dan keputusan pejabat pemerintahan.
-                            </li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 02 -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                    <div class="relative h-48 bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/2.jpg') }}" alt="Ilustrasi Konsultasi dan Pendampingan Hukum Bisnis"
-                            width="480" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">02</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Korporasi &amp; Niaga</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">Konsultasi &amp; Pendampingan Hukum Bisnis</h3>
-                        <ul class="space-y-2 text-sm text-ns-ink-700 list-none p-0 m-0">
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Penyusunan <em>legal opinion</em>, kontrak bisnis, serta merger &amp; akuisisi.</li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Pendirian badan usaha, kepatuhan hukum (<em>legal compliance</em>), dan mitigasi risiko.</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 03 -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                    <div class="relative h-48 bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/3.jpg') }}" alt="Ilustrasi Hukum Keluarga dan Waris"
-                            width="480" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">03</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Perdata Keluarga</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">Hukum Keluarga &amp; Waris</h3>
-                        <ul class="space-y-2 text-sm text-ns-ink-700 list-none p-0 m-0">
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Cerai gugat/talak dan penyelesaian pembagian harta bersama (gono-gini).</li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Sengketa waris Islam dan adat, serta penyusunan perjanjian pranikah.</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 04 -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                    <div class="relative h-48 bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/4.jpg') }}" alt="Ilustrasi Hukum Ketenagakerjaan dan Hubungan Industrial"
-                            width="480" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">04</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Hubungan Industrial</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">Hukum Ketenagakerjaan &amp; Hubungan Industrial</h3>
-                        <ul class="space-y-2 text-sm text-ns-ink-700 list-none p-0 m-0">
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Penanganan PHK sepihak serta perselisihan hak dan kepentingan kerja.</li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Perundingan bipartit, mediasi tripartit, hingga litigasi Pengadilan Hubungan Industrial.</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 05 -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                    <div class="relative h-48 bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/8.jpg') }}" alt="Ilustrasi Hukum Agraria dan Pertanahan"
-                            width="480" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">05</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Properti &amp; Pertanahan</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">Hukum Agraria &amp; Pertanahan</h3>
-                        <ul class="space-y-2 text-sm text-ns-ink-700 list-none p-0 m-0">
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Penyelesaian sengketa lahan, pendaftaran tanah, dan pengurusan sertifikat.</li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Advokasi hak atas tanah ulayat serta perlindungan masyarakat adat.</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 06 -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                    <div class="relative h-48 bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/6.jpg') }}" alt="Ilustrasi Mediasi dan Negosiasi Strategis"
-                            width="480" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">06</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Non-Litigasi</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">Mediasi &amp; Negosiasi Strategis</h3>
-                        <ul class="space-y-2 text-sm text-ns-ink-700 list-none p-0 m-0">
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Penyelesaian sengketa di luar pengadilan dengan pendekatan <em>win-win solution</em>.</li>
-                            <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-ns-gold-700">Mediasi perkara keluarga, perbankan, kemitraan usaha, dan properti.</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 07: Wide Document Drafting Card (Spans full width on desktop) -->
-                <article class="md:col-span-2 lg:col-span-3 bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden shadow-sm grid grid-cols-1 md:grid-cols-12 transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                    <div class="relative md:col-span-4 min-h-[200px] bg-ns-navy-800">
-                        <img src="{{ asset('interface/img/7.jpg') }}" alt="Ilustrasi Penyusunan Dokumen dan Surat-Menyurat Hukum"
-                            width="640" height="360" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">07</span>
-                    </div>
-                    <div class="md:col-span-8 p-6 sm:p-7 flex flex-col justify-center">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Administrasi &amp; Dokumen Hukum</div>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">Penyusunan Dokumen &amp; Surat-Menyurat Hukum</h3>
-                        <p class="text-sm text-ns-ink-700 mb-4">
-                            Penyusunan naskah hukum resmi dengan presisi bahasa hukum untuk melindungi posisi hukum klien sejak tahap awal:
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-ns-ivory text-ns-ink-900 border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 px-3 py-1.5 rounded text-xs font-semibold">Surat Pelaporan / Pengaduan</span>
-                            <span class="bg-ns-ivory text-ns-ink-900 border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 px-3 py-1.5 rounded text-xs font-semibold">Surat Permohonan Klarifikasi</span>
-                            <span class="bg-ns-ivory text-ns-ink-900 border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 px-3 py-1.5 rounded text-xs font-semibold">Surat Somasi (Teguran Hukum)</span>
-                            <span class="bg-ns-ivory text-ns-ink-900 border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 px-3 py-1.5 rounded text-xs font-semibold">Surat Perjanjian &amp; Kontrak</span>
-                            <span class="bg-ns-ivory text-ns-ink-900 border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 px-3 py-1.5 rounded text-xs font-semibold">Surat Keberatan &amp; Penolakan</span>
+            <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                @forelse ($services as $index => $item)
+                    <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
+                        <div class="relative h-48 sm:h-52 bg-ns-navy-800">
+                            <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
+                                width="480" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded" aria-hidden="true">
+                                {{ sprintf('%02d', $index + 1) }}
+                            </span>
                         </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Bidang Praktik</div>
+                            <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">{{ $item->title }}</h3>
+                            <div class="text-sm text-ns-ink-700 leading-relaxed flex-1 service-rich-desc">
+                                {!! $item->description !!}
+                            </div>
+                        </div>
+                    </article>
+                @empty
+                    <div class="col-span-full max-w-2xl mx-auto w-full bg-white border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 rounded-lg p-8 sm:p-10 text-center shadow-sm">
+                        <div class="w-14 h-14 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 inline-flex items-center justify-center text-2xl mb-4" aria-hidden="true">
+                            <i class="lnr lnr-briefcase"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">Data Layanan Hukum Sedang Diperbarui</h3>
+                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-6">
+                            Daftar spesialisasi dan bidang praktik hukum sedang disinkronkan dari database kantor kami.
+                        </p>
+                        <a href="{{ route('contact') }}" class="inline-flex items-center justify-center min-h-[48px] px-7 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded hover:bg-ns-navy-800 transition">
+                            Hubungi Kantor Kami
+                        </a>
                     </div>
-                </article>
+                @endforelse
             </div>
 
             <div class="mt-10 sm:mt-12 text-center">

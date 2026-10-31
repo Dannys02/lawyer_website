@@ -35,3 +35,31 @@
     line-height: 1.65;
   }
 }
+
+@layer components {
+  /* Rich description styling for Service Cards (handles HTML from DB like <ol><li>, <ul><li>, <p>) */
+  .service-rich-desc ol {
+    list-style-type: decimal;
+    margin-left: 1.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .service-rich-desc ul {
+    list-style-type: disc;
+    margin-left: 1.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .service-rich-desc li {
+    margin-bottom: 0.35rem;
+    line-height: 1.5;
+  }
+  .service-rich-desc p {
+    margin-bottom: 0.5rem;
+  }
+  .service-rich-desc p:last-child,
+  .service-rich-desc ol:last-child,
+  .service-rich-desc ul:last-child {
+    margin-bottom: 0;
+  }
+}

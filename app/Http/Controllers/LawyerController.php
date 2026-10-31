@@ -7,6 +7,7 @@ use App\Models\galery;
 use App\Models\jurnal;
 use App\Models\legal_opini;
 use App\Models\reviews;
+use App\Models\service;
 use Illuminate\Http\Request;
 use App\Models\legal_patnership;
 
@@ -17,7 +18,8 @@ class LawyerController extends Controller
         $reviews = reviews::latest()->get();
         $patners = legal_patnership::latest()->get();
         $news = news::latest()->get();
-        return view('interface.welcome' , compact('reviews','patners','news'));
+        $services = service::all();
+        return view('interface.welcome', compact('reviews', 'patners', 'news', 'services'));
     }
 
     public function about()
@@ -27,7 +29,8 @@ class LawyerController extends Controller
 
     public function service()
     {
-        return view('interface.service');
+        $services = service::all();
+        return view('interface.service', compact('services'));
     }
 
     public function partner()
@@ -60,24 +63,22 @@ class LawyerController extends Controller
         return view('interface.news', compact('news'));
     }
 
-
     public function contact()
     {
         $reviews = reviews::latest()->get();
-        return view('interface.contact' , compact('reviews'));
+        return view('interface.contact', compact('reviews'));
     }
 
-  public function downloadJurnal($id)
-{
-    $jurnal = Jurnal::findOrFail($id);
+    public function downloadJurnal($id)
+    {
+        $jurnal = Jurnal::findOrFail($id);
 
-    $filePath = storage_path('app/public/' . $jurnal->pdf_file);
+        $filePath = storage_path('app/public/' . $jurnal->pdf_file);
 
-    if (file_exists($filePath)) {
-        return response()->download($filePath, basename($jurnal->pdf_file));
+        if (file_exists($filePath)) {
+            return response()->download($filePath, basename($jurnal->pdf_file));
+        }
+
+        return redirect()->back()->with('error', 'File not found.');
     }
-
-    return redirect()->back()->with('error', 'File not found.');
-}
-
 }
