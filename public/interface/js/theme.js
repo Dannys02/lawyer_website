@@ -15,18 +15,22 @@
 	  Navbar
 	-------------------------------------------------------------------------------*/
 
-    //* Navbar Fixed
+    //* Navbar Fixed (Passive listener for smooth zero-lag scrolling)
     function navbarFixed() {
-        if ($('.header_area').length) {
-            $(window).scroll(function () {
-                var scroll = $(window).scrollTop();
-                if (scroll >= nav_offset_top) {
-                    $(".header_area").addClass("navbar_fixed");
+        var headerArea = document.querySelector('.header_area');
+        if (!headerArea) return;
+        var isFixed = false;
+        window.addEventListener('scroll', function () {
+            var shouldFix = window.scrollY >= 40;
+            if (shouldFix !== isFixed) {
+                isFixed = shouldFix;
+                if (isFixed) {
+                    headerArea.classList.add('navbar_fixed');
                 } else {
-                    $(".header_area").removeClass("navbar_fixed");
+                    headerArea.classList.remove('navbar_fixed');
                 }
-            });
-        };
+            }
+        }, { passive: true });
     };
     navbarFixed();
 

@@ -1,5 +1,8 @@
-<div id="loading-screen">
-    <div class="spinner"></div>
+<div id="loading-screen" role="status" aria-live="polite" aria-label="Memuat halaman Kantor Hukum Nurul Safii">
+    <div class="loader-content">
+        <div class="spinner" aria-hidden="true"></div>
+        <span class="loader-text">Memuat halaman...</span>
+    </div>
 </div>
 
 <style>
@@ -13,20 +16,43 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: #fff;
-        z-index: 9999;
+        background-color: #0B162C;
+        z-index: 9999999;
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: opacity 0.3s ease;
+    }
+
+    .loader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .loader-text {
+        color: #F8FAFC;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
     }
 
     .spinner {
-        border: 8px solid #f3f3f3;
-        border-top: 8px solid #3498db;
+        border: 4px solid rgba(212, 175, 55, 0.2);
+        border-top: 4px solid #D4AF37;
         border-radius: 50%;
-        width: 70px;
-        height: 70px;
-        animation: spin 1s linear infinite;
+        width: 52px;
+        height: 52px;
+        animation: spin 0.9s linear infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .spinner {
+            animation: none;
+            border-color: #D4AF37;
+        }
     }
 
     @keyframes spin {
@@ -36,14 +62,15 @@
 </style>
 
 <script>
-    // Tambahkan class "loading" ke body
     document.body.classList.add('loading');
 
-    // Hilangkan loader setelah semua halaman termuat
     window.addEventListener('load', function () {
         setTimeout(() => {
-            document.getElementById('loading-screen').style.display = 'none';
+            var loader = document.getElementById('loading-screen');
+            if (loader) {
+                loader.style.display = 'none';
+            }
             document.body.classList.remove('loading');
-        }, 400); // kasih delay biar CSS sempat masuk
+        }, 250);
     });
 </script>

@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ns-navy-950: #070F1E;
+    --ns-navy-900: #0B162C;
+    --ns-navy-800: #132242;
+    --ns-navy-700: #1D315C;
+    --ns-gold-400: #E2B842;
+    --ns-gold-500: #D4AF37;
+    --ns-gold-700: #785706;
+    --ns-ivory: #F8F7F4;
+    --ns-paper: #F1EFEA;
+    --ns-white: #FFFFFF;
+    --ns-ink-900: #0B162C;
+    --ns-ink-700: #334155;
+    --ns-ink-500: #475569;
+    --ns-light-100: #F8FAFC;
+    --ns-light-300: #CBD5E1;
+    --ns-border-light: #D6D3CD;
+    --ns-border-navy: rgba(212, 175, 55, 0.28);
+    --ns-font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    --ns-font-display: "Playfair Display", Georgia, serif;
+    --ns-font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    font-family: var(--ns-font-sans);
+    color: var(--ns-ink-700);
+    background-color: var(--ns-ivory);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
