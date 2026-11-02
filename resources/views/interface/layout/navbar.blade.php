@@ -1,13 +1,17 @@
 <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navigasi Utama">
     <div class="flex items-center justify-between min-h-[76px]">
         <!-- Brand Logo -->
-        <a class="flex items-center py-2 flex-shrink-0" href="{{ route('welcome') }}" aria-label="Beranda Kantor Hukum Nurul Safii & Partners">
-            <img src="{{ asset('interface/img/LOGO_NS.png') }}" alt="Logo Kantor Hukum Nurul Safii & Partners" class="h-10 sm:h-11 w-auto object-contain">
+        <a class="flex items-center py-2 flex-shrink-0" href="{{ route('welcome') }}"
+            aria-label="Beranda Kantor Hukum Nurul Safii & Partners">
+            <img src="{{ asset('interface/img/LOGO_NS.png') }}" alt="Logo Kantor Hukum Nurul Safii & Partners"
+                class="h-10 sm:h-11 w-auto object-contain">
         </a>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" type="button" class="lg:hidden inline-flex items-center gap-2 min-h-[44px] min-w-[44px] px-3.5 py-2 border border-ns-gold-400 rounded bg-ns-navy-800 text-ns-light-100 hover:bg-ns-navy-700 focus:outline-none focus:ring-2 focus:ring-ns-gold-400"
-            aria-controls="mobile-menu" aria-expanded="false" aria-label="Buka menu navigasi" onclick="toggleMobileMenu()">
+        <button id="mobile-menu-btn" type="button"
+            class="lg:hidden inline-flex items-center gap-2 min-h-[44px] min-w-[44px] px-3.5 py-2 border border-ns-gold-400 rounded bg-ns-navy-800 text-ns-light-100 hover:bg-ns-navy-700 focus:outline-none focus:ring-2 focus:ring-ns-gold-400"
+            aria-controls="mobile-menu" aria-expanded="false" aria-label="Buka menu navigasi"
+            onclick="toggleMobileMenu()">
             <span class="flex flex-col gap-1 w-5" aria-hidden="true">
                 <span class="block h-0.5 bg-ns-gold-400 w-full transition-transform duration-200" id="bar1"></span>
                 <span class="block h-0.5 bg-ns-gold-400 w-full transition-opacity duration-200" id="bar2"></span>
@@ -52,18 +56,22 @@
 
                 <!-- Dropdown Desktop -->
                 <li class="relative group" id="desktop-dropdown">
-                    <button type="button" class="inline-flex items-center gap-1.5 px-1 py-3 text-xs xl:text-[13px] font-semibold tracking-wider uppercase text-ns-light-100 hover:text-ns-gold-400 transition-colors {{ Route::is('article') || Route::is('file') || Route::is('break-news') ? 'text-ns-gold-400 after:absolute after:bottom-1 after:left-1 after:right-1 after:h-0.5 after:bg-ns-gold-400' : '' }}"
+                    <button type="button"
+                        class="inline-flex items-center gap-1.5 px-1 py-3 text-xs xl:text-[13px] font-semibold tracking-wider uppercase text-ns-light-100 hover:text-ns-gold-400 transition-colors {{ Route::is('article') || Route::is('file') || Route::is('break-news') ? 'text-ns-gold-400 after:absolute after:bottom-1 after:left-1 after:right-1 after:h-0.5 after:bg-ns-gold-400' : '' }}"
                         aria-expanded="false" aria-haspopup="true">
                         Karya Ilmiah
-                        <i class="fas fa-chevron-down text-[10px] transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
+                        <i class="fas fa-chevron-down text-[10px] transition-transform duration-200 group-hover:rotate-180"
+                            aria-hidden="true"></i>
                     </button>
                     <!-- Dropdown Content -->
-                    <div class="absolute left-0 top-full pt-2 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-2xl z-50">
-                        <ul class="bg-ns-navy-800 border border-ns-gold-500/30 border-t-2 border-t-ns-gold-400 rounded-md py-1 shadow-xl">
+                    <div
+                        class="absolute left-0 top-full pt-2 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-2xl z-50">
+                        <ul
+                            class="bg-ns-navy-800 border border-ns-gold-500/30 border-t-2 border-t-ns-gold-400 rounded-md py-1 shadow-xl">
                             <li>
                                 <a class="block px-4 py-2.5 text-xs uppercase font-medium text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-900 transition-colors border-b border-white/5 {{ Route::is('article') ? 'bg-ns-gold-400 text-ns-navy-900 font-bold' : '' }}"
                                     href="{{ route('article') }}">
-                                    Legal Opini
+                                    Artikel Hukum
                                 </a>
                             </li>
                             <li>
@@ -115,10 +123,11 @@
                     href="{{ route('picture') }}">Galeri</a>
             </li>
             <li class="border-t border-white/10 pt-1">
-                <span class="block px-3 py-1.5 text-xs font-bold text-ns-gold-400 uppercase tracking-wider">Karya Ilmiah</span>
+                <span class="block px-3 py-1.5 text-xs font-bold text-ns-gold-400 uppercase tracking-wider">Karya
+                    Ilmiah</span>
                 <div class="pl-3 space-y-1">
                     <a class="block px-3 py-1.5 text-xs uppercase text-ns-light-300 hover:text-ns-gold-400 {{ Route::is('article') ? 'text-ns-gold-400 font-bold' : '' }}"
-                        href="{{ route('article') }}">Legal Opini</a>
+                        href="{{ route('article') }}">Artikel Hukum</a>
                     <a class="block px-3 py-1.5 text-xs uppercase text-ns-light-300 hover:text-ns-gold-400 {{ Route::is('file') ? 'text-ns-gold-400 font-bold' : '' }}"
                         href="{{ route('file') }}">Jurnal Hukum</a>
                     <a class="block px-3 py-1.5 text-xs uppercase text-ns-light-300 hover:text-ns-gold-400 {{ Route::is('break-news') ? 'text-ns-gold-400 font-bold' : '' }}"

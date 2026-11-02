@@ -45,10 +45,43 @@ class LawyerController extends Controller
         return view('interface.galery', compact('galeries'));
     }
 
-    public function article()
+    public function article(Request $request)
     {
-        $articles = legal_opini::all();
-        return view('interface.article', compact('articles'));
+        $search = trim($request->input('search', ''));
+
+        $articlesQuery = legal_opini::query();
+
+        if (!empty($search)) {
+            $articlesQuery->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                      ->orWhere('author', 'like', "%{$search}%")
+                      ->orWhere('text', 'like', "%{$search}%");
+            });
+        }
+
+        $articles = $articlesQuery->latest()->paginate(12)->withQueryString();
+
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('interface.article-list-partial', compact('articles', 'search'));
+        }
+
+        return view('interface.article', compact('articles', 'search'));
+    }
+
+    public function showArticle($slug)
+    {
+        $article = legal_opini::where('slug', $slug)->firstOrFail();
+
+        // Increment views safely
+        $article->increment('views');
+
+        // Related / recent articles
+        $recentArticles = legal_opini::where('id', '!=', $article->id)
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('interface.article-show', compact('article', 'recentArticles'));
     }
 
     public function file()

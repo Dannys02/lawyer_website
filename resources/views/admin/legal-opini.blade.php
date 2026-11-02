@@ -5,7 +5,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <div class="d-flex align-items-center justify-content-between">
-                <h5 class="card-header">Legal Opini</h5>
+                <h5 class="card-header">Artikel Hukum</h5>
                 <button type="button" class="btn btn-primary me-6" data-bs-toggle="modal" data-bs-target="#tambahArtikel">
                     Tambah Artikel
                 </button>
@@ -35,7 +35,7 @@
                                 </td>
                                 <td>
                                     <div class="text-truncate" style="max-width: 200px;">
-                                        <a href="{{ $row->url }}">{{$row->title}}</a>
+                                        <a href="{{ $row->url }}">{{ $row->title }}</a>
                                     </div>
                                 </td>
                                 <td>
@@ -253,7 +253,7 @@
                             <!-- Artikel -->
                             <div class="col-12">
                                 <label class="form-label">Isi Artikel</label>
-                                 <input type="url" id="url {{ $data->id }}" name="url"
+                                <input type="url" id="url {{ $data->id }}" name="url"
                                     class="form-control @error('url') is-invalid @enderror"
                                     value="{{ old('url', $data->url) }}" />
                                 @error('url')

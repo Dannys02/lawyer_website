@@ -43,9 +43,9 @@ class NewsController extends Controller
 
         news::create($data);
 
-        return redirect()->route('news.index')->with('success', 'Legal Opini berhasil ditambahkan.');
+        return redirect()->route('news.index')->with('success', 'Artikel Hukum berhasil ditambahkan.');
     } catch (\Exception $e) {
-        return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Legal Opini: ' . $e->getMessage());
+        return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Artikel Hukum: ' . $e->getMessage());
     }
 }
 
@@ -86,9 +86,9 @@ class NewsController extends Controller
 
             $news->update($data);
 
-            return redirect()->route('news.index')->with('success', 'Legal Opini berhasil diperbarui.');
+            return redirect()->route('news.index')->with('success', 'Artikel Hukum berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui Legal Opini: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui Artikel Hukum: ' . $e->getMessage());
         }
     }
 
@@ -105,9 +105,9 @@ class NewsController extends Controller
 
             $news->delete();
 
-            return redirect()->route('news.index')->with('success', 'Legal Opini berhasil dihapus.');
+            return redirect()->route('news.index')->with('success', 'Artikel Hukum berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus Legal Opini: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal menghapus Artikel Hukum: ' . $e->getMessage());
         }
     }
 }

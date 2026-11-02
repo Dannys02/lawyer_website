@@ -23,6 +23,7 @@ Route::get('/service', [App\Http\Controllers\LawyerController::class, 'service']
 Route::get('/partner', [App\Http\Controllers\LawyerController::class, 'partner'])->name('partner');
 Route::get('/picture', [App\Http\Controllers\LawyerController::class, 'picture'])->name('picture');
 Route::get('/article', [App\Http\Controllers\LawyerController::class, 'article'])->name('article');
+Route::get('/article/{slug}', [App\Http\Controllers\LawyerController::class, 'showArticle'])->name('article.show');
 Route::get('/file', [App\Http\Controllers\LawyerController::class, 'file'])->name('file');
 Route::get('/contact', [App\Http\Controllers\LawyerController::class, 'contact'])->name('contact');
 Route::get('/break-news', [App\Http\Controllers\LawyerController::class, 'news'])->name('break-news');
