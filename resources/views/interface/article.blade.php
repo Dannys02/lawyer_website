@@ -173,7 +173,7 @@
                 if (statusText) {
                     statusText.innerHTML = keyword
                         ? `Hasil untuk: &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;`
-                        : 'Ketik untuk mencari otomatis (debounce 400ms)';
+                        : '';
                 }
 
                 // Update browser URL without reloading

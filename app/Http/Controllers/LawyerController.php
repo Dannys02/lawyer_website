@@ -99,13 +99,33 @@ class LawyerController extends Controller
 
         $file = $query->latest()->paginate(9)->withQueryString();
 
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('interface.jurnal-list-partial', compact('file', 'search'));
+        }
+
         return view('interface.jurnal', compact('file', 'search'));
     }
 
-    public function news()
+    public function news(Request $request)
     {
-        $news = news::all();
-        return view('interface.news', compact('news'));
+        $search = trim($request->input('search', ''));
+
+        $query = news::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('publisher', 'like', "%{$search}%");
+            });
+        }
+
+        $news = $query->latest('date_publish')->paginate(9)->withQueryString();
+
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('interface.news-list-partial', compact('news', 'search'));
+        }
+
+        return view('interface.news', compact('news', 'search'));
     }
 
     public function contact()

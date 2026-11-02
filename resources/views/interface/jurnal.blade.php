@@ -37,8 +37,8 @@
     <!--================ Start Jurnals Section =================-->
     <section class="py-16 sm:py-20 lg:py-24 bg-ns-paper border-b border-ns-border-light" id="daftar-jurnal" aria-labelledby="jurnal-heading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header & Filter / Search Form -->
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-ns-border-light">
+            <!-- Section Header & Filter / Debounced Search Input Form -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b border-ns-border-light">
                 <div class="max-w-xl">
                     <div class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-2">
                         <span class="inline-block w-6 h-0.5 bg-ns-gold-700" aria-hidden="true"></span>
@@ -47,142 +47,220 @@
                     <h2 id="jurnal-heading" class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-ink-900 m-0">
                         Jurnal Kami
                     </h2>
-                    <p class="text-sm sm:text-base text-ns-ink-700 mt-2 leading-relaxed">
-                        Unduh atau tinjau langsung berkas jurnal riset hukum dalam format dokumen PDF resmi.
-                    </p>
                 </div>
 
-                <!-- Search Input Form -->
-                <div class="w-full lg:w-80 flex-shrink-0">
-                    <form action="{{ route('file') }}" method="GET" class="relative">
+                <!-- Debounced Search Input Bar -->
+                <div class="w-full lg:w-96 flex-shrink-0">
+                    <form id="jurnal-search-form" action="{{ route('file') }}" method="GET" onsubmit="return false;" class="relative">
                         <label for="jurnal-search-input" class="sr-only">Cari judul atau topik jurnal</label>
                         <div class="relative flex items-center">
                             <span class="absolute left-3.5 text-ns-ink-500 pointer-events-none text-sm">
                                 <i class="fas fa-search" aria-hidden="true"></i>
                             </span>
+
                             <input type="text"
                                    id="jurnal-search-input"
                                    name="search"
                                    value="{{ $search ?? '' }}"
                                    placeholder="Cari jurnal atau kata kunci..."
-                                   class="w-full pl-10 pr-10 py-2.5 bg-white text-sm text-ns-ink-900 placeholder:text-ns-ink-500 border-2 border-ns-border-light rounded-lg focus:outline-none focus:border-ns-gold-500 focus:ring-1 focus:ring-ns-gold-500 shadow-sm transition">
-                            @if(!empty($search))
-                                <a href="{{ route('file') }}"
-                                   class="absolute right-3 inline-flex items-center justify-center w-5 h-5 text-xs text-ns-ink-500 hover:text-ns-navy-900 transition"
-                                   title="Reset Pencarian">
+                                   autocomplete="off"
+                                   class="w-full pl-10 pr-20 py-3 bg-white text-sm text-ns-ink-900 placeholder:text-ns-ink-500 border-2 border-ns-border-light rounded-lg focus:outline-none focus:border-ns-gold-500 focus:ring-1 focus:ring-ns-gold-500 shadow-sm transition">
+
+                            <!-- Clear & Loading Indicators -->
+                            <div class="absolute right-3 flex items-center gap-2">
+                                <div id="jurnal-search-spinner" class="hidden text-ns-gold-700 animate-spin text-sm" title="Mencari...">
+                                    <i class="fas fa-circle-notch" aria-hidden="true"></i>
+                                </div>
+
+                                <button type="button"
+                                        id="jurnal-search-clear-btn"
+                                        onclick="clearJurnalSearch()"
+                                        class="{{ empty($search) ? 'hidden' : 'inline-flex' }} items-center justify-center w-6 h-6 text-xs text-ns-ink-500 hover:text-ns-navy-900 hover:bg-ns-paper rounded-full transition"
+                                        aria-label="Hapus kata kunci pencarian">
                                     <i class="fas fa-times" aria-hidden="true"></i>
-                                </a>
-                            @endif
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between text-[11px] text-ns-ink-500 mt-1.5 px-1">
+                            <span id="jurnal-search-status">
+                                @if(!empty($search))
+                                    Hasil untuk: &ldquo;<strong class="text-ns-navy-900">{{ $search }}</strong>&rdquo;
+                                @endif
+                            </span>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Grid 3 Kolom Sejajar Konsisten -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                @forelse ($file as $index => $row)
-                    <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
-                        <!-- Thumbnail Media -->
-                        <div class="relative bg-ns-navy-950 aspect-[16/10] overflow-hidden">
-                            @if (!empty($row->thumbnail))
-                                <img src="{{ asset('storage/' . $row->thumbnail) }}"
-                                     alt="Sampul Jurnal {{ $row->title }}"
-                                     width="540" height="340"
-                                     loading="lazy" decoding="async"
-                                     class="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500">
-                            @else
-                                <div class="w-full h-full flex flex-col items-center justify-center bg-ns-navy-900 text-ns-gold-400 p-6 text-center">
-                                    <i class="fas fa-book-open text-4xl mb-2 opacity-80" aria-hidden="true"></i>
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-ns-light-300">Dokumen Jurnal</span>
-                                </div>
-                            @endif
-
-                            <!-- Index Badge -->
-                            <span class="absolute top-3 left-3 bg-ns-navy-950/90 text-ns-gold-400 border border-ns-gold-400/60 font-display font-bold text-xs px-2.5 py-1 rounded backdrop-blur-sm shadow-md" aria-hidden="true">
-                                {{ sprintf('%02d', ($file->currentPage() - 1) * $file->perPage() + $index + 1) }}
-                            </span>
-
-                            <!-- Format Badge -->
-                            <span class="absolute top-3 right-3 bg-ns-gold-400 text-ns-navy-950 font-sans font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow">
-                                <i class="far fa-file-pdf mr-1" aria-hidden="true"></i> PDF
-                            </span>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 flex flex-col flex-1 bg-white">
-                            <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">
-                                Publikasi Ilmiah
-                            </div>
-                            <h3 class="font-display font-bold text-lg text-ns-ink-900 leading-snug mb-3">
-                                {{ $row->title }}
-                            </h3>
-
-                            <div class="text-sm text-ns-ink-700 leading-relaxed flex-1 mb-5 line-clamp-3">
-                                {{ $row->description }}
-                            </div>
-
-                            <!-- Action Buttons: Lihat File & Unduh PDF -->
-                            <div class="pt-4 border-t border-ns-border-light flex items-center justify-between gap-3">
-                                <a href="{{ asset('storage/' . $row->pdf_file) }}"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-ns-paper text-ns-navy-900 font-bold text-xs uppercase tracking-wider rounded border border-[#C8C4BC] hover:bg-ns-navy-900 hover:text-ns-light-100 hover:border-ns-navy-900 transition flex-1 text-center">
-                                    <i class="far fa-eye" aria-hidden="true"></i>
-                                    <span>Lihat File</span>
-                                </a>
-
-                                <a href="{{ route('download-pdf', $row->id) }}"
-                                   class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-ns-gold-400 text-ns-navy-950 font-bold text-xs uppercase tracking-wider rounded hover:bg-ns-navy-900 hover:text-ns-gold-400 transition flex-1 text-center shadow-sm">
-                                    <i class="fas fa-download" aria-hidden="true"></i>
-                                    <span>Unduh PDF</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                @empty
-                    <div class="col-span-full max-w-xl mx-auto w-full bg-white border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 rounded-lg p-8 sm:p-10 text-center shadow-sm">
-                        <div class="w-14 h-14 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 inline-flex items-center justify-center text-2xl mb-4" aria-hidden="true">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h4 class="font-display font-bold text-xl text-ns-ink-900 mb-2">
-                            @if(!empty($search))
-                                Jurnal Tidak Ditemukan
-                            @else
-                                Kami belum memiliki Jurnal
-                            @endif
-                        </h4>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-6">
-                            @if(!empty($search))
-                                Pencarian dengan kata kunci <span class="font-bold text-ns-navy-900">&ldquo;{{ $search }}&rdquo;</span> tidak menemukan dokumen jurnal.
-                            @else
-                                Berkas jurnal dan publikasi riset hukum sedang dalam proses sinkronisasi dan penataan oleh divisi literatur kami. Anda dapat membaca artikel atau legal opini kami.
-                            @endif
-                        </p>
-                        @if(!empty($search))
-                            <a href="{{ route('file') }}" class="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 bg-ns-navy-900 text-ns-light-100 font-bold text-xs uppercase tracking-wide rounded hover:bg-ns-navy-800 transition">
-                                Reset Pencarian
-                            </a>
-                        @else
-                            <div class="flex flex-wrap justify-center gap-3">
-                                <a href="{{ route('article') }}" class="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 bg-ns-navy-900 text-ns-light-100 font-bold text-xs uppercase tracking-wide rounded hover:bg-ns-navy-800 transition">
-                                    Baca Legal Opini
-                                </a>
-                                <a href="{{ route('welcome') }}" class="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 bg-transparent text-ns-navy-900 font-bold text-xs uppercase tracking-wide rounded border-2 border-ns-navy-900 hover:bg-ns-navy-900 hover:text-ns-light-100 transition">
-                                    Kembali ke Beranda
-                                </a>
-                            </div>
-                        @endif
-                    </div>
-                @endforelse
+            <!-- Dynamic Jurnal Container -->
+            <div id="jurnal-container" class="transition-opacity duration-200">
+                @include('interface.jurnal-list-partial')
             </div>
-
-            <!-- Pagination Bar -->
-            @if ($file->hasPages())
-                <div class="mt-12 sm:mt-16 pt-8 border-t border-ns-border-light">
-                    {{ $file->links('interface.layout.pagination') }}
-                </div>
-            @endif
         </div>
     </section>
     <!--================ End Jurnals Section =================-->
+
+    <!--================ Start Consultation Banner =================-->
+    <section class="py-14 sm:py-16 bg-ns-navy-950 text-ns-light-100 border-t-2 border-ns-gold-500 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="font-serif font-bold text-2xl sm:text-3xl text-ns-light-100 mb-3">
+                Membutuhkan Studi Yuridis atau Legal Audit Khusus?
+            </h2>
+            <p class="text-sm sm:text-base text-ns-light-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+                Selain publikasi riset berkala, tim kami melayani penyusunan legal audit, contract drafting, dan uji kelayakan hukum untuk kebutuhan korporasi maupun institusi.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-950 font-bold text-sm tracking-wide rounded hover:bg-white transition-all duration-150 shadow-lg">
+                    Hubungi Konsultan Kami
+                </a>
+                <a href="{{ route('service') }}" class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-transparent text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-gold-400 hover:bg-ns-navy-900 hover:border-white transition-all duration-150">
+                    Lihat Layanan Hukum
+                </a>
+            </div>
+        </div>
+    </section>
+    <!--================ End Consultation Banner =================-->
 @endsection
+
+@push('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const input = document.getElementById('jurnal-search-input');
+        const spinner = document.getElementById('jurnal-search-spinner');
+        const clearBtn = document.getElementById('jurnal-search-clear-btn');
+        const statusText = document.getElementById('jurnal-search-status');
+        const container = document.getElementById('jurnal-container');
+
+        if (!input || !container) return;
+
+        let debounceTimer = null;
+        let currentAbortController = null;
+
+        input.addEventListener('input', function () {
+            const query = input.value.trim();
+
+            if (clearBtn) {
+                if (query.length > 0) {
+                    clearBtn.classList.remove('hidden');
+                    clearBtn.classList.add('inline-flex');
+                } else {
+                    clearBtn.classList.add('hidden');
+                    clearBtn.classList.remove('inline-flex');
+                }
+            }
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                fetchJurnals(query);
+            }, 400);
+        });
+
+        function fetchJurnals(keyword) {
+            if (currentAbortController) {
+                currentAbortController.abort();
+            }
+            currentAbortController = new AbortController();
+
+            if (spinner) spinner.classList.remove('hidden');
+            if (statusText) {
+                statusText.innerHTML = keyword
+                    ? `Mencari &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;...`
+                    : 'Memuat seluruh jurnal...';
+            }
+            container.style.opacity = '0.6';
+
+            const url = new URL("{{ route('file') }}", window.location.origin);
+            if (keyword) {
+                url.searchParams.set('search', keyword);
+            }
+
+            fetch(url.toString(), {
+                signal: currentAbortController.signal,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'text/html, application/xhtml+xml'
+                }
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Network error');
+                return res.text();
+            })
+            .then(html => {
+                container.innerHTML = html;
+                container.style.opacity = '1';
+                if (spinner) spinner.classList.add('hidden');
+
+                if (statusText) {
+                    statusText.innerHTML = keyword
+                        ? `Hasil untuk: &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;`
+                        : '';
+                }
+
+                window.history.replaceState({}, '', url.toString());
+                attachJurnalPagination();
+            })
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                    console.error('Fetch error:', err);
+                    if (spinner) spinner.classList.add('hidden');
+                    container.style.opacity = '1';
+                    if (statusText) {
+                        statusText.innerHTML = '<span class="text-red-600">Gagal memuat data pencarian.</span>';
+                    }
+                }
+            });
+        }
+
+        function attachJurnalPagination() {
+            const paginationLinks = container.querySelectorAll('a[href*="page="]');
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetUrl = new URL(this.href);
+
+                    if (spinner) spinner.classList.remove('hidden');
+                    container.style.opacity = '0.6';
+
+                    fetch(targetUrl.toString(), {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'text/html, application/xhtml+xml'
+                        }
+                    })
+                    .then(res => res.text())
+                    .then(html => {
+                        container.innerHTML = html;
+                        container.style.opacity = '1';
+                        if (spinner) spinner.classList.add('hidden');
+                        window.history.pushState({}, '', targetUrl.toString());
+                        attachJurnalPagination();
+
+                        const headerElement = document.getElementById('daftar-jurnal');
+                        if (headerElement) {
+                            headerElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Pagination error:', err);
+                        window.location.href = targetUrl.toString();
+                    });
+                });
+            });
+        }
+
+        attachJurnalPagination();
+
+        window.clearJurnalSearch = function () {
+            input.value = '';
+            if (clearBtn) {
+                clearBtn.classList.add('hidden');
+                clearBtn.classList.remove('inline-flex');
+            }
+            clearTimeout(debounceTimer);
+            fetchJurnals('');
+            input.focus();
+        };
+    });
+</script>
+@endpush
