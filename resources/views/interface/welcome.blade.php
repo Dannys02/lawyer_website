@@ -1,5 +1,5 @@
 @extends('interface.layout.app')
-@section('title', 'Kantor Hukum Nurul Safii, S.H., M.H., C.MSP & Partners | Advokat, Mediator & Konsultan Hukum')
+@section('title', 'Pengacara Banyuwangi Safi | Advokat, Mediator & Konsultan Hukum')
 
 @section('content')
     <!--================ Start Home Banner Area (Editorial Navy & Gold) =================-->
@@ -10,7 +10,7 @@
         <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
             <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
                 class="w-full h-full object-cover object-center opacity-20" fetchpriority="high">
-            <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div>
+            {{-- <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div> --}}
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,9 +121,9 @@
                         class="w-full max-w-md bg-ns-navy-900 border-2 border-ns-gold-500 rounded-lg p-6 sm:p-8 text-center shadow-xl">
                         <div
                             class="bg-ns-navy-800 border border-ns-gold-400/30 rounded p-6 sm:p-8 mb-5 flex justify-center items-center">
-                            <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
-                                alt="Logo Kantor Hukum Nurul Safii, S.H., M.H., C.MSP & Partners" width="340"
-                                height="340" class="max-w-[200px] sm:max-w-[240px] w-full h-auto object-contain">
+                            <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Logo Pengacara Banyuwangi Safi"
+                                width="340" height="340"
+                                class="max-w-[200px] sm:max-w-[240px] w-full h-auto object-contain">
                         </div>
                         <div class="border-t border-ns-gold-500/30 pt-4">
                             <span

@@ -22,16 +22,6 @@
                         <span class="text-xs font-semibold uppercase tracking-wider text-ns-light-300">Warta Hukum</span>
                     </div>
                 @endif
-
-                <!-- Index Badge -->
-                <span class="absolute top-3 left-3 bg-ns-navy-950/90 text-ns-gold-400 border border-ns-gold-400/60 font-display font-bold text-xs px-2.5 py-1 rounded backdrop-blur-sm shadow-md" aria-hidden="true">
-                    {{ sprintf('%02d', ($news->currentPage() - 1) * $news->perPage() + $index + 1) }}
-                </span>
-
-                <!-- Tag Badge -->
-                <span class="absolute top-3 right-3 bg-ns-navy-900/90 text-ns-light-100 font-sans font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded border border-white/20 backdrop-blur-sm">
-                    Liputan Pers
-                </span>
             </div>
 
             <!-- Card Body -->

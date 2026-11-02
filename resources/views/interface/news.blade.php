@@ -1,33 +1,40 @@
 @extends('interface.layout.app')
-@section('title', 'Berita & Liputan Media Hukum | Kantor Hukum Nurul Safii, S.H., M.H., C.MSP & Partners')
+@section('title', 'Berita & Liputan Media Hukum | Pengacara Banyuwangi Safi')
 
 @section('content')
     <!--================ Start Page Banner Area (Editorial Navy & Gold) =================-->
-    <section class="relative bg-ns-navy-950 text-ns-light-100 pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-hidden border-b-4 border-ns-gold-500" aria-labelledby="news-banner-heading">
+    <section
+        class="relative bg-ns-navy-950 text-ns-light-100 pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-hidden border-b-4 border-ns-gold-500"
+        aria-labelledby="news-banner-heading">
         <!-- Background Media with Gradient Overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
+                class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
             <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div>
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
             <div class="max-w-3xl">
                 <!-- Breadcrumbs -->
-                <nav class="flex items-center justify-center sm:justify-start gap-2 text-xs font-semibold uppercase tracking-widest text-ns-light-300 mb-4" aria-label="Breadcrumb">
+                <nav class="flex items-center justify-center sm:justify-start gap-2 text-xs font-semibold uppercase tracking-widest text-ns-light-300 mb-4"
+                    aria-label="Breadcrumb">
                     <a href="{{ route('welcome') }}" class="hover:text-ns-gold-400 transition-colors">Home</a>
                     <span class="text-ns-gold-400">&bull;</span>
                     <span class="text-ns-gold-400" aria-current="page">Berita Terbaru</span>
                 </nav>
 
-                <p class="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-widest uppercase text-ns-gold-400 mb-2">
+                <p
+                    class="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-widest uppercase text-ns-gold-400 mb-2">
                     <span class="inline-block w-8 sm:w-10 h-0.5 bg-ns-gold-400" aria-hidden="true"></span>
                     PUBLIKASI &amp; LIPUTAN MEDIA
                 </p>
-                <h1 id="news-banner-heading" class="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ns-light-100 leading-tight tracking-tight mb-3">
+                <h1 id="news-banner-heading"
+                    class="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ns-light-100 leading-tight tracking-tight mb-3">
                     Berita Terbaru <span class="text-ns-gold-400">dari Kami</span>
                 </h1>
                 <p class="text-sm sm:text-base text-ns-light-300 leading-relaxed max-w-2xl">
-                    Informasi terkini, liputan media nasional, sorotan jalannya persidangan, dan siaran pers resmi dari Kantor Hukum Nurul Safii &amp; Partners.
+                    Informasi terkini, liputan media nasional, sorotan jalannya persidangan, dan siaran pers resmi dari
+                    Kantor Hukum Nurul Safii &amp; Partners.
                 </p>
             </div>
         </div>
@@ -35,48 +42,48 @@
     <!--================ End Page Banner Area =================-->
 
     <!--================ Start News Section =================-->
-    <section class="py-16 sm:py-20 lg:py-24 bg-ns-paper border-b border-ns-border-light" id="daftar-berita" aria-labelledby="news-heading">
+    <section class="py-16 sm:py-20 lg:py-24 bg-ns-paper border-b border-ns-border-light" id="daftar-berita"
+        aria-labelledby="news-heading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header & Debounced Search Input Bar -->
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b border-ns-border-light">
+            <div
+                class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b border-ns-border-light">
                 <div class="max-w-xl">
-                    <div class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-2">
+                    <div
+                        class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-2">
                         <span class="inline-block w-6 h-0.5 bg-ns-gold-700" aria-hidden="true"></span>
                         <span>Warta Pers &amp; Sidang Perkara</span>
                     </div>
-                    <h2 id="news-heading" class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-ink-900 m-0">
+                    <h2 id="news-heading"
+                        class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-ink-900 m-0">
                         Berita Terbaru dari Kami
                     </h2>
                 </div>
 
                 <!-- Debounced Search Input Bar -->
                 <div class="w-full lg:w-96 flex-shrink-0">
-                    <form id="news-search-form" action="{{ route('break-news') }}" method="GET" onsubmit="return false;" class="relative">
+                    <form id="news-search-form" action="{{ route('break-news') }}" method="GET" onsubmit="return false;"
+                        class="relative">
                         <label for="news-search-input" class="sr-only">Cari judul berita atau kata kunci</label>
                         <div class="relative flex items-center">
                             <span class="absolute left-3.5 text-ns-ink-500 pointer-events-none text-sm">
                                 <i class="fas fa-search" aria-hidden="true"></i>
                             </span>
 
-                            <input type="text"
-                                   id="news-search-input"
-                                   name="search"
-                                   value="{{ $search ?? '' }}"
-                                   placeholder="Cari berita atau topik hukum..."
-                                   autocomplete="off"
-                                   class="w-full pl-10 pr-20 py-3 bg-white text-sm text-ns-ink-900 placeholder:text-ns-ink-500 border-2 border-ns-border-light rounded-lg focus:outline-none focus:border-ns-gold-500 focus:ring-1 focus:ring-ns-gold-500 shadow-sm transition">
+                            <input type="text" id="news-search-input" name="search" value="{{ $search ?? '' }}"
+                                placeholder="Cari berita atau topik hukum..." autocomplete="off"
+                                class="w-full pl-10 pr-20 py-3 bg-white text-sm text-ns-ink-900 placeholder:text-ns-ink-500 border-2 border-ns-border-light rounded-lg focus:outline-none focus:border-ns-gold-500 focus:ring-1 focus:ring-ns-gold-500 shadow-sm transition">
 
                             <!-- Clear & Loading Indicators -->
                             <div class="absolute right-3 flex items-center gap-2">
-                                <div id="news-search-spinner" class="hidden text-ns-gold-700 animate-spin text-sm" title="Mencari...">
+                                <div id="news-search-spinner" class="hidden text-ns-gold-700 animate-spin text-sm"
+                                    title="Mencari...">
                                     <i class="fas fa-circle-notch" aria-hidden="true"></i>
                                 </div>
 
-                                <button type="button"
-                                        id="news-search-clear-btn"
-                                        onclick="clearNewsSearch()"
-                                        class="{{ empty($search) ? 'hidden' : 'inline-flex' }} items-center justify-center w-6 h-6 text-xs text-ns-ink-500 hover:text-ns-navy-900 hover:bg-ns-paper rounded-full transition"
-                                        aria-label="Hapus kata kunci pencarian">
+                                <button type="button" id="news-search-clear-btn" onclick="clearNewsSearch()"
+                                    class="{{ empty($search) ? 'hidden' : 'inline-flex' }} items-center justify-center w-6 h-6 text-xs text-ns-ink-500 hover:text-ns-navy-900 hover:bg-ns-paper rounded-full transition"
+                                    aria-label="Hapus kata kunci pencarian">
                                     <i class="fas fa-times" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -84,7 +91,7 @@
 
                         <div class="flex items-center justify-between text-[11px] text-ns-ink-500 mt-1.5 px-1">
                             <span id="news-search-status">
-                                @if(!empty($search))
+                                @if (!empty($search))
                                     Hasil untuk: &ldquo;<strong class="text-ns-navy-900">{{ $search }}</strong>&rdquo;
                                 @endif
                             </span>
@@ -103,144 +110,146 @@
 @endsection
 
 @push('script')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const input = document.getElementById('news-search-input');
-        const spinner = document.getElementById('news-search-spinner');
-        const clearBtn = document.getElementById('news-search-clear-btn');
-        const statusText = document.getElementById('news-search-status');
-        const container = document.getElementById('news-container');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('news-search-input');
+            const spinner = document.getElementById('news-search-spinner');
+            const clearBtn = document.getElementById('news-search-clear-btn');
+            const statusText = document.getElementById('news-search-status');
+            const container = document.getElementById('news-container');
 
-        if (!input || !container) return;
+            if (!input || !container) return;
 
-        let debounceTimer = null;
-        let currentAbortController = null;
+            let debounceTimer = null;
+            let currentAbortController = null;
 
-        input.addEventListener('input', function () {
-            const query = input.value.trim();
+            input.addEventListener('input', function() {
+                const query = input.value.trim();
 
-            if (clearBtn) {
-                if (query.length > 0) {
-                    clearBtn.classList.remove('hidden');
-                    clearBtn.classList.add('inline-flex');
-                } else {
-                    clearBtn.classList.add('hidden');
-                    clearBtn.classList.remove('inline-flex');
-                }
-            }
-
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                fetchNews(query);
-            }, 400);
-        });
-
-        function fetchNews(keyword) {
-            if (currentAbortController) {
-                currentAbortController.abort();
-            }
-            currentAbortController = new AbortController();
-
-            if (spinner) spinner.classList.remove('hidden');
-            if (statusText) {
-                statusText.innerHTML = keyword
-                    ? `Mencari &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;...`
-                    : 'Memuat seluruh berita...';
-            }
-            container.style.opacity = '0.6';
-
-            const url = new URL("{{ route('break-news') }}", window.location.origin);
-            if (keyword) {
-                url.searchParams.set('search', keyword);
-            }
-
-            fetch(url.toString(), {
-                signal: currentAbortController.signal,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'text/html, application/xhtml+xml'
-                }
-            })
-            .then(res => {
-                if (!res.ok) throw new Error('Network error');
-                return res.text();
-            })
-            .then(html => {
-                container.innerHTML = html;
-                container.style.opacity = '1';
-                if (spinner) spinner.classList.add('hidden');
-
-                if (statusText) {
-                    statusText.innerHTML = keyword
-                        ? `Hasil untuk: &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;`
-                        : '';
-                }
-
-                window.history.replaceState({}, '', url.toString());
-                attachNewsPagination();
-            })
-            .catch(err => {
-                if (err.name !== 'AbortError') {
-                    console.error('Fetch error:', err);
-                    if (spinner) spinner.classList.add('hidden');
-                    container.style.opacity = '1';
-                    if (statusText) {
-                        statusText.innerHTML = '<span class="text-red-600">Gagal memuat data pencarian.</span>';
+                if (clearBtn) {
+                    if (query.length > 0) {
+                        clearBtn.classList.remove('hidden');
+                        clearBtn.classList.add('inline-flex');
+                    } else {
+                        clearBtn.classList.add('hidden');
+                        clearBtn.classList.remove('inline-flex');
                     }
                 }
+
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    fetchNews(query);
+                }, 400);
             });
-        }
 
-        function attachNewsPagination() {
-            const paginationLinks = container.querySelectorAll('a[href*="page="]');
-            paginationLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetUrl = new URL(this.href);
+            function fetchNews(keyword) {
+                if (currentAbortController) {
+                    currentAbortController.abort();
+                }
+                currentAbortController = new AbortController();
 
-                    if (spinner) spinner.classList.remove('hidden');
-                    container.style.opacity = '0.6';
+                if (spinner) spinner.classList.remove('hidden');
+                if (statusText) {
+                    statusText.innerHTML = keyword ?
+                        `Mencari &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;...` :
+                        'Memuat seluruh berita...';
+                }
+                container.style.opacity = '0.6';
 
-                    fetch(targetUrl.toString(), {
+                const url = new URL("{{ route('break-news') }}", window.location.origin);
+                if (keyword) {
+                    url.searchParams.set('search', keyword);
+                }
+
+                fetch(url.toString(), {
+                        signal: currentAbortController.signal,
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
                             'Accept': 'text/html, application/xhtml+xml'
                         }
                     })
-                    .then(res => res.text())
+                    .then(res => {
+                        if (!res.ok) throw new Error('Network error');
+                        return res.text();
+                    })
                     .then(html => {
                         container.innerHTML = html;
                         container.style.opacity = '1';
                         if (spinner) spinner.classList.add('hidden');
-                        window.history.pushState({}, '', targetUrl.toString());
-                        attachNewsPagination();
 
-                        const headerElement = document.getElementById('daftar-berita');
-                        if (headerElement) {
-                            headerElement.scrollIntoView({ behavior: 'smooth' });
+                        if (statusText) {
+                            statusText.innerHTML = keyword ?
+                                `Hasil untuk: &ldquo;<strong class="text-ns-navy-900">${keyword}</strong>&rdquo;` :
+                                '';
                         }
+
+                        window.history.replaceState({}, '', url.toString());
+                        attachNewsPagination();
                     })
                     .catch(err => {
-                        console.error('Pagination error:', err);
-                        window.location.href = targetUrl.toString();
+                        if (err.name !== 'AbortError') {
+                            console.error('Fetch error:', err);
+                            if (spinner) spinner.classList.add('hidden');
+                            container.style.opacity = '1';
+                            if (statusText) {
+                                statusText.innerHTML =
+                                    '<span class="text-red-600">Gagal memuat data pencarian.</span>';
+                            }
+                        }
+                    });
+            }
+
+            function attachNewsPagination() {
+                const paginationLinks = container.querySelectorAll('a[href*="page="]');
+                paginationLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetUrl = new URL(this.href);
+
+                        if (spinner) spinner.classList.remove('hidden');
+                        container.style.opacity = '0.6';
+
+                        fetch(targetUrl.toString(), {
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                    'Accept': 'text/html, application/xhtml+xml'
+                                }
+                            })
+                            .then(res => res.text())
+                            .then(html => {
+                                container.innerHTML = html;
+                                container.style.opacity = '1';
+                                if (spinner) spinner.classList.add('hidden');
+                                window.history.pushState({}, '', targetUrl.toString());
+                                attachNewsPagination();
+
+                                const headerElement = document.getElementById('daftar-berita');
+                                if (headerElement) {
+                                    headerElement.scrollIntoView({
+                                        behavior: 'smooth'
+                                    });
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Pagination error:', err);
+                                window.location.href = targetUrl.toString();
+                            });
                     });
                 });
-            });
-        }
-
-        attachNewsPagination();
-
-        window.clearNewsSearch = function () {
-            input.value = '';
-            if (clearBtn) {
-                clearBtn.classList.add('hidden');
-                clearBtn.classList.remove('inline-flex');
             }
-            clearTimeout(debounceTimer);
-            fetchNews('');
-            input.focus();
-        };
-    });
-</script>
-@endpush
 
+            attachNewsPagination();
+
+            window.clearNewsSearch = function() {
+                input.value = '';
+                if (clearBtn) {
+                    clearBtn.classList.add('hidden');
+                    clearBtn.classList.remove('inline-flex');
+                }
+                clearTimeout(debounceTimer);
+                fetchNews('');
+                input.focus();
+            };
+        });
+    </script>
+@endpush

@@ -16,16 +16,6 @@
                         <span class="text-xs font-semibold uppercase tracking-wider text-ns-light-300">Dokumen Jurnal</span>
                     </div>
                 @endif
-
-                <!-- Index Badge -->
-                <span class="absolute top-3 left-3 bg-ns-navy-950/90 text-ns-gold-400 border border-ns-gold-400/60 font-display font-bold text-xs px-2.5 py-1 rounded backdrop-blur-sm shadow-md" aria-hidden="true">
-                    {{ sprintf('%02d', ($file->currentPage() - 1) * $file->perPage() + $index + 1) }}
-                </span>
-
-                <!-- Format Badge -->
-                <span class="absolute top-3 right-3 bg-ns-gold-400 text-ns-navy-950 font-sans font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow">
-                    <i class="far fa-file-pdf mr-1" aria-hidden="true"></i> PDF
-                </span>
             </div>
 
             <!-- Card Body -->
