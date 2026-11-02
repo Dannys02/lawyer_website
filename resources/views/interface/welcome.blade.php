@@ -115,22 +115,27 @@
         aria-labelledby="profil-heading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                <!-- Visual Emblem Frame -->
-                <div class="lg:col-span-5 flex justify-center">
-                    <div
-                        class="w-full max-w-md bg-ns-navy-900 border-2 border-ns-gold-500 rounded-lg p-6 sm:p-8 text-center shadow-xl">
+                <!-- Visual Triptych Split Frame (3 Bagian Terpotong Sejajar Kiri-Kanan & Tengah Agak ke Bawah) -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <div class="w-full max-w-md">
                         <div
-                            class="bg-ns-navy-800 border border-ns-gold-400/30 rounded p-6 sm:p-8 mb-5 flex justify-center items-center">
-                            <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Logo Pengacara Banyuwangi Safi"
-                                width="340" height="340"
-                                class="max-w-[200px] sm:max-w-[240px] w-full h-auto object-contain">
+                            class="relative h-64 sm:h-76 md:h-80 rounded-lg overflow-hidden bg-ns-navy-900 border-2 border-ns-gold-500/60 shadow-lg">
+                            <div
+                                class="flex items-center justify-center">
+                                <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Logo Kantor Hukum Nurul Safii"
+                                    class="max-w-[200px] sm:max-w-[240px] w-full h-auto object-contain">
+                            </div>
                         </div>
-                        <div class="border-t border-ns-gold-500/30 pt-4">
-                            <span
-                                class="block text-xs uppercase tracking-widest text-ns-gold-400 mb-1 font-semibold">Pendiri
-                                &amp; Managing Partner</span>
-                            <strong class="font-display text-base sm:text-lg text-ns-light-100">Nurul Safii, S.H., M.H.,
-                                C.MSP</strong>
+
+                        <!-- Caption / Identitas Pendiri & Managing Partner -->
+                        <div
+                            class="bg-ns-navy-900 border-2 border-ns-gold-500 rounded-lg p-4 sm:p-5 text-center shadow-lg mt-2">
+                            <span class="block text-xs uppercase tracking-widest text-ns-gold-400 mb-1 font-semibold">
+                                Pendiri &amp; Managing Partner
+                            </span>
+                            <strong class="font-display text-base sm:text-lg text-ns-light-100">
+                                Nurul Safii, S.H., M.H., C.MSP
+                            </strong>
                         </div>
                     </div>
                 </div>
