@@ -226,11 +226,6 @@
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
                                 width="480" height="320" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover">
-                            <span
-                                class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded"
-                                aria-hidden="true">
-                                {{ sprintf('%02d', $index + 1) }}
-                            </span>
                         </div>
                         <div class="p-6 flex flex-col flex-1">
                             <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Bidang Praktik

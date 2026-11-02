@@ -85,15 +85,6 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between text-[11px] text-ns-ink-500 mt-1.5 px-1">
-                            <span id="search-status-text">
-                                @if(!empty($search))
-                                    Hasil untuk: &ldquo;<strong class="text-ns-navy-900">{{ $search }}</strong>&rdquo;
-                                @else
-                                    Ketik untuk mencari otomatis (debounce 400ms)
-                                @endif
-                            </span>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -105,27 +96,6 @@
         </div>
     </section>
     <!--================ End Articles Grid Section =================-->
-
-    <!--================ Start Legal Consultation Banner =================-->
-    <section class="py-14 sm:py-16 bg-ns-navy-950 text-ns-light-100 border-t-2 border-ns-gold-500 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 class="font-serif font-bold text-2xl sm:text-3xl text-ns-light-100 mb-3">
-                Menghadapi Permasalahan Hukum Terkait Topik di Atas?
-            </h2>
-            <p class="text-sm sm:text-base text-ns-light-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-                Dapatkan kajian yuridis objektif dan telaah mendalam atas kedudukan hukum perkara Anda bersama Kantor Hukum Nurul Safii &amp; Partners.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-4">
-                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-950 font-bold text-sm tracking-wide rounded hover:bg-white transition-all duration-150 shadow-lg">
-                    Konsultasikan Perkara Anda
-                </a>
-                <a href="{{ route('service') }}" class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-transparent text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-gold-400 hover:bg-ns-navy-900 hover:border-white transition-all duration-150">
-                    Lihat Bidang Layanan Kami
-                </a>
-            </div>
-        </div>
-    </section>
-    <!--================ End Legal Consultation Banner =================-->
 @endsection
 
 @push('script')
@@ -280,3 +250,4 @@
     });
 </script>
 @endpush
+

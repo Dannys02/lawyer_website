@@ -84,10 +84,22 @@ class LawyerController extends Controller
         return view('interface.article-show', compact('article', 'recentArticles'));
     }
 
-    public function file()
+    public function file(Request $request)
     {
-        $file = jurnal::all();
-        return view('interface.jurnal', compact('file'));
+        $search = trim($request->input('search', ''));
+
+        $query = jurnal::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $file = $query->latest()->paginate(9)->withQueryString();
+
+        return view('interface.jurnal', compact('file', 'search'));
     }
 
     public function news()
