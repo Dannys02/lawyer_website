@@ -107,30 +107,6 @@
         </div>
     </section>
     <!--================ End Jurnals Section =================-->
-
-    <!--================ Start Consultation Banner =================-->
-    <section class="py-14 sm:py-16 bg-ns-navy-950 text-ns-light-100 border-t-2 border-ns-gold-500 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 class="font-serif font-bold text-2xl sm:text-3xl text-ns-light-100 mb-3">
-                Membutuhkan Studi Yuridis atau Legal Audit Khusus?
-            </h2>
-            <p class="text-sm sm:text-base text-ns-light-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-                Selain publikasi riset berkala, tim kami melayani penyusunan legal audit, contract drafting, dan uji
-                kelayakan hukum untuk kebutuhan korporasi maupun institusi.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-4">
-                <a href="{{ route('contact') }}"
-                    class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-950 font-bold text-sm tracking-wide rounded hover:bg-white transition-all duration-150 shadow-lg">
-                    Hubungi Konsultan Kami
-                </a>
-                <a href="{{ route('service') }}"
-                    class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-transparent text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-gold-400 hover:bg-ns-navy-900 hover:border-white transition-all duration-150">
-                    Lihat Layanan Hukum
-                </a>
-            </div>
-        </div>
-    </section>
-    <!--================ End Consultation Banner =================-->
 @endsection
 
 @push('script')

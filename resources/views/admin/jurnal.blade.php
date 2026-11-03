@@ -71,15 +71,6 @@
                             </tr>
                         @endforelse
                     </tbody>
-                    <tfoot class="table-border-bottom-0">
-                        <tr>
-                            <th class="rounded-start-bottom">Judul</th>
-                            <th>File</th>
-                            <th>Sampul</th>
-                            <th>Deskiripsi</th>
-                            <th class="rounded-end-bottom">Actions</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

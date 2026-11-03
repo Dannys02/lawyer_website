@@ -78,8 +78,9 @@ class ReviewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reviews $reviews)
+    public function destroy(reviews $review)
     {
-        //
+        $review->delete();
+        return redirect()->route('home')->with('success', 'Ulasan berhasil dihapus.');
     }
 }
