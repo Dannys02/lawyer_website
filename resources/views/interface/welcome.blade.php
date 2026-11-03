@@ -225,11 +225,11 @@
             </div>
 
             <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4   gap-6 sm:gap-8">
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="relative h-48 sm:h-52 bg-ns-navy-800">
+                        <div class="relative overflow-hidden bg-ns-navy-800">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
                                 width="480" height="320" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover">
@@ -444,11 +444,11 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($patners as $row)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="bg-ns-navy-900 aspect-[4/4.5] overflow-hidden">
+                        <div class="bg-ns-navy-900 overflow-hidden">
                             <img src="{{ asset('storage/' . $row->photo) }}"
                                 alt="Foto {{ $row->name }} - {{ $row->position }}" width="400" height="480"
                                 loading="lazy" class="w-full h-full object-cover">
@@ -485,12 +485,16 @@
     </section>
     <!--================ End Team Area =================-->
 
-    <!--================ Start Client Reviews & Feedback CTA Area =================-->
-    <section class="py-16 sm:py-20 lg:py-24 bg-ns-navy-800 text-ns-light-100 border-t-2 border-b-2 border-ns-gold-500"
+    <!--================ Start Client Reviews & Feedback CTA Area (Featured Single Card Slider) =================-->
+    <section class="py-16 sm:py-20 lg:py-24 bg-ns-navy-900 text-ns-light-100 border-t-2 border-b-2 border-ns-gold-500 relative overflow-hidden"
         aria-labelledby="ulasan-heading">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Subtle Background Glow -->
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-ns-gold-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-ns-gold-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                <!-- Left Column -->
+                <!-- Left Column: Copy & Call-to-action -->
                 <div class="lg:col-span-5">
                     <div
                         class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-ns-gold-400 mb-2">
@@ -502,87 +506,119 @@
                         Ulasan &amp; Penilaian Layanan
                     </h2>
                     <p class="text-sm sm:text-base text-ns-light-300 leading-relaxed mb-6">
-                        Masukan dari klien yang telah kami dampingi menjadi tolok ukur peningkatan mutu layanan hukum kami.
-                        Bagikan pengalaman Anda bersama Kantor Hukum Nurul Safii &amp; Partners.
+                        Masukan dan testimoni dari klien yang telah kami dampingi menjadi tolok ukur utama peningkatan mutu pelayanan hukum kami yang amanah dan profesional.
                     </p>
-                    <div>
+                    <div class="flex flex-wrap gap-4">
                         <a href="{{ route('contact') }}#review-form"
                             class="inline-flex items-center justify-center min-h-[48px] px-7 py-3 bg-ns-gold-400 text-ns-navy-900 font-bold text-sm tracking-wide rounded border-2 border-ns-gold-400 hover:bg-white hover:border-white transition-all duration-150 shadow-lg">
-                            Tulis Ulasan Layanan
+                            <i class="fas fa-pen-nib mr-2 text-xs" aria-hidden="true"></i> Tulis Ulasan Layanan
                         </a>
                     </div>
                 </div>
 
-                <!-- Right Column: Review Carousel -->
+                <!-- Right Column: Single Card Carousel Slider -->
                 <div class="lg:col-span-7">
                     @if ($reviews->count() > 0)
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs sm:text-sm font-semibold text-ns-gold-400" id="review-counter-text"
-                                aria-live="polite">
-                                Menampilkan {{ $reviews->count() }} ulasan klien
+                        <!-- Kontrol Navigasi & Indikator -->
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs sm:text-sm font-semibold text-ns-gold-400 flex items-center gap-2" id="review-counter-text">
+                                <span id="review-current-index">1</span> dari {{ $reviews->count() }} ulasan klien
                             </span>
                             @if ($reviews->count() > 1)
-                                <div class="inline-flex gap-2">
+                                <div class="inline-flex items-center gap-2">
                                     <button type="button"
-                                        class="w-10 h-10 rounded bg-ns-navy-900 text-ns-light-100 border border-ns-gold-400/40 hover:bg-ns-gold-400 hover:text-ns-navy-900 transition flex items-center justify-center text-sm"
+                                        class="w-10 h-10 rounded-lg bg-ns-navy-800 text-ns-light-100 border border-ns-gold-400/40 hover:bg-ns-gold-400 hover:text-ns-navy-950 transition flex items-center justify-center text-sm shadow-md"
                                         id="review-prev-btn" aria-label="Ulasan sebelumnya">
-                                        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+                                        <i class="fas fa-chevron-up text-xs" aria-hidden="true"></i>
                                     </button>
                                     <button type="button"
-                                        class="w-10 h-10 rounded bg-ns-navy-900 text-ns-light-100 border border-ns-gold-400/40 hover:bg-ns-gold-400 hover:text-ns-navy-900 transition flex items-center justify-center text-sm"
+                                        class="w-10 h-10 rounded-lg bg-ns-navy-800 text-ns-light-100 border border-ns-gold-400/40 hover:bg-ns-gold-400 hover:text-ns-navy-950 transition flex items-center justify-center text-sm shadow-md"
                                         id="review-pause-btn" aria-label="Jeda putaran otomatis ulasan"
                                         aria-pressed="false">
-                                        <i class="fas fa-pause" aria-hidden="true"></i>
+                                        <i class="fas fa-pause text-xs" aria-hidden="true"></i>
                                     </button>
                                     <button type="button"
-                                        class="w-10 h-10 rounded bg-ns-navy-900 text-ns-light-100 border border-ns-gold-400/40 hover:bg-ns-gold-400 hover:text-ns-navy-900 transition flex items-center justify-center text-sm"
+                                        class="w-10 h-10 rounded-lg bg-ns-navy-800 text-ns-light-100 border border-ns-gold-400/40 hover:bg-ns-gold-400 hover:text-ns-navy-950 transition flex items-center justify-center text-sm shadow-md"
                                         id="review-next-btn" aria-label="Ulasan berikutnya">
-                                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                                        <i class="fas fa-chevron-down text-xs" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             @endif
                         </div>
 
-                        <!-- Review Viewport -->
-                        <div id="review-container"
-                            class="h-[190px] overflow-hidden relative rounded-lg border border-ns-gold-400/40 bg-ns-navy-900 shadow-xl">
-                            <div class="ns-review-track transition-transform duration-500 ease-in-out">
+                        <!-- Card Slider Wrapper (Vertical Fixed Height Container) -->
+                        <div id="review-slider-wrapper" class="overflow-hidden rounded-2xl relative h-[310px] sm:h-[300px]">
+                            <div class="ns-review-slider flex flex-col transition-transform duration-700 ease-out h-full">
                                 @foreach ($reviews as $review)
-                                    <article
-                                        class="h-[190px] p-6 flex flex-col justify-between bg-ns-navy-900 text-ns-light-100 box-border">
-                                        <div class="flex justify-between items-center gap-3">
-                                            <div class="text-ns-gold-400 text-base tracking-widest"
-                                                aria-label="Rating {{ $review->rating }} dari 5 bintang">
-                                                @for ($i = 0; $i < $review->rating; $i++)
-                                                    <span aria-hidden="true">&#9733;</span>
-                                                @endfor
-                                                @for ($i = $review->rating; $i < 5; $i++)
-                                                    <span class="text-slate-600" aria-hidden="true">&#9734;</span>
-                                                @endfor
+                                    <div class="w-full h-[310px] sm:h-[300px] flex-shrink-0 box-border py-1">
+                                        <article
+                                            class="bg-ns-navy-800/95 border border-ns-gold-400/30 border-t-4 border-t-ns-gold-400 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden h-full box-border">
+                                            <!-- Watermark Quote -->
+                                            <div class="absolute -top-3 right-6 text-ns-gold-400/10 text-8xl font-serif select-none pointer-events-none" aria-hidden="true">
+                                                &rdquo;
                                             </div>
-                                            <time class="text-xs text-ns-light-300"
-                                                datetime="{{ $review->created_at->format('Y-m-d') }}">
-                                                {{ $review->created_at->format('d F Y') }}
-                                            </time>
-                                        </div>
-                                        <p
-                                            class="font-serif italic text-base sm:text-lg text-ns-light-100 line-clamp-2 my-2 leading-snug">
-                                            &ldquo;{{ $review->message }}&rdquo;
-                                        </p>
-                                        <div class="text-sm font-bold text-ns-gold-400">{{ $review->name }}</div>
-                                    </article>
+
+                                            <div class="flex-1 flex flex-col min-h-0">
+                                                <!-- Rating & Tanggal -->
+                                                <div class="flex items-center justify-between gap-3 mb-4 flex-shrink-0">
+                                                    <div class="flex items-center gap-1.5 text-ns-gold-400 text-base"
+                                                        aria-label="Rating {{ $review->rating }} dari 5 bintang">
+                                                        @for ($i = 0; $i < $review->rating; $i++)
+                                                            <i class="fas fa-star text-sm text-ns-gold-400" aria-hidden="true"></i>
+                                                        @endfor
+                                                        @for ($i = $review->rating; $i < 5; $i++)
+                                                            <i class="far fa-star text-sm text-slate-600" aria-hidden="true"></i>
+                                                        @endfor
+                                                        <span class="ml-2 text-xs font-bold text-ns-gold-400 bg-ns-navy-900/80 border border-ns-gold-400/30 px-2 py-0.5 rounded">
+                                                            {{ $review->rating }}.0 / 5.0
+                                                        </span>
+                                                    </div>
+                                                    <time class="text-xs text-ns-light-300 font-medium"
+                                                        datetime="{{ $review->created_at ? $review->created_at->format('Y-m-d') : '' }}">
+                                                        {{ $review->created_at ? $review->created_at->format('d F Y') : 'Klien Resmi' }}
+                                                    </time>
+                                                </div>
+
+                                                <!-- Isi Pesan Testimoni Card (Scrollable jika teks panjang, ukuran card tetap seragam) -->
+                                                <div class="overflow-y-auto pr-1 flex-1 mb-3">
+                                                    <p class="text-base sm:text-lg text-ns-light-100 font-normal leading-relaxed italic relative z-10 m-0">
+                                                        &ldquo;{{ $review->message }}&rdquo;
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Identitas Klien & Avatar (Posisi Bawah Card Selalu Seragam) -->
+                                            <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-4 flex-shrink-0 mt-auto">
+                                                <div class="flex items-center gap-3.5">
+                                                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-ns-gold-500 to-ns-gold-400 text-ns-navy-950 font-bold text-base flex items-center justify-center flex-shrink-0 shadow-lg">
+                                                        {{ strtoupper(substr($review->name, 0, 1)) }}
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="font-bold text-sm sm:text-base text-ns-light-100 m-0 leading-tight">
+                                                            {{ $review->name }}
+                                                        </h3>
+                                                        <span class="text-xs text-ns-gold-400 font-medium block mt-0.5">
+                                                            Klien Terverifikasi &bull; Kantor Hukum Nurul Syafii
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden sm:block text-ns-gold-400/40 text-xs uppercase tracking-widest font-semibold">
+                                                    Testimoni Resmi
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
                     @else
                         <div
-                            class="max-w-xl mx-auto bg-ns-navy-900 border border-ns-gold-400/35 border-l-4 border-l-ns-gold-400 rounded-lg p-8 text-center shadow-xl">
-                            <div class="w-14 h-14 rounded-full bg-ns-navy-800 border border-ns-gold-400/35 text-ns-gold-400 inline-flex items-center justify-center text-2xl mb-4"
+                            class="max-w-xl mx-auto bg-ns-navy-800 border border-ns-gold-400/35 border-l-4 border-l-ns-gold-400 rounded-lg p-8 text-center shadow-xl">
+                            <div class="w-14 h-14 rounded-full bg-ns-navy-900 border border-ns-gold-400/35 text-ns-gold-400 inline-flex items-center justify-center text-2xl mb-4"
                                 aria-hidden="true">
                                 <i class="lnr lnr-bubble"></i>
                             </div>
-                            <h3 class="font-display font-bold text-xl text-ns-light-100 mb-2">Belum Ada Ulasan yang
-                                Ditampilkan</h3>
+                            <h3 class="font-display font-bold text-xl text-ns-light-100 mb-2">Belum Ada Ulasan yang Ditampilkan</h3>
                             <p class="text-sm text-ns-light-300 leading-relaxed mb-6">
                                 Ulasan dari klien yang telah menggunakan layanan hukum kami akan ditampilkan di bagian ini.
                                 Jika Anda pernah berkonsultasi bersama kami, silakan kirimkan ulasan Anda.
@@ -597,6 +633,7 @@
             </div>
         </div>
     </section>
+    <!--================ End Client Reviews Area =================-->
     <!--================ End Client Reviews Area =================-->
 
     <!--================ Start Latest News / Berita Terbaru Area =================-->
@@ -624,8 +661,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 @forelse($news as $row)
                     <article
-                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="bg-ns-navy-900 aspect-[16/10] overflow-hidden">
+                        class="flex flex-col h-full bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
+                        <div class="bg-ns-navy-900 h-64 overflow-hidden">
                             <img src="{{ asset('storage/' . $row->picture) }}"
                                 alt="Ilustrasi berita: {{ $row->title }}" width="480" height="300"
                                 loading="lazy" class="w-full h-full object-cover">
@@ -644,7 +681,7 @@
                                     {{ $row->title }}
                                 </a>
                             </h3>
-                            <div class="pt-3 border-t border-ns-border-light">
+                            <div class="pt-3 border-t border-ns-border-light mt-auto">
                                 <a href="{{ $row->url }}" target="_blank" rel="noopener noreferrer"
                                     class="inline-flex items-center text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
                                     Baca Selengkapnya &rarr;
@@ -685,78 +722,96 @@
     @push('script')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const list = document.querySelector('.ns-review-track');
-                const items = document.querySelectorAll('#review-container article');
+                const track = document.querySelector('.ns-review-slider');
+                const slides = document.querySelectorAll('.ns-review-slider > div');
                 const prevBtn = document.getElementById('review-prev-btn');
                 const nextBtn = document.getElementById('review-next-btn');
                 const pauseBtn = document.getElementById('review-pause-btn');
+                const indexIndicator = document.getElementById('review-current-index');
 
-                if (!list || items.length <= 1) return;
+                if (!track || slides.length <= 1) return;
 
-                let index = 0;
+                let currentIndex = 0;
                 let isPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                let intervalId = null;
+                let autoSlideInterval = null;
 
-                function updateCarousel() {
-                    const itemHeight = items[0].offsetHeight;
-                    list.style.transform = `translateY(-${index * itemHeight}px)`;
+                function updateSlider() {
+                    track.style.transform = `translateY(-${currentIndex * 100}%)`;
+                    if (indexIndicator) {
+                        indexIndicator.textContent = currentIndex + 1;
+                    }
                 }
 
-                function startAutoSlide() {
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    updateSlider();
+                }
+
+                function prevSlide() {
+                    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                    updateSlider();
+                }
+
+                function startAutoPlay() {
                     if (isPaused) return;
-                    stopAutoSlide();
-                    intervalId = setInterval(() => {
-                        index = (index + 1) % items.length;
-                        updateCarousel();
-                    }, 5000);
+                    stopAutoPlay();
+                    autoSlideInterval = setInterval(nextSlide, 5000);
                 }
 
-                function stopAutoSlide() {
-                    if (intervalId) {
-                        clearInterval(intervalId);
-                        intervalId = null;
+                function stopAutoPlay() {
+                    if (autoSlideInterval) {
+                        clearInterval(autoSlideInterval);
+                        autoSlideInterval = null;
                     }
                 }
 
                 if (prevBtn) {
                     prevBtn.addEventListener('click', function() {
-                        index = (index - 1 + items.length) % items.length;
-                        updateCarousel();
+                        prevSlide();
+                        if (!isPaused) startAutoPlay();
                     });
                 }
 
                 if (nextBtn) {
                     nextBtn.addEventListener('click', function() {
-                        index = (index + 1) % items.length;
-                        updateCarousel();
+                        nextSlide();
+                        if (!isPaused) startAutoPlay();
                     });
                 }
 
                 if (pauseBtn) {
                     if (isPaused) {
                         pauseBtn.setAttribute('aria-pressed', 'true');
-                        pauseBtn.innerHTML = '<i class="fas fa-play" aria-hidden="true"></i>';
+                        pauseBtn.innerHTML = '<i class="fas fa-play text-xs" aria-hidden="true"></i>';
                         pauseBtn.setAttribute('aria-label', 'Jalankan putaran otomatis ulasan');
                     }
                     pauseBtn.addEventListener('click', function() {
                         isPaused = !isPaused;
                         pauseBtn.setAttribute('aria-pressed', isPaused ? 'true' : 'false');
                         if (isPaused) {
-                            stopAutoSlide();
-                            pauseBtn.innerHTML = '<i class="fas fa-play" aria-hidden="true"></i>';
+                            stopAutoPlay();
+                            pauseBtn.innerHTML = '<i class="fas fa-play text-xs" aria-hidden="true"></i>';
                             pauseBtn.setAttribute('aria-label', 'Jalankan putaran otomatis ulasan');
                         } else {
-                            startAutoSlide();
-                            pauseBtn.innerHTML = '<i class="fas fa-pause" aria-hidden="true"></i>';
+                            startAutoPlay();
+                            pauseBtn.innerHTML = '<i class="fas fa-pause text-xs" aria-hidden="true"></i>';
                             pauseBtn.setAttribute('aria-label', 'Jeda putaran otomatis ulasan');
                         }
                     });
                 }
 
-                window.addEventListener('resize', updateCarousel, {
-                    passive: true
-                });
-                startAutoSlide();
+                // Pause saat cursor hover di atas kartu slider
+                const sliderContainer = document.getElementById('review-slider-wrapper');
+                if (sliderContainer) {
+                    sliderContainer.addEventListener('mouseenter', () => {
+                        if (!isPaused) stopAutoPlay();
+                    });
+                    sliderContainer.addEventListener('mouseleave', () => {
+                        if (!isPaused) startAutoPlay();
+                    });
+                }
+
+                startAutoPlay();
             });
         </script>
     @endpush

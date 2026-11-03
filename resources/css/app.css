@@ -21,9 +21,9 @@
     --ns-light-300: #CBD5E1;
     --ns-border-light: #D6D3CD;
     --ns-border-navy: rgba(212, 175, 55, 0.28);
-    --ns-font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
-    --ns-font-display: "Playfair Display", Georgia, serif;
-    --ns-font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --ns-font-serif: "Poppins", sans-serif;
+    --ns-font-display: "Poppins", sans-serif;
+    --ns-font-sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   html, body {

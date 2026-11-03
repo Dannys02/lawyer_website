@@ -16,7 +16,7 @@ class LawyerController extends Controller
     public function welcome()
     {
         $reviews = reviews::latest()->get();
-        $patners = legal_patnership::latest()->get();
+        $patners = legal_patnership::all();
         $news = news::latest()->get();
         $services = service::all();
         return view('interface.welcome', compact('reviews', 'patners', 'news', 'services'));

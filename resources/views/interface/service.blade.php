@@ -65,19 +65,14 @@
             </div>
 
             <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="relative h-48 sm:h-52 bg-ns-navy-800">
+                        <div class="relative bg-ns-navy-800">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
                                 width="480" height="320" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover">
-                            <span
-                                class="absolute top-3 left-3 bg-ns-navy-900 text-ns-gold-400 border border-ns-gold-400 font-display font-bold text-xs px-2.5 py-1 rounded"
-                                aria-hidden="true">
-                                {{ sprintf('%02d', $index + 1) }}
-                            </span>
                         </div>
                         <div class="p-6 flex flex-col flex-1">
                             <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Bidang Praktik

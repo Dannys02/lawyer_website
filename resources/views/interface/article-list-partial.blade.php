@@ -3,7 +3,7 @@
     @forelse($articles as $index => $row)
         <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
             <!-- Thumbnail Media -->
-            <div class="relative bg-ns-navy-950 aspect-[16/10] overflow-hidden">
+            <div class="relative bg-ns-navy-950 h-64 overflow-hidden">
                 @if (!empty($row->picture))
                     <img src="{{ asset('storage/' . $row->picture) }}"
                          alt="Gambar {{ $row->title }}"

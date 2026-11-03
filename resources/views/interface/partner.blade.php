@@ -62,54 +62,40 @@
             </div>
 
             <!-- Grid 3 Kolom Sejajar: Menonjolkan Potret Card Tim -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($patners as $row)
                     <article
-                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
-                        <!-- Partner Portrait Visual (Fokus Utama) -->
-                        <div class="relative h-80 sm:h-96 bg-ns-navy-900 overflow-hidden">
-                            <img src="{{ asset('storage/' . $row->photo) }}" alt="{{ $row->name }}" width="480"
-                                height="480" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500">
-
-                            <!-- Position Badge -->
-                            <span
-                                class="absolute top-3 left-3 bg-ns-navy-950/90 text-ns-gold-400 border border-ns-gold-400/60 font-sans font-bold text-xs uppercase tracking-wider px-3 py-1 rounded backdrop-blur-sm shadow-md">
-                                {{ $row->position }}
-                            </span>
-
-                            <!-- Subtle gradient overlay at bottom of portrait -->
-                            <div
-                                class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ns-navy-950/80 via-ns-navy-950/30 to-transparent pointer-events-none">
-                            </div>
-
-                            <!-- Name over bottom of image for sleek visual impact -->
-                            <div class="absolute inset-x-0 bottom-0 p-4 text-ns-light-100">
-                                <span class="block text-[11px] font-bold uppercase tracking-widest text-ns-gold-400 mb-0.5">
-                                    {{ $row->position }}
-                                </span>
-                                <h3
-                                    class="font-display font-bold text-lg sm:text-xl text-ns-light-100 leading-snug drop-shadow-sm">
-                                    {{ $row->name }}
-                                </h3>
-                            </div>
+                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
+                        <div class="bg-ns-navy-900 overflow-hidden">
+                            <img src="{{ asset('storage/' . $row->photo) }}"
+                                alt="Foto {{ $row->name }} - {{ $row->position }}" width="400" height="480"
+                                loading="lazy" class="w-full h-full object-cover">
                         </div>
-
-                        <!-- Card Body (Deskripsi Asli) -->
-                        <div class="p-6 flex flex-col flex-1 bg-white">
-                            <div class="text-sm text-ns-ink-700 leading-relaxed flex-1" style="white-space: pre-line;">
-                                {{ $row->description }}
-                            </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <span
+                                class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">{{ $row->position }}</span>
+                            <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">{{ $row->name }}</h3>
+                            <p class="text-sm text-ns-ink-700 leading-relaxed whitespace-pre-line m-0">
+                                {{ $row->description }}</p>
                         </div>
                     </article>
                 @empty
                     <div
-                        class="col-span-full max-w-xl mx-auto w-full bg-white border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 rounded-lg p-8 text-center shadow-sm">
+                        class="col-span-full max-w-2xl mx-auto w-full bg-white border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 rounded-lg p-8 sm:p-10 text-center shadow-sm">
                         <div class="w-14 h-14 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 inline-flex items-center justify-center text-2xl mb-4"
                             aria-hidden="true">
-                            <i class="fas fa-users"></i>
+                            <i class="lnr lnr-users"></i>
                         </div>
-                        <h4 class="font-display font-bold text-xl text-ns-ink-900 mb-2">Kami belum memiliki Partner</h4>
+                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">Data Profil Partner Sedang
+                            Diperbarui</h3>
+                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-6">
+                            Saat ini daftar profil rekanan advokat (Legal Partnership) belum ditampilkan di halaman ini.
+                            Anda tetap dapat menghubungi kantor kami untuk informasi tim pendamping perkara.
+                        </p>
+                        <a href="{{ route('contact') }}"
+                            class="inline-flex items-center justify-center min-h-[48px] px-7 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded hover:bg-ns-navy-800 transition">
+                            Hubungi Kantor Kami
+                        </a>
                     </div>
                 @endforelse
             </div>
