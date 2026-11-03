@@ -330,14 +330,6 @@
                     </div>
                 </article>
             </div>
-
-            <!-- Call to Action Footer -->
-            <div class="mt-12 sm:mt-16 text-center">
-                <a href="{{ route('contact') }}"
-                    class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-navy-900 hover:bg-ns-navy-800 hover:text-ns-gold-400 hover:border-ns-gold-400 transition-all duration-150 shadow-md">
-                    Konsultasikan Masalah Hukum Anda
-                </a>
-            </div>
         </div>
     </section>
     <!--================ End Nilai Fundamental Section =================-->

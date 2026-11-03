@@ -27,7 +27,7 @@
     @stack('styles')
 </head>
 
-<body class="bg-ns-ivory text-ns-ink-700 font-sans antialiased overflow-x-hidden">
+<body class="bg-ns-ivory text-ns-ink-700 font-sans antialiased overflow-x-hidden is-interface-page">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-4 focus:z-[9999999] focus:bg-ns-gold-400 focus:text-ns-navy-900 focus:font-bold focus:px-5 focus:py-2.5 focus:rounded shadow-lg">
         Lewati ke konten utama
     </a>

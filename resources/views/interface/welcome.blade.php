@@ -6,10 +6,11 @@
     <section
         class="relative bg-ns-navy-950 text-ns-light-100 pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 lg:pb-24 overflow-hidden border-b-4 border-ns-gold-500"
         aria-labelledby="hero-heading">
-        <!-- Background Media with Gradient Overlay -->
-        <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <!-- Background Media with Gradient Overlay and Parallax Scroll Effect -->
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
             <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
-                class="w-full h-full object-cover object-center opacity-20" fetchpriority="high">
+                id="hero-parallax-bg"
+                class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 will-change-transform" fetchpriority="high">
             {{-- <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div> --}}
         </div>
 
@@ -53,7 +54,8 @@
                 <!-- Credential Card Sidebar -->
                 <aside class="lg:col-span-5" aria-label="Identitas dan Fokus Praktik">
                     <div
-                        class="bg-ns-navy-800 border border-ns-gold-400/40 border-t-4 border-t-ns-gold-400 rounded-lg p-6 sm:p-8 shadow-2xl">
+                        id="hero-credential-card"
+                        class="bg-ns-navy-800 border border-ns-gold-400/40 border-t-4 border-t-ns-gold-400 rounded-lg p-6 sm:p-8 shadow-2xl transition-transform duration-100 ease-out will-change-transform">
                         <div class="flex items-center gap-4 pb-5 mb-5 border-b border-white/10">
                             <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
                                 alt="Lambang Resmi Kantor Hukum Nurul Safii & Partners" width="72" height="72"
@@ -260,13 +262,6 @@
                     </div>
                 @endforelse
             </div>
-
-            <div class="mt-10 sm:mt-12 text-center">
-                <a href="{{ route('service') }}"
-                    class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-navy-900 hover:bg-ns-navy-800 hover:text-ns-gold-400 hover:border-ns-gold-400 transition-all duration-150">
-                    Lihat Rincian Layanan Hukum
-                </a>
-            </div>
         </div>
     </section>
     <!--================ End Practice Areas =================-->
@@ -412,7 +407,7 @@
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
                             <img src="{{ asset('interface/img/service/service6.jpg') }}" alt="Diskusi strategi hukum 3"
                                 width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                                class="w-full h-full object-cover object-top">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
                             <img src="{{ asset('interface/img/service/service7.jpg') }}" alt="Konsultasi kantor hukum 4"
