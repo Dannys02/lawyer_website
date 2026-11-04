@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.lenis = lenis;
 
+    // Jika sedang dalam kondisi loading, pastikan Lenis langsung dihentikan
+    if (document.documentElement.classList.contains('is-locked-loading') || document.body.classList.contains('is-locked-loading')) {
+        lenis.stop();
+    }
+
     // Render loop untuk Lenis
     function raf(time) {
         lenis.raf(time);

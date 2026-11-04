@@ -32,8 +32,12 @@
 </div>
 
 <style>
-    body.loading {
+    html.is-locked-loading,
+    body.is-locked-loading {
         overflow: hidden !important;
+        height: 100% !important;
+        overscroll-behavior: none !important;
+        touch-action: none !important;
     }
 
     #loading-screen {
@@ -232,30 +236,77 @@
 </style>
 
 <script>
-    document.body.classList.add('loading');
+    // Kunci scroll segera di level HTML dan Body
+    (function () {
+        document.documentElement.classList.add('is-locked-loading');
+        document.body.classList.add('is-locked-loading');
 
-    function dismissLoader() {
-        var loader = document.getElementById('loading-screen');
-        if (loader) {
-            loader.classList.add('loader-fade-out');
-            setTimeout(function () {
-                loader.style.display = 'none';
-                document.body.classList.remove('loading');
-            }, 450);
-        } else {
-            document.body.classList.remove('loading');
+        function preventScroll(e) {
+            e.preventDefault();
         }
-    }
 
-    // Dismiss saat seluruh resource selesai dimuat
-    if (document.readyState === 'complete') {
-        setTimeout(dismissLoader, 200);
-    } else {
-        window.addEventListener('load', function () {
-            setTimeout(dismissLoader, 250);
-        });
-    }
+        // Cegah wheel, touchmove, dan tombol navigasi scroll selama loading aktif
+        window.addEventListener('wheel', preventScroll, { passive: false });
+        window.addEventListener('touchmove', preventScroll, { passive: false });
 
-    // Fallback safety timeout jika ada aset lambat
-    setTimeout(dismissLoader, 4000);
+        function preventScrollKeys(e) {
+            var keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Space', ' '];
+            if (keys.indexOf(e.key) !== -1 || e.keyCode === 32 || (e.keyCode >= 33 && e.keyCode <= 40)) {
+                e.preventDefault();
+            }
+        }
+        window.addEventListener('keydown', preventScrollKeys, false);
+
+        // Jika Lenis smooth scroll sedang aktif atau baru diinisialisasi
+        if (window.lenis && typeof window.lenis.stop === 'function') {
+            window.lenis.stop();
+        }
+
+        var isDismissed = false;
+
+        function dismissLoader() {
+            if (isDismissed) return;
+            isDismissed = true;
+
+            var loader = document.getElementById('loading-screen');
+            if (loader) {
+                loader.classList.add('loader-fade-out');
+                setTimeout(function () {
+                    loader.style.display = 'none';
+                    document.documentElement.classList.remove('is-locked-loading');
+                    document.body.classList.remove('is-locked-loading');
+
+                    window.removeEventListener('wheel', preventScroll);
+                    window.removeEventListener('touchmove', preventScroll);
+                    window.removeEventListener('keydown', preventScrollKeys);
+
+                    if (window.lenis && typeof window.lenis.start === 'function') {
+                        window.lenis.start();
+                    }
+                }, 450);
+            } else {
+                document.documentElement.classList.remove('is-locked-loading');
+                document.body.classList.remove('is-locked-loading');
+                window.removeEventListener('wheel', preventScroll);
+                window.removeEventListener('touchmove', preventScroll);
+                window.removeEventListener('keydown', preventScrollKeys);
+
+                if (window.lenis && typeof window.lenis.start === 'function') {
+                    window.lenis.start();
+                }
+            }
+        }
+
+        // Dismiss saat seluruh resource selesai dimuat
+        if (document.readyState === 'complete') {
+            setTimeout(dismissLoader, 300);
+        } else {
+            window.addEventListener('load', function () {
+                setTimeout(dismissLoader, 350);
+            });
+        }
+
+        // Fallback safety timeout jika ada aset lambat
+        setTimeout(dismissLoader, 4000);
+    })();
 </script>

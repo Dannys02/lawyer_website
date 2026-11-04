@@ -153,9 +153,15 @@
         if (isHidden) {
             menu.classList.remove('hidden');
             btn.setAttribute('aria-expanded', 'true');
+            if (typeof window.lockPageScroll === 'function') {
+                window.lockPageScroll();
+            }
         } else {
             menu.classList.add('hidden');
             btn.setAttribute('aria-expanded', 'false');
+            if (typeof window.unlockPageScroll === 'function') {
+                window.unlockPageScroll();
+            }
         }
     }
 </script>

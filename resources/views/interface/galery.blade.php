@@ -188,15 +188,25 @@
             heading.textContent = title;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
+            if (typeof window.lockPageScroll === 'function') {
+                window.lockPageScroll();
+            } else {
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeGalleryModal() {
             const modal = document.getElementById('gallery-lightbox');
             if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
+            if (!modal.classList.contains('hidden')) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                if (typeof window.unlockPageScroll === 'function') {
+                    window.unlockPageScroll();
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
         }
 
         // Close on click outside modal content
