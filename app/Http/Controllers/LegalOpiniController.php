@@ -14,10 +14,27 @@ class LegalOpiniController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $legal_opinis = legal_opini::all();
-        return view('admin.legal-opini', compact('legal_opinis'));
+        $search = trim($request->input('search', ''));
+
+        $query = legal_opini::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('author', 'like', "%{$search}%")
+                  ->orWhere('text', 'like', "%{$search}%");
+            });
+        }
+
+        $legal_opinis = $query->latest()->paginate(10)->withQueryString();
+
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('admin.legal-opini-list-partial', compact('legal_opinis', 'search'));
+        }
+
+        return view('admin.legal-opini', compact('legal_opinis', 'search'));
     }
 
     /**

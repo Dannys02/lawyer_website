@@ -75,8 +75,6 @@
                                 class="w-full h-full object-cover">
                         </div>
                         <div class="p-6 flex flex-col flex-1">
-                            <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">Bidang Praktik
-                            </div>
                             <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">{{ $item->title }}</h3>
                             <div class="text-sm text-ns-ink-700 leading-relaxed flex-1 service-rich-desc">
                                 {!! $item->description !!}
