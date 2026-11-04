@@ -1,62 +1,76 @@
 @extends('admin.layouts.app')
 
 @section('contents')
-    <!-- Bootstrap Table with Header - Footer -->
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="d-flex align-items-center justify-content-between">
-                <h5 class="card-header">Legal Patnerships</h5>
-                <button type="button" class="btn btn-primary me-6" data-bs-toggle="modal" data-bs-target="#tambahPatnership">
-                    Tambah Patnership
+    <div class="space-y-6">
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <!-- Card Header -->
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900">Manajemen Advokat &amp; Legal Partnership</h1>
+                    <p class="text-xs text-slate-600">Kelola profil advokat rekanan, mediator, dan mitra kantor hukum</p>
+                </div>
+                <button type="button" onclick="openAdminModal('tambahPatnership')"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition cursor-pointer self-start sm:self-auto">
+                    <i class="ti ti-plus text-sm"></i>
+                    <span>Tambah Partnership</span>
                 </button>
             </div>
 
-            <div class="table-responsive text-nowrap">
-                <table class="table">
+            <!-- Table Container -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Foto</th>
-                            <th>Jabatan</th>
-                            <th>Deskiripsi</th>
-                            <th>Actions</th>
+                        <tr class="bg-slate-100 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                            <th class="py-3.5 pl-6 pr-4">Nama Advokat / Mitra</th>
+                            <th class="py-3.5 px-4">Foto</th>
+                            <th class="py-3.5 px-4">Jabatan / Keahlian</th>
+                            <th class="py-3.5 px-4">Deskripsi Ringkas</th>
+                            <th class="py-3.5 pl-4 pr-6 text-center w-24">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-slate-100 text-sm">
                         @forelse ($legal_patnerships as $row)
-                            <tr>
-                                <td>
-                                    {{ $row->name }}
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="py-4 pl-6 pr-4 whitespace-nowrap">
+                                    <span class="font-semibold text-slate-900">{{ $row->name }}</span>
                                 </td>
-                                <td>
-                                    <img src="{{ asset('storage/' . $row->photo) }}" alt="Gambar {{ $row->name }}"
-                                        class="img-fluid" style="max-width: 100px; max-height: 100px;">
+                                <td class="py-4 px-4 whitespace-nowrap">
+                                    <img src="{{ asset('storage/' . $row->photo) }}" alt="Foto {{ $row->name }}"
+                                        class="w-14 h-14 rounded-lg border border-slate-200 object-cover">
                                 </td>
-                                <td>
-                                    {{ $row->position }}
+                                <td class="py-4 px-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-200 text-xs font-semibold">
+                                        {{ $row->position }}
+                                    </span>
                                 </td>
-                                <td>
-                                    {{ Str::limit($row->description, 200) }}
+                                <td class="py-4 px-4 max-w-sm">
+                                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed line-clamp-2">
+                                        {{ Str::limit($row->description, 180) }}
+                                    </p>
                                 </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="ti ti-dots-vertical"></i>
+                                <td class="py-4 pl-4 pr-6 text-center whitespace-nowrap relative">
+                                    <div class="relative inline-block">
+                                        <button type="button" onclick="toggleAdminDropdown(event, 'dropdown-partner-{{ $row->id }}')"
+                                            class="w-8 h-8 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 inline-flex items-center justify-center transition">
+                                            <i class="ti ti-dots-vertical text-lg"></i>
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                                data-bs-target="#editArtikel{{ $row->id }}"><i class="ti ti-pencil me-1"></i> Edit</a>
+                                        <div id="dropdown-partner-{{ $row->id }}"
+                                            class="admin-dropdown-menu hidden absolute right-0 mt-1 w-40 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 text-left">
+                                            <button type="button" onclick="openAdminModal('editArtikel{{ $row->id }}')"
+                                                class="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-amber-800 transition">
+                                                <i class="ti ti-pencil text-sm text-amber-700"></i>
+                                                <span>Edit</span>
+                                            </button>
 
-
-                                            <form action="{{ route('legal_patnership.destroy', $row->id) }}" method="POST"
-                                                class="form-delete">
+                                            <form action="{{ route('legal_patnership.destroy', $row->id) }}" method="POST" class="form-delete">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="javascript:void(0);" class="dropdown-item btn-delete"
-                                                    data-name="{{ $row->name }}">
-                                                    <i class="ti ti-trash me-1"></i> Delete
-                                                </a>
+                                                <button type="button" data-name="{{ $row->name }}"
+                                                    class="btn-delete w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition">
+                                                    <i class="ti ti-trash text-sm"></i>
+                                                    <span>Hapus</span>
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -64,156 +78,155 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Tidak ada Patner yang tersedia</td>
+                                <td colspan="5" class="py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center gap-2 text-slate-400">
+                                        <i class="ti ti-users-minus text-4xl"></i>
+                                        <span class="text-sm font-medium text-slate-500">Tidak ada Partner yang tersedia</span>
+                                    </div>
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
-                    <tfoot class="table-border-bottom-0">
-                        <tr>
-                            <th class="rounded-start-bottom">Nama</th>
-                            <th>Foto</th>
-                            <th>Jabatan</th>
-                            <th>Deskiripsi</th>
-                            <th class="rounded-end-bottom">Actions</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
-    <!-- Bootstrap Table with Header - Footer -->
 
-    <!-- Tambah Artikel Modal -->
-    <div class="modal fade" id="tambahPatnership" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center mb-6">
-                        <h4 class="mb-2">Tambah Patnership</h4>
-                    </div>
-                    <form class="row g-6" method="POST" action="{{ route('legal_patnership.store') }}"
-                        enctype="multipart/form-data" id="formArticle" onsubmit="document.getElementById('loading-screen').style.display = 'flex';">
-                        @csrf
-                        <!-- Nama -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="name">Nama</label>
-                            <input type="text" id="name" name="name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name') }}" />
-                            @error('name')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Posisi -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="position">Posisi</label>
-                            <input type="text" id="position" name="position"
-                                class="form-control @error('position') is-invalid @enderror" value="{{ old('position') }}" />
-                            @error('position')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Deskripsi -->
-                        <div class="col-12">
-                            <label class="form-label" for="description">Deskripsi</label>
-                            <textarea id="description" name="description"
-                                class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Foto -->
-                        <div class="col-12">
-                            <label class="form-label" for="picture">Foto Diri</label>
-                            <input type="file" id="photo" name="photo"
-                                class="form-control @error('photo') is-invalid @enderror" />
-                            @error('photo')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Tombol Submit -->
-                        <div class="col-12 text-center mt-3">
-                            <button type="submit" class="btn btn-primary me-3">Submit</button>
-                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                        </div>
-                    </form>
-
-                </div>
+    <!-- Modal Tambah Partnership -->
+    <div id="tambahPatnership" aria-hidden="true"
+        class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                <h3 class="text-base font-bold text-slate-900">Tambah Partnership</h3>
+                <button type="button" onclick="closeAdminModal('tambahPatnership')"
+                    class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
+                    <i class="ti ti-x text-lg"></i>
+                </button>
             </div>
+
+            <form method="POST" action="{{ route('legal_patnership.store') }}" enctype="multipart/form-data"
+                onsubmit="document.getElementById('loading-screen').style.display = 'flex';" class="p-6 space-y-4">
+                @csrf
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Nama -->
+                    <div>
+                        <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border @error('name') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        @error('name')
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Posisi -->
+                    <div>
+                        <label for="position" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Jabatan / Posisi</label>
+                        <input type="text" id="position" name="position" value="{{ old('position') }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border @error('position') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        @error('position')
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Deskripsi -->
+                <div>
+                    <label for="description" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Deskripsi</label>
+                    <textarea id="description" name="description" rows="4"
+                        class="w-full px-3.5 py-2.5 rounded-lg border @error('description') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20">{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Foto Diri -->
+                <div>
+                    <label for="photo" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Diri</label>
+                    <input type="file" id="photo" name="photo"
+                        class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
+                    @error('photo')
+                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeAdminModal('tambahPatnership')"
+                        class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
+                        Batal
+                    </button>
+                    <button type="submit"
+                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
+                        Simpan Partnership
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
+    <!-- Modal Edit Partnership -->
     @foreach ($legal_patnerships as $data)
-    <!-- Edit Artikel Modal -->
-    <div class="modal fade" id="editArtikel{{ $data->id }}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center mb-6">
-                        <h4 class="mb-2">Edit Patnership</h4>
-                    </div>
-                    <form class="row g-6" method="POST" action="{{ route('legal_patnership.update', $data->id) }}"
-                        enctype="multipart/form-data" id="formArticle" onsubmit="document.getElementById('loading-screen').style.display = 'flex';">
-                        @method('PUT')
-                        @csrf
-                        <!-- Nama -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="name">Nama</label>
-                            <input type="text" id="name" name="name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name', $data->name) }}" />
-                            @error('name')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Posisi -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="position">Posisi</label>
-                            <input type="text" id="position" name="position"
-                                class="form-control @error('position') is-invalid @enderror" value="{{ old('position',$data->position) }}" />
-                            @error('position')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Deskripsi -->
-                        <div class="col-12">
-                            <label class="form-label" for="description">Deskripsi</label>
-                            <textarea id="description" name="description"
-                                class="form-control @error('description') is-invalid @enderror">{{ old('description',$data->description) }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Foto -->
-                        <div class="col-12">
-                            <label class="form-label" for="picture">Foto Diri</label>
-                            <img src="{{ asset('storage/' . $data->photo) }}" alt="Gambar {{ $data->name }}"
-                                class="img-fluid mb-2" style="max-width: 100px; max-height: 100px;">
-                            <input type="file" id="photo" name="photo"
-                                class="form-control @error('photo') is-invalid @enderror" />
-                            @error('photo')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Tombol Submit -->
-                        <div class="col-12 text-center mt-3">
-                            <button type="submit" class="btn btn-primary me-3">Submit</button>
-                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                        </div>
-                    </form>
-
+        <div id="editArtikel{{ $data->id }}" aria-hidden="true"
+            class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
+                <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                    <h3 class="text-base font-bold text-slate-900">Edit Partnership</h3>
+                    <button type="button" onclick="closeAdminModal('editArtikel{{ $data->id }}')"
+                        class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
+                        <i class="ti ti-x text-lg"></i>
+                    </button>
                 </div>
+
+                <form method="POST" action="{{ route('legal_patnership.update', $data->id) }}" enctype="multipart/form-data"
+                    onsubmit="document.getElementById('loading-screen').style.display = 'flex';" class="p-6 space-y-4">
+                    @method('PUT')
+                    @csrf
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Nama -->
+                        <div>
+                            <label for="name_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Lengkap</label>
+                            <input type="text" id="name_{{ $data->id }}" name="name" value="{{ old('name', $data->name) }}"
+                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        </div>
+
+                        <!-- Posisi -->
+                        <div>
+                            <label for="position_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Jabatan / Posisi</label>
+                            <input type="text" id="position_{{ $data->id }}" name="position" value="{{ old('position', $data->position) }}"
+                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        </div>
+                    </div>
+
+                    <!-- Deskripsi -->
+                    <div>
+                        <label for="description_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Deskripsi</label>
+                        <textarea id="description_{{ $data->id }}" name="description" rows="4"
+                            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20">{{ old('description', $data->description) }}</textarea>
+                    </div>
+
+                    <!-- Foto Diri -->
+                    <div>
+                        <label for="photo_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Diri</label>
+                        <img src="{{ asset('storage/' . $data->photo) }}" alt="Foto {{ $data->name }}"
+                            class="w-20 h-20 rounded-lg border border-slate-200 object-cover mb-2">
+                        <input type="file" id="photo_{{ $data->id }}" name="photo"
+                            class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
+                        <button type="button" onclick="closeAdminModal('editArtikel{{ $data->id }}')"
+                            class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
+                            Perbarui Partnership
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
     @endforeach
 @endsection
 
@@ -234,8 +247,8 @@
                         text: `Data "${name}" akan dihapus permanen!`,
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
+                        confirmButtonColor: '#e02424',
+                        cancelButtonColor: '#475569',
                         confirmButtonText: 'Ya, hapus!',
                         cancelButtonText: 'Batal'
                     }).then((result) => {

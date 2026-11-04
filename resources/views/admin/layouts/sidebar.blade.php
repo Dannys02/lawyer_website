@@ -1,86 +1,101 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<aside id="admin-sidebar"
+    class="fixed top-0 left-0 bottom-0 z-50 w-72 bg-ns-navy-900 border-r border-ns-gold-500/25 flex flex-col transform -translate-x-full xl:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl">
+
     <!-- Brand / Logo Sidebar -->
-    <div class="app-brand demo d-flex align-items-center justify-content-between px-4 py-3">
-        <a href="{{ route('home') }}" class="app-brand-link d-flex align-items-center gap-3 text-decoration-none">
-            <span class="app-brand-logo demo">
-                <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Logo" class="rounded" style="width: 38px; height: 38px; object-fit: contain;">
-            </span>
-            <div class="app-brand-text demo d-flex flex-column">
-                <span class="brand-title fw-bold text-white lh-1">NURUL SYAFII</span>
-                <span class="brand-subtitle text-ns-gold-400 text-uppercase fw-semibold" style="font-size: 0.65rem; letter-spacing: 0.12em;">Law Office</span>
+    <div class="h-20 px-6 bg-ns-navy-950 border-b border-ns-gold-500/25 flex items-center justify-between">
+        <a href="{{ route('home') }}" class="flex items-center gap-3.5 group">
+            <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Logo"
+                class="w-10 h-10 object-contain rounded-lg bg-ns-navy-900 p-1 border border-ns-gold-400/40 group-hover:scale-105 transition-transform">
+            <div class="flex flex-col">
+                <span class="font-bold text-white text-base tracking-wide leading-tight">NURUL SYAFII</span>
+                <span class="text-ns-gold-400 uppercase font-semibold text-[10px] tracking-[0.14em]">Law Office</span>
             </div>
         </a>
 
-        <!-- Menu Toggle Button for Desktop (collapse) & Mobile (close) -->
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block">
-            <i class="ti ti-x d-block d-xl-none ti-md align-middle text-muted"></i>
-            <i class="ti ti-chevron-left d-none d-xl-block ti-sm align-middle text-muted"></i>
-        </a>
+        <!-- Mobile Close Button -->
+        <button type="button" onclick="toggleAdminSidebar()" aria-label="Tutup Menu Sidebar"
+            class="xl:hidden w-8 h-8 rounded-lg border border-white/15 text-slate-300 hover:text-white hover:border-ns-gold-400 flex items-center justify-center transition">
+            <i class="ti ti-x text-lg"></i>
+        </button>
     </div>
 
     <!-- Menu Items -->
-    <ul class="menu-inner py-2">
-        <!-- Main Section Header -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Navigasi Utama</span>
-        </li>
+    <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-6" aria-label="Menu Admin">
+        <!-- Main Section -->
+        <div>
+            <span class="px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-2.5">
+                Navigasi Utama
+            </span>
+            <ul class="space-y-1.5">
+                <li>
+                    <a href="{{ route('home') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('home') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-smart-home text-lg {{ Route::is('home') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-        <!-- Dashboard -->
-        <li class="menu-item {{ Route::is('home') ? 'active' : '' }}">
-            <a href="{{ route('home') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                <div data-i18n="Dashboard">Dashboard</div>
-            </a>
-        </li>
+        <!-- Content Section -->
+        <div>
+            <span class="px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-2.5">
+                Publikasi &amp; Konten
+            </span>
+            <ul class="space-y-1.5">
+                <li>
+                    <a href="{{ route('legal_opini.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('legal_opini.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-file-text text-lg {{ Route::is('legal_opini.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Artikel Hukum</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('news.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('news.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-news text-lg {{ Route::is('news.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Berita &amp; Informasi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('jurnal.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('jurnal.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-book text-lg {{ Route::is('jurnal.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Jurnal Hukum</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-        <!-- Content Section Header -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Publikasi & Konten</span>
-        </li>
+        <!-- Media Section -->
+        <div>
+            <span class="px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-2.5">
+                Firma &amp; Galeri
+            </span>
+            <ul class="space-y-1.5">
+                <li>
+                    <a href="{{ route('legal_patnership.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('legal_patnership.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-briefcase text-lg {{ Route::is('legal_patnership.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Tim Advokat &amp; Partner</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('galery.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('galery.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-photo text-lg {{ Route::is('galery.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Galeri Foto</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-        <!-- Artikel Hukum -->
-        <li class="menu-item {{ Route::is('legal_opini.*') ? 'active' : '' }}">
-            <a href="{{ route('legal_opini.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-file-text"></i>
-                <div data-i18n="Artikel Hukum">Artikel Hukum</div>
-            </a>
-        </li>
-
-        <!-- News / Berita -->
-        <li class="menu-item {{ Route::is('news.*') ? 'active' : '' }}">
-            <a href="{{ route('news.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-news"></i>
-                <div data-i18n="News">Berita & Informasi</div>
-            </a>
-        </li>
-
-        <!-- Jurnal Hukum -->
-        <li class="menu-item {{ Route::is('jurnal.*') ? 'active' : '' }}">
-            <a href="{{ route('jurnal.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-book"></i>
-                <div data-i18n="Jurnal">Jurnal Hukum</div>
-            </a>
-        </li>
-
-        <!-- Media Section Header -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Firma & Galeri</span>
-        </li>
-
-        <!-- Legal Partnership -->
-        <li class="menu-item {{ Route::is('legal_patnership.*') ? 'active' : '' }}">
-            <a href="{{ route('legal_patnership.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-briefcase"></i>
-                <div data-i18n="Legal Patnership">Tim Advokat & Partner</div>
-            </a>
-        </li>
-
-        <!-- Galery -->
-        <li class="menu-item {{ Route::is('galery.*') ? 'active' : '' }}">
-            <a href="{{ route('galery.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-photo"></i>
-                <div data-i18n="Galery">Galeri Foto</div>
-            </a>
-        </li>
-    </ul>
+    <!-- Bottom Sidebar Info -->
+    <div class="p-4 border-t border-white/10 bg-ns-navy-950/60">
+        <div class="flex items-center gap-3 px-2 py-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+            <span class="text-xs text-slate-300 font-medium">Sistem Aktif &bull; Terlindungi</span>
+        </div>
+    </div>
 </aside>

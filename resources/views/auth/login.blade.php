@@ -28,7 +28,14 @@
 
             <div class="space-y-4">
                 <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-ns-navy-900/80 border border-ns-gold-400/30 text-ns-gold-300 text-xs tracking-wider uppercase">
-                    <i class="fa-solid fa-scale-balanced text-ns-gold-400"></i>
+                    <!-- SVG Scale Balanced (Timbangan Keadilan) -->
+                    <svg class="w-4 h-4 text-ns-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                        <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                        <path d="M7 21h10"/>
+                        <path d="M12 3v18"/>
+                        <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+                    </svg>
                     <span>Portal Akses Terpadu</span>
                 </div>
                 <h1 class="font-serif-heading text-3xl xl:text-4xl text-white font-bold tracking-tight leading-snug">
@@ -69,7 +76,11 @@
                 {{-- Header Form --}}
                 <div class="mb-8 text-center sm:text-left">
                     <div class="inline-flex lg:hidden items-center gap-2 px-3 py-1 rounded-full bg-ns-navy-800/80 border border-ns-gold-400/30 text-ns-gold-400 text-xs mb-3">
-                        <i class="fa-solid fa-user-shield"></i>
+                        <!-- SVG User Shield -->
+                        <svg class="w-3.5 h-3.5 text-ns-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                            <path d="M12 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+                        </svg>
                         <span>Admin Gateway</span>
                     </div>
                     <h4 class="font-serif-heading text-2xl sm:text-3xl text-white font-bold tracking-tight mb-2">
@@ -95,7 +106,11 @@
                         </label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-regular fa-envelope text-sm"></i>
+                                <!-- SVG Envelope / Mail -->
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                </svg>
                             </div>
                             <input
                                 type="email"
@@ -110,7 +125,12 @@
                         </div>
                         @error('email')
                             <span class="mt-2 text-xs text-red-400 flex items-center gap-1.5" role="alert">
-                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <!-- SVG Alert Triangle -->
+                                <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" x2="12" y1="8" y2="12"/>
+                                    <line x1="12" x2="12.01" y1="16" y2="16"/>
+                                </svg>
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -123,7 +143,11 @@
                         </label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-lock text-sm"></i>
+                                <!-- SVG Lock -->
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
                             </div>
                             <input
                                 type="password"
@@ -138,12 +162,29 @@
                                 id="togglePasswordBtn"
                                 class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-ns-gold-400 transition-colors focus:outline-none cursor-pointer"
                                 aria-label="Tampilkan / Sembunyikan Password">
-                                <i id="togglePasswordIcon" class="fa-solid fa-eye-slash text-sm"></i>
+                                <!-- SVG Eye Slash (Password Tersembunyi Default) -->
+                                <svg id="togglePasswordIconSlash" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="m15 18-.722-3.25"/>
+                                    <path d="M2 8a10.645 10.645 0 0 0 20 0"/>
+                                    <path d="m20 15-1.726-2.05"/>
+                                    <path d="m4 15 1.726-2.05"/>
+                                    <path d="m9 18 .722-3.25"/>
+                                </svg>
+                                <!-- SVG Eye (Password Tampil) -->
+                                <svg id="togglePasswordIconEye" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
                             </button>
                         </div>
                         @error('password')
                             <span class="mt-2 text-xs text-red-400 flex items-center gap-1.5" role="alert">
-                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <!-- SVG Alert Triangle -->
+                                <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" x2="12" y1="8" y2="12"/>
+                                    <line x1="12" x2="12.01" y1="16" y2="16"/>
+                                </svg>
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -155,7 +196,12 @@
                             class="w-full py-3.5 px-6 rounded-lg bg-ns-gold-500 text-ns-navy-950 font-semibold text-sm uppercase tracking-wider hover:brightness-110 active:scale-[0.99] transition-all duration-200 shadow-[0_4px_20px_rgba(212,175,55,0.3)] cursor-pointer flex items-center justify-center gap-2 group"
                             type="submit">
                             <span>Sign in</span>
-                            <i class="fa-solid fa-arrow-right-to-bracket text-xs transition-transform duration-200 group-hover:translate-x-1"></i>
+                            <!-- SVG Arrow Right -->
+                            <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                                <polyline points="10 17 15 12 10 7"/>
+                                <line x1="15" x2="3" y1="12" y2="12"/>
+                            </svg>
                         </button>
                     </div>
                 </form>
@@ -163,7 +209,11 @@
                 {{-- Tautan Balik ke Beranda --}}
                 <div class="mt-6 pt-5 border-t border-slate-800 text-center">
                     <a href="{{ route('welcome') }}" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-ns-gold-400 transition-colors duration-200">
-                        <i class="fa-solid fa-arrow-left text-[11px]"></i>
+                        <!-- SVG Arrow Left -->
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="m12 19-7-7 7-7"/>
+                            <path d="M19 12H5"/>
+                        </svg>
                         <span>Kembali ke Website Utama</span>
                     </a>
                 </div>
@@ -184,18 +234,19 @@
     document.addEventListener('DOMContentLoaded', function () {
         const passwordInput = document.getElementById('password');
         const toggleBtn = document.getElementById('togglePasswordBtn');
-        const toggleIcon = document.getElementById('togglePasswordIcon');
+        const iconEye = document.getElementById('togglePasswordIconEye');
+        const iconSlash = document.getElementById('togglePasswordIconSlash');
 
-        if (toggleBtn && passwordInput && toggleIcon) {
+        if (toggleBtn && passwordInput && iconEye && iconSlash) {
             toggleBtn.addEventListener('click', function () {
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
-                    toggleIcon.classList.remove('fa-eye-slash');
-                    toggleIcon.classList.add('fa-eye');
+                    iconSlash.classList.add('hidden');
+                    iconEye.classList.remove('hidden');
                 } else {
                     passwordInput.type = 'password';
-                    toggleIcon.classList.remove('fa-eye');
-                    toggleIcon.classList.add('fa-eye-slash');
+                    iconEye.classList.add('hidden');
+                    iconSlash.classList.remove('hidden');
                 }
             });
         }

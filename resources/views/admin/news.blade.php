@@ -1,70 +1,92 @@
 @extends('admin.layouts.app')
 
 @section('contents')
-    <!-- Bootstrap Table with Header - Footer -->
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="d-flex align-items-center justify-content-between">
-                <h5 class="card-header">Artikel Hukum</h5>
-                <button type="button" class="btn btn-primary me-6" data-bs-toggle="modal" data-bs-target="#tambahArtikel">
-                    Tambah Artikel
+    <div class="space-y-6">
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <!-- Card Header -->
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900">Manajemen Berita &amp; Liputan Media</h1>
+                    <p class="text-xs text-slate-600">Kelola publikasi warta pers dan liputan kegiatan hukum</p>
+                </div>
+                <button type="button" onclick="openAdminModal('tambahArtikel')"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition cursor-pointer self-start sm:self-auto">
+                    <i class="ti ti-plus text-sm"></i>
+                    <span>Tambah Berita</span>
                 </button>
             </div>
 
-            <div class="table-responsive text-nowrap">
-                <table class="table">
+            <!-- Table Container -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr>
-                            <th>Judul</th>
-                            <th>Gambar</th>
-                            <th>Link Artikel</th>
-                            <th>Nama Penerbit dan Penulis</th>
-                            <th>Tanggal Terbit</th>
-                            <th>Actions</th>
+                        <tr class="bg-slate-100 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                            <th class="py-3.5 pl-6 pr-4">Judul Berita</th>
+                            <th class="py-3.5 px-4">Gambar</th>
+                            <th class="py-3.5 px-4">Tautan Berita</th>
+                            <th class="py-3.5 px-4">Penerbit &amp; Penulis</th>
+                            <th class="py-3.5 px-4">Tanggal Terbit</th>
+                            <th class="py-3.5 pl-4 pr-6 text-center w-24">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-slate-100 text-sm">
                         @forelse ($news as $row)
-                            <tr>
-                                <td>
-                                    {{ $row->title }}
-                                </td>
-                                <td>
-                                    <img src="{{ asset('storage/' . $row->picture) }}" alt="Gambar Artikel"
-                                        class="img-fluid" style="max-width: 100px; max-height: 100px;">
-                                </td>
-                                <td>
-                                    <div class="text-truncate" style="max-width: 200px;">
-                                        <a href="{{ $row->url }}">{{ $row->title }}</a>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="py-4 pl-6 pr-4">
+                                    <div class="font-semibold text-slate-900 truncate max-w-xs sm:max-w-md" title="{{ $row->title }}">
+                                        {{ $row->title }}
                                     </div>
                                 </td>
-                                <td>
-                                    Nama Penulis: {{ $row->author }} <br>
-                                    Nama Penerbit: {{ $row->publisher }}
+                                <td class="py-4 px-4 whitespace-nowrap">
+                                    <img src="{{ asset('storage/' . $row->picture) }}" alt="Gambar {{ $row->title }}"
+                                        class="w-14 h-14 rounded-lg border border-slate-200 object-cover">
                                 </td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($row->date_publish)->format('d F Y') }}
+                                <td class="py-4 px-4">
+                                    <div class="truncate max-w-[200px]">
+                                        <a href="{{ $row->url }}" target="_blank"
+                                            class="font-semibold text-amber-700 hover:text-amber-900 hover:underline transition">
+                                            {{ $row->title }}
+                                        </a>
+                                    </div>
                                 </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="ti ti-dots-vertical"></i>
+                                <td class="py-4 px-4 whitespace-nowrap">
+                                    <div class="flex flex-col text-xs space-y-0.5">
+                                        <span class="font-semibold text-slate-900 inline-flex items-center gap-1.5">
+                                            <i class="ti ti-user text-slate-400"></i> {{ $row->author }}
+                                        </span>
+                                        <span class="text-slate-600 inline-flex items-center gap-1.5">
+                                            <i class="ti ti-building text-slate-400"></i> {{ $row->publisher }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-200 text-xs font-semibold">
+                                        {{ \Carbon\Carbon::parse($row->date_publish)->format('d M Y') }}
+                                    </span>
+                                </td>
+                                <td class="py-4 pl-4 pr-6 text-center whitespace-nowrap relative">
+                                    <div class="relative inline-block">
+                                        <button type="button" onclick="toggleAdminDropdown(event, 'dropdown-news-{{ $row->id }}')"
+                                            class="w-8 h-8 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 inline-flex items-center justify-center transition">
+                                            <i class="ti ti-dots-vertical text-lg"></i>
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                                data-bs-target="#editArtikel{{ $row->id }}"><i
-                                                    class="ti ti-pencil me-1"></i> Edit</a>
+                                        <div id="dropdown-news-{{ $row->id }}"
+                                            class="admin-dropdown-menu hidden absolute right-0 mt-1 w-40 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 text-left">
+                                            <button type="button" onclick="openAdminModal('editArtikel{{ $row->id }}')"
+                                                class="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-amber-800 transition">
+                                                <i class="ti ti-pencil text-sm text-amber-700"></i>
+                                                <span>Edit</span>
+                                            </button>
 
-
-                                            <form action="{{ route('news.destroy', $row->id) }}" method="POST"
-                                                class="form-delete">
+                                            <form action="{{ route('news.destroy', $row->id) }}" method="POST" class="form-delete">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="javascript:void(0);" class="dropdown-item btn-delete"
-                                                    data-name="{{ $row->title }}">
-                                                    <i class="ti ti-trash me-1"></i> Delete
-                                                </a>
+                                                <button type="button" data-name="{{ $row->title }}"
+                                                    class="btn-delete w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition">
+                                                    <i class="ti ti-trash text-sm"></i>
+                                                    <span>Hapus</span>
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -72,213 +94,195 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Tidak ada artikel yang tersedia</td>
+                                <td colspan="6" class="py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center gap-2 text-slate-400">
+                                        <i class="ti ti-news-off text-4xl"></i>
+                                        <span class="text-sm font-medium text-slate-500">Tidak ada berita yang tersedia</span>
+                                    </div>
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
-                    <tfoot class="table-border-bottom-0">
-                        <tr>
-                            <th class="rounded-start-bottom">Judul</th>
-                            <th>Gambar</th>
-                            <th>Link Artikel</th>
-                            <th>Nama Penerbit dan Penulis</th>
-                            <th>Tanggal Terbit</th>
-                            <th class="rounded-end-bottom">Actions</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
-    <!-- Bootstrap Table with Header - Footer -->
 
-    <!-- Tambah Artikel Modal -->
-    <div class="modal fade" id="tambahArtikel" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center mb-6">
-                        <h4 class="mb-2">Tambah Artikel</h4>
-                    </div>
-                    <form class="row g-6" method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data"
-                        id="formArticle" onsubmit="document.getElementById('loading-screen').style.display = 'flex';">
-                        @csrf
-                        <!-- Penerbit -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="title">Judul</label>
-                            <input type="text" id="title" name="title"
-                                class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" />
-                            @error('title')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Penerbit -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="publisher">Nama Penerbit</label>
-                            <input type="text" id="publisher" name="publisher"
-                                class="form-control @error('publisher') is-invalid @enderror"
-                                value="{{ old('publisher') }}" />
-                            @error('publisher')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Penulis -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="author">Nama Penulis</label>
-                            <input type="text" id="author" name="author"
-                                class="form-control @error('author') is-invalid @enderror" value="{{ old('author') }}" />
-                            @error('author')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Tanggal -->
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="date_publish">Tanggal Terbit</label>
-                            <input type="date" id="date_publish" name="date_publish"
-                                class="form-control @error('date_publish') is-invalid @enderror"
-                                value="{{ old('date_publish') }}" />
-                            @error('date_publish')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Foto -->
-                        <div class="col-12">
-                            <label class="form-label" for="picture">Foto terkait</label>
-                            <input type="file" id="picture" name="picture"
-                                class="form-control @error('picture') is-invalid @enderror" />
-                            @error('picture')
-                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Artikel -->
-                        <div class="col-12">
-                            <label class="form-label">Url Artikel</label>
-                            <input type="url" id="url" name="url"
-                                class="form-control @error('url') is-invalid @enderror" />
-                            @error('url')
-                                <div class="text-danger small mb-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Tombol Submit -->
-                        <div class="col-12 text-center mt-3">
-                            <button type="submit" class="btn btn-primary me-3">Submit</button>
-                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                        </div>
-                    </form>
-
-                </div>
+    <!-- Modal Tambah Berita -->
+    <div id="tambahArtikel" aria-hidden="true"
+        class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                <h3 class="text-base font-bold text-slate-900">Tambah Berita</h3>
+                <button type="button" onclick="closeAdminModal('tambahArtikel')"
+                    class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
+                    <i class="ti ti-x text-lg"></i>
+                </button>
             </div>
+
+            <form method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data" id="formArticle"
+                onsubmit="document.getElementById('loading-screen').style.display = 'flex';" class="p-6 space-y-4">
+                @csrf
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Judul -->
+                    <div>
+                        <label for="title" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Judul Berita</label>
+                        <input type="text" id="title" name="title" value="{{ old('title') }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border @error('title') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        @error('title')
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Penerbit -->
+                    <div>
+                        <label for="publisher" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penerbit</label>
+                        <input type="text" id="publisher" name="publisher" value="{{ old('publisher') }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border @error('publisher') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        @error('publisher')
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Penulis -->
+                    <div>
+                        <label for="author" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penulis</label>
+                        <input type="text" id="author" name="author" value="{{ old('author') }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border @error('author') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        @error('author')
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Tanggal Terbit -->
+                    <div>
+                        <label for="date_publish" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Tanggal Terbit</label>
+                        <input type="date" id="date_publish" name="date_publish" value="{{ old('date_publish') }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border @error('date_publish') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        @error('date_publish')
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Foto Terkait -->
+                <div>
+                    <label for="picture" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Terkait</label>
+                    <input type="file" id="picture" name="picture"
+                        class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
+                    @error('picture')
+                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- URL Berita -->
+                <div>
+                    <label for="url" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">URL Berita</label>
+                    <input type="url" id="url" name="url" value="{{ old('url') }}"
+                        class="w-full px-3.5 py-2.5 rounded-lg border @error('url') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                    @error('url')
+                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeAdminModal('tambahArtikel')"
+                        class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
+                        Batal
+                    </button>
+                    <button type="submit"
+                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
+                        Simpan Berita
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
+    <!-- Modal Edit Berita -->
     @foreach ($news as $data)
-        <!-- Edit Artikel Modal -->
-        <div class="modal fade" id="editArtikel{{ $data->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <div class="text-center mb-6">
-                            <h4 class="mb-2">Edit Artikel</h4>
-                        </div>
-                        <form class="row g-6" method="POST" action="{{ route('news.update', $data->id) }}"
-                            enctype="multipart/form-data" id="formArticleEdit{{ $data->id }}"
-                            onsubmit="document.getElementById('loading-screen').style.display = 'flex';">
-                            @method('PUT')
-                            @csrf
-                            <!-- Penerbit -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label" for="title">Judul</label>
-                                <input type="text" id="title {{ $data->id }}" name="title"
-                                    class="form-control @error('title') is-invalid @enderror"
-                                    value="{{ old('title', $data->title) }}" />
-                                @error('title')
-                                    <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Penerbit -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label" for="publisher">Nama Penerbit</label>
-                                <input type="text" id="publisher {{ $data->id }}" name="publisher"
-                                    class="form-control @error('publisher') is-invalid @enderror"
-                                    value="{{ old('publisher', $data->publisher) }}" />
-                                @error('publisher')
-                                    <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Penulis -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label" for="author">Nama Penulis</label>
-                                <input type="text" id="author{{ $data->id }}" name="author"
-                                    class="form-control @error('author') is-invalid @enderror"
-                                    value="{{ old('author', $data->author) }}" />
-                                @error('author')
-                                    <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Tanggal -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label" for="date_publish">Tanggal Terbit</label>
-                                <input type="date" id="date_publish {{ $data->id }}" name="date_publish"
-                                    class="form-control @error('date_publish') is-invalid @enderror"
-                                    value="{{ old('date_publish', $data->date_publish) }}" />
-                                @error('date_publish')
-                                    <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Foto -->
-                            <div class="col-12">
-                                <label class="form-label" for="picture">Foto terkait</label>
-                                <img src="{{ asset('storage/' . $data->picture) }}" alt="Gambar Artikel"
-                                    class="img-fluid mb-2" style="max-width: 100px; max-height: 100px;">
-                                <input type="file" id="picture {{ $data->id }}" name="picture"
-                                    class="form-control @error('picture') is-invalid @enderror" />
-                                @error('picture')
-                                    <div class="invalid-feedback" role="alert">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Artikel -->
-                            <div class="col-12">
-                                <label class="form-label">Isi Artikel</label>
-                                <input type="url" id="url {{ $data->id }}" name="url"
-                                    class="form-control @error('url') is-invalid @enderror"
-                                    value="{{ old('url', $data->url) }}" />
-                                @error('url')
-                                    <div class="text-danger small mb-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Tombol Submit -->
-                            <div class="col-12 text-center mt-3">
-                                <button type="submit" class="btn btn-primary me-3">Submit</button>
-                                <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                            </div>
-                        </form>
-
-                    </div>
+        <div id="editArtikel{{ $data->id }}" aria-hidden="true"
+            class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
+                <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                    <h3 class="text-base font-bold text-slate-900">Edit Berita</h3>
+                    <button type="button" onclick="closeAdminModal('editArtikel{{ $data->id }}')"
+                        class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
+                        <i class="ti ti-x text-lg"></i>
+                    </button>
                 </div>
+
+                <form method="POST" action="{{ route('news.update', $data->id) }}" enctype="multipart/form-data"
+                    id="formArticleEdit{{ $data->id }}" onsubmit="document.getElementById('loading-screen').style.display = 'flex';"
+                    class="p-6 space-y-4">
+                    @method('PUT')
+                    @csrf
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Judul -->
+                        <div>
+                            <label for="title_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Judul Berita</label>
+                            <input type="text" id="title_{{ $data->id }}" name="title" value="{{ old('title', $data->title) }}"
+                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        </div>
+
+                        <!-- Penerbit -->
+                        <div>
+                            <label for="publisher_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penerbit</label>
+                            <input type="text" id="publisher_{{ $data->id }}" name="publisher" value="{{ old('publisher', $data->publisher) }}"
+                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        </div>
+
+                        <!-- Penulis -->
+                        <div>
+                            <label for="author_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penulis</label>
+                            <input type="text" id="author_{{ $data->id }}" name="author" value="{{ old('author', $data->author) }}"
+                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        </div>
+
+                        <!-- Tanggal Terbit -->
+                        <div>
+                            <label for="date_publish_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Tanggal Terbit</label>
+                            <input type="date" id="date_publish_{{ $data->id }}" name="date_publish" value="{{ old('date_publish', $data->date_publish) }}"
+                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                        </div>
+                    </div>
+
+                    <!-- Foto Terkait -->
+                    <div>
+                        <label for="picture_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Terkait</label>
+                        @if ($data->picture)
+                            <img src="{{ asset('storage/' . $data->picture) }}" alt="Preview" class="w-20 h-20 rounded-lg border border-slate-200 object-cover mb-2">
+                        @endif
+                        <input type="file" id="picture_{{ $data->id }}" name="picture"
+                            class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
+                    </div>
+
+                    <!-- URL Berita -->
+                    <div>
+                        <label for="url_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">URL Berita</label>
+                        <input type="url" id="url_{{ $data->id }}" name="url" value="{{ old('url', $data->url) }}"
+                            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
+                        <button type="button" onclick="closeAdminModal('editArtikel{{ $data->id }}')"
+                            class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
+                            Perbarui Berita
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     @endforeach
 @endsection
 
 @push('scripts')
-    <script>
-        window.legalOpinis = @json($news);
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const deleteButtons = document.querySelectorAll('.btn-delete');
@@ -295,8 +299,8 @@
                         text: `Data "${name}" akan dihapus permanen!`,
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
+                        confirmButtonColor: '#e02424',
+                        cancelButtonColor: '#475569',
                         confirmButtonText: 'Ya, hapus!',
                         cancelButtonText: 'Batal'
                     }).then((result) => {

@@ -1,12 +1,10 @@
-<footer class="content-footer footer bg-footer-theme">
-    <div class="container-xxl">
-        <div class="footer-container d-flex align-items-center justify-content-between py-3 flex-md-row flex-column gap-2">
-            <div class="text-muted small">
-                &copy; {{ date('Y') }} <span class="text-dark fw-semibold">Kantor Hukum Nurul Syafii</span> &bull; Panel Administrasi Terpadu
-            </div>
-            <div class="d-flex align-items-center gap-3 small text-muted">
-                <span class="text-ns-gold-400 font-serif-heading" style="font-size: 0.75rem; letter-spacing: 0.1em;">JUSTITIA ET FIDES</span>
-            </div>
+<footer class="bg-white border-t border-slate-200 px-4 sm:px-6 lg:px-8 py-4 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-600">
+        <div>
+            &copy; {{ date('Y') }} <span class="font-bold text-slate-900">Kantor Hukum Nurul Syafii</span> &bull; Panel Administrasi Terpadu
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-amber-800 font-bold tracking-widest uppercase text-[11px]">JUSTITIA ET FIDES</span>
         </div>
     </div>
 </footer>
