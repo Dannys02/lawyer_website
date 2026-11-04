@@ -602,9 +602,6 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="hidden sm:block text-ns-gold-400/40 text-xs uppercase tracking-widest font-semibold">
-                                                    Testimoni Resmi
-                                                </div>
                                             </div>
                                         </article>
                                     </div>
@@ -668,12 +665,17 @@
                                 loading="lazy" class="w-full h-full object-cover">
                         </div>
                         <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-2 text-xs font-semibold text-ns-ink-500 mb-2">
-                                <time datetime="{{ \Carbon\Carbon::parse($row->date_publish)->format('Y-m-d') }}">
+                            <div class="flex flex-wrap items-center gap-2 text-xs font-semibold text-ns-ink-500 mb-2">
+                                <time datetime="{{ \Carbon\Carbon::parse($row->date_publish)->format('Y-m-d') }}" class="text-ns-gold-700 font-bold">
                                     {{ \Carbon\Carbon::parse($row->date_publish)->format('d F Y') }}
                                 </time>
                                 <span aria-hidden="true">&middot;</span>
-                                <span>{{ $row->author }}</span>
+                                <span class="truncate max-w-[130px]">{{ $row->author }}</span>
+                                <span aria-hidden="true">&middot;</span>
+                                <span class="inline-flex items-center gap-1 text-ns-ink-600 bg-ns-ivory px-2 py-0.5 rounded border border-ns-border-light text-[11px]" title="Dibaca {{ number_format($row->views ?? 0) }} kali">
+                                    <i class="far fa-eye text-ns-gold-700" aria-hidden="true"></i>
+                                    <span>{{ number_format($row->views ?? 0) }}x</span>
+                                </span>
                             </div>
                             <h3 class="font-display font-bold text-lg text-ns-ink-900 leading-snug mb-4 flex-1">
                                 <a href="{{ $row->url }}" target="_blank" rel="noopener noreferrer"

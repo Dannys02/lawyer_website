@@ -20,8 +20,14 @@
 
             <!-- Card Body -->
             <div class="p-6 flex flex-col flex-1 bg-white">
-                <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1.5">
-                    Publikasi Ilmiah
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700">
+                        Publikasi Ilmiah
+                    </div>
+                    <span class="inline-flex items-center gap-1 text-ns-ink-600 bg-ns-ivory px-2 py-0.5 rounded border border-ns-border-light text-[11px] font-semibold" title="Dibaca {{ number_format($row->views ?? 0) }} kali">
+                        <i class="far fa-eye text-ns-gold-700" aria-hidden="true"></i>
+                        <span>{{ number_format($row->views ?? 0) }}x dibaca</span>
+                    </span>
                 </div>
                 <h3 class="font-display font-bold text-lg text-ns-ink-900 leading-snug mb-3">
                     {{ $row->title }}

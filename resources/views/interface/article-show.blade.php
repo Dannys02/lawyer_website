@@ -191,11 +191,18 @@
                                         </div>
                                     @endif
                                     <div class="flex-1 min-w-0">
-                                        <time
-                                            datetime="{{ \Carbon\Carbon::parse($recent->date_publish)->format('Y-m-d') }}"
-                                            class="block text-[11px] font-semibold text-ns-gold-700 mb-1">
-                                            {{ \Carbon\Carbon::parse($recent->date_publish)->format('d M Y') }}
-                                        </time>
+                                        <div class="flex items-center gap-1.5 text-[11px] mb-1">
+                                            <time
+                                                datetime="{{ \Carbon\Carbon::parse($recent->date_publish)->format('Y-m-d') }}"
+                                                class="font-semibold text-ns-gold-700">
+                                                {{ \Carbon\Carbon::parse($recent->date_publish)->format('d M Y') }}
+                                            </time>
+                                            <span class="text-ns-border-light">&bull;</span>
+                                            <span class="text-ns-ink-500 inline-flex items-center gap-1">
+                                                <i class="far fa-eye text-ns-gold-700 text-[10px]"></i>
+                                                {{ number_format($recent->views ?? 0) }}x
+                                            </span>
+                                        </div>
                                         <h3
                                             class="font-display font-bold text-xs sm:text-sm text-ns-ink-900 leading-snug line-clamp-2">
                                             <a href="{{ route('article.show', $recent->slug) }}"

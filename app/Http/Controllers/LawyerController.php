@@ -138,6 +138,9 @@ class LawyerController extends Controller
     {
         $jurnal = Jurnal::findOrFail($id);
 
+        // Increment views safely when downloaded/read
+        $jurnal->increment('views');
+
         $filePath = storage_path('app/public/' . $jurnal->pdf_file);
 
         if (file_exists($filePath)) {

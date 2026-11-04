@@ -14,6 +14,6 @@ class jurnal extends Model
     ];
 
     protected $fillable = [
-        'title', 'pdf_file', 'thumbnail', 'description'
+        'title', 'pdf_file', 'thumbnail', 'description', 'views'
     ];
 }

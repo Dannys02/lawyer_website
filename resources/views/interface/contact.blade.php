@@ -169,25 +169,6 @@
                     </div>
                 </article>
             </div>
-
-            <!-- Google Maps Embed Modern Frame -->
-            <div class="rounded-xl overflow-hidden border-2 border-ns-border-light shadow-md bg-white">
-                <div class="bg-ns-navy-900 px-6 py-4 flex items-center justify-between text-ns-light-100 border-b border-ns-gold-500/40">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-map-marked-alt text-ns-gold-400 text-lg" aria-hidden="true"></i>
-                        <span class="font-display font-bold text-sm sm:text-base">Lokasi Kantor Hukum di Google Maps</span>
-                    </div>
-                    <a href="https://maps.google.com/?q=-8.4335819,114.331305" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-ns-gold-400 hover:text-white transition inline-flex items-center gap-1">
-                        <span>Buka di Aplikasi</span>
-                        <i class="fas fa-external-link-alt text-[10px]" aria-hidden="true"></i>
-                    </a>
-                </div>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3946.6745860375327!2d114.331305!3d-8.4335819!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd3fda7e9c9fed5%3A0xdb0214b9aa109fa5!2spengacara%20%2F%20Advokat%20Nurul%20Safi&#39;i%2C%20S.H!5e0!3m2!1sid!2sid!4v1752230759071!5m2!1sid!2sid"
-                    width="100%" height="420" class="border-0 w-full block" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Peta Lokasi Kantor Hukum Nurul Safii Banyuwangi"></iframe>
-            </div>
         </div>
     </section>
     <!--================ End Contact & Information Section =================-->
