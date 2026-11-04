@@ -38,16 +38,6 @@
                     Sistem administrasi internal kantor hukum untuk pengelolaan manajemen perkara, informasi publik, layanan konsultasi hukum, dan publikasi edukasi yuridis terpercaya.
                 </p>
             </div>
-
-            {{-- Quote / Badge Elegan --}}
-            <div class="pt-6 border-t border-slate-700/60 flex items-center gap-4 text-xs text-slate-400">
-                <div class="w-10 h-10 rounded-lg bg-ns-navy-900/90 border border-ns-gold-400/30 flex items-center justify-center text-ns-gold-400 shrink-0">
-                    <i class="fa-solid fa-shield-halved text-lg"></i>
-                </div>
-                <p class="leading-relaxed">
-                    Sistem diamankan dengan enkripsi standar industri. Akses terbatas khusus personel dan pengelola resmi.
-                </p>
-            </div>
         </div>
 
         {{-- Footer Sisi Kiri --}}

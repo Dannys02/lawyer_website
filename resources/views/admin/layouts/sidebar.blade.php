@@ -82,30 +82,5 @@
                 <div data-i18n="Galery">Galeri Foto</div>
             </a>
         </li>
-
-        <!-- Website External Section -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Situs Web</span>
-        </li>
-
-        <li class="menu-item">
-            <a href="{{ route('welcome') }}" target="_blank" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-external-link"></i>
-                <div>Kunjungi Website</div>
-            </a>
-        </li>
     </ul>
-
-    <!-- Sidebar Footer / Status Badge -->
-    <div class="p-3 mt-auto border-top border-ns-gold-400-15 d-none d-md-block">
-        <div class="d-flex align-items-center gap-2 p-2 rounded bg-ns-navy-900 border border-ns-gold-400-20">
-            <div class="avatar avatar-xs">
-                <span class="badge badge-dot bg-success"></span>
-            </div>
-            <div class="d-flex flex-column">
-                <span class="text-white fw-medium" style="font-size: 0.75rem;">Mode Admin Aktif</span>
-                <span class="text-muted" style="font-size: 0.65rem;">Versi 2.0 &bull; Secure</span>
-            </div>
-        </div>
-    </div>
 </aside>
