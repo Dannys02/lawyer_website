@@ -24,7 +24,7 @@ class JurnalController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.jurnal-create');
     }
 
     /**
@@ -63,7 +63,7 @@ class JurnalController extends Controller
      */
     public function edit(jurnal $jurnal)
     {
-        //
+        return view('admin.jurnal-edit', compact('jurnal'));
     }
 
     /**

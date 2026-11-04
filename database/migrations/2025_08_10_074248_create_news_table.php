@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('publisher');
-            $table->string('author');
             $table->string('url');
             $table->date('date_publish');
-            $table->string('picture');
+            $table->string('picture')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
             $table->timestamps();
         });
     }

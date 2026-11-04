@@ -10,11 +10,11 @@
                     <h1 class="text-lg font-bold text-slate-900">Manajemen Advokat &amp; Legal Partnership</h1>
                     <p class="text-xs text-slate-600">Kelola profil advokat rekanan, mediator, dan mitra kantor hukum</p>
                 </div>
-                <button type="button" onclick="openAdminModal('tambahPatnership')"
+                <a href="{{ route('legal_patnership.create') }}"
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition cursor-pointer self-start sm:self-auto">
                     <i class="ti ti-plus text-sm"></i>
                     <span>Tambah Partnership</span>
-                </button>
+                </a>
             </div>
 
             <!-- Table Container -->
@@ -37,7 +37,7 @@
                                 </td>
                                 <td class="py-4 px-4 whitespace-nowrap">
                                     <img src="{{ asset('storage/' . $row->photo) }}" alt="Foto {{ $row->name }}"
-                                        class="w-14 h-14 rounded-lg border border-slate-200 object-cover">
+                                        class="w-14 h-14 rounded-lg border border-slate-200 object-cover" loading="lazy">
                                 </td>
                                 <td class="py-4 px-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-200 text-xs font-semibold">
@@ -46,7 +46,7 @@
                                 </td>
                                 <td class="py-4 px-4 max-w-sm">
                                     <p class="text-xs sm:text-sm text-slate-700 leading-relaxed line-clamp-2">
-                                        {{ Str::limit($row->description, 180) }}
+                                        {{ Str::limit(strip_tags($row->description), 180) }}
                                     </p>
                                 </td>
                                 <td class="py-4 pl-4 pr-6 text-center whitespace-nowrap relative">
@@ -57,11 +57,11 @@
                                         </button>
                                         <div id="dropdown-partner-{{ $row->id }}"
                                             class="admin-dropdown-menu hidden absolute right-0 mt-1 w-40 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 text-left">
-                                            <button type="button" onclick="openAdminModal('editArtikel{{ $row->id }}')"
+                                            <a href="{{ route('legal_patnership.edit', $row->id) }}"
                                                 class="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-amber-800 transition">
                                                 <i class="ti ti-pencil text-sm text-amber-700"></i>
                                                 <span>Edit</span>
-                                            </button>
+                                            </a>
 
                                             <form action="{{ route('legal_patnership.destroy', $row->id) }}" method="POST" class="form-delete">
                                                 @csrf
@@ -91,143 +91,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Tambah Partnership -->
-    <div id="tambahPatnership" aria-hidden="true"
-        class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
-            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <h3 class="text-base font-bold text-slate-900">Tambah Partnership</h3>
-                <button type="button" onclick="closeAdminModal('tambahPatnership')"
-                    class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
-                    <i class="ti ti-x text-lg"></i>
-                </button>
-            </div>
-
-            <form method="POST" action="{{ route('legal_patnership.store') }}" enctype="multipart/form-data"
-                onsubmit="document.getElementById('loading-screen').style.display = 'flex';" class="p-6 space-y-4">
-                @csrf
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Nama -->
-                    <div>
-                        <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Lengkap</label>
-                        <input type="text" id="name" name="name" value="{{ old('name') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('name') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('name')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Posisi -->
-                    <div>
-                        <label for="position" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Jabatan / Posisi</label>
-                        <input type="text" id="position" name="position" value="{{ old('position') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('position') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('position')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Deskripsi -->
-                <div>
-                    <label for="description" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Deskripsi</label>
-                    <textarea id="description" name="description" rows="4"
-                        class="w-full px-3.5 py-2.5 rounded-lg border @error('description') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20">{{ old('description') }}</textarea>
-                    @error('description')
-                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Foto Diri -->
-                <div>
-                    <label for="photo" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Diri</label>
-                    <input type="file" id="photo" name="photo"
-                        class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
-                    @error('photo')
-                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Footer Actions -->
-                <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeAdminModal('tambahPatnership')"
-                        class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
-                        Batal
-                    </button>
-                    <button type="submit"
-                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
-                        Simpan Partnership
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Edit Partnership -->
-    @foreach ($legal_patnerships as $data)
-        <div id="editArtikel{{ $data->id }}" aria-hidden="true"
-            class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
-                <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                    <h3 class="text-base font-bold text-slate-900">Edit Partnership</h3>
-                    <button type="button" onclick="closeAdminModal('editArtikel{{ $data->id }}')"
-                        class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
-                        <i class="ti ti-x text-lg"></i>
-                    </button>
-                </div>
-
-                <form method="POST" action="{{ route('legal_patnership.update', $data->id) }}" enctype="multipart/form-data"
-                    onsubmit="document.getElementById('loading-screen').style.display = 'flex';" class="p-6 space-y-4">
-                    @method('PUT')
-                    @csrf
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Nama -->
-                        <div>
-                            <label for="name_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Lengkap</label>
-                            <input type="text" id="name_{{ $data->id }}" name="name" value="{{ old('name', $data->name) }}"
-                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        </div>
-
-                        <!-- Posisi -->
-                        <div>
-                            <label for="position_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Jabatan / Posisi</label>
-                            <input type="text" id="position_{{ $data->id }}" name="position" value="{{ old('position', $data->position) }}"
-                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        </div>
-                    </div>
-
-                    <!-- Deskripsi -->
-                    <div>
-                        <label for="description_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Deskripsi</label>
-                        <textarea id="description_{{ $data->id }}" name="description" rows="4"
-                            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20">{{ old('description', $data->description) }}</textarea>
-                    </div>
-
-                    <!-- Foto Diri -->
-                    <div>
-                        <label for="photo_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Diri</label>
-                        <img src="{{ asset('storage/' . $data->photo) }}" alt="Foto {{ $data->name }}"
-                            class="w-20 h-20 rounded-lg border border-slate-200 object-cover mb-2">
-                        <input type="file" id="photo_{{ $data->id }}" name="photo"
-                            class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
-                    </div>
-
-                    <!-- Footer Actions -->
-                    <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
-                        <button type="button" onclick="closeAdminModal('editArtikel{{ $data->id }}')"
-                            class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
-                            Batal
-                        </button>
-                        <button type="submit"
-                            class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
-                            Perbarui Partnership
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    @endforeach
 @endsection
 
 @push('scripts')

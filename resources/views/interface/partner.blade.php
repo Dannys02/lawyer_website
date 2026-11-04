@@ -75,8 +75,9 @@
                             <span
                                 class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">{{ $row->position }}</span>
                             <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">{{ $row->name }}</h3>
-                            <p class="text-sm text-ns-ink-700 leading-relaxed whitespace-pre-line m-0">
-                                {{ $row->description }}</p>
+                            <div class="text-sm text-ns-ink-700 leading-relaxed m-0 space-y-2">
+                                {!! $row->description !!}
+                            </div>
                         </div>
                     </article>
                 @empty

@@ -6,8 +6,8 @@ use App\Http\Requests\legal_opiniCreateRequest;
 use App\Http\Requests\legal_opiniUpdateRequest;
 use App\Models\legal_opini;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class LegalOpiniController extends Controller
 {
@@ -42,31 +42,38 @@ class LegalOpiniController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.legal-opini-create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(legal_opiniCreateRequest $request)
-{
-    try {
-        $data = $request->validated();
+    {
+        try {
+            $data = $request->validated();
 
-        // Upload file jika ada
-        if ($request->hasFile('picture')) {
-            $data['picture'] = $request->file('picture')->store('legal_opini', 'public');
+            // Buat slug unik otomatis dari judul artikel untuk mendukung SEO Google
+            $baseSlug = Str::slug($data['title']);
+            $slug = $baseSlug;
+            $counter = 1;
+            while (legal_opini::where('slug', $slug)->exists()) {
+                $slug = $baseSlug . '-' . $counter++;
+            }
+            $data['slug'] = $slug;
+
+            // Upload file jika ada
+            if ($request->hasFile('picture')) {
+                $data['picture'] = $request->file('picture')->store('legal_opini', 'public');
+            }
+
+            legal_opini::create($data);
+
+            return redirect()->route('legal_opini.index')->with('success', 'Artikel Hukum berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Artikel Hukum: ' . $e->getMessage());
         }
-
-        legal_opini::create($data);
-
-        return redirect()->route('legal_opini.index')->with('success', 'Artikel Hukum berhasil ditambahkan.');
-    } catch (\Exception $e) {
-        return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Artikel Hukum: ' . $e->getMessage());
     }
-}
-
-
 
     /**
      * Display the specified resource.
@@ -81,7 +88,7 @@ class LegalOpiniController extends Controller
      */
     public function edit(legal_opini $legal_opini)
     {
-        //
+        return view('admin.legal-opini-edit', compact('legal_opini'));
     }
 
     /**
@@ -92,9 +99,19 @@ class LegalOpiniController extends Controller
         try {
             $data = $request->validated();
 
+            // Perbarui slug jika judul berubah atau jika slug sebelumnya masih kosong
+            if ($data['title'] !== $legal_opini->title || empty($legal_opini->slug)) {
+                $baseSlug = Str::slug($data['title']);
+                $slug = $baseSlug;
+                $counter = 1;
+                while (legal_opini::where('slug', $slug)->where('id', '!=', $legal_opini->id)->exists()) {
+                    $slug = $baseSlug . '-' . $counter++;
+                }
+                $data['slug'] = $slug;
+            }
+
             // Upload file jika ada
             if ($request->hasFile('picture')) {
-                // Hapus file lama jika ada
                 if ($legal_opini->picture) {
                     Storage::disk('public')->delete($legal_opini->picture);
                 }
@@ -115,7 +132,6 @@ class LegalOpiniController extends Controller
     public function destroy(legal_opini $legal_opini)
     {
         try {
-            // Hapus file jika ada
             if ($legal_opini->picture) {
                 Storage::disk('public')->delete($legal_opini->picture);
             }

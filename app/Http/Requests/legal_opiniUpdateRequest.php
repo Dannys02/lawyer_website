@@ -21,13 +21,12 @@ class legal_opiniUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'title' => 'required|string|max:255',
-            'publisher' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'date_publish' => 'required|date',
-            'url' => 'required|string',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'text' => 'required|string',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ];
     }
 
@@ -39,13 +38,12 @@ class legal_opiniUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Judul harus diisi.',
-            'publisher.required' => 'Nama penerbit harus diisi.',
+            'title.required' => 'Judul artikel harus diisi.',
             'author.required' => 'Nama penulis harus diisi.',
             'date_publish.required' => 'Tanggal terbit harus diisi.',
-            'url.required' => 'url harus diisi.',
+            'text.required' => 'Deskripsi / isi artikel harus diisi.',
             'picture.image' => 'File yang diunggah harus berupa gambar.',
-            'picture.mimes' => 'Gambar harus dalam format jpeg, png, jpg, gif, atau svg.',
+            'picture.mimes' => 'Gambar harus dalam format jpeg, png, jpg, gif, svg, atau webp.',
             'picture.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
         ];
     }

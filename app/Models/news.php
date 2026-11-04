@@ -14,6 +14,6 @@ class news extends Model
     ];
 
     protected $fillable = [
-        'title', 'publisher', 'author', 'date_publish', 'url', 'picture', 'views'
+        'title', 'publisher', 'date_publish', 'url', 'picture', 'views'
     ];
 }

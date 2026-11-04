@@ -45,15 +45,15 @@
                         </div>
                     </form>
 
-                    <button type="button" onclick="openAdminModal('tambahArtikel')"
+                    <a href="{{ route('legal_opini.create') }}"
                         class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition cursor-pointer flex-shrink-0">
                         <i class="ti ti-plus text-sm"></i>
                         <span>Tambah Artikel</span>
-                    </button>
+                    </a>
                 </div>
             </div>
 
-            <!-- Status Pencarian Bar (Opsional muncul saat mencari) -->
+            <!-- Status Pencarian Bar -->
             <div id="admin-opini-search-status-wrapper" class="{{ empty($search) ? 'hidden' : 'block' }} px-6 py-2 bg-amber-50/70 border-b border-amber-200/70 text-xs text-slate-700">
                 <span id="admin-opini-search-status">
                     @if (!empty($search))
@@ -62,102 +62,10 @@
                 </span>
             </div>
 
-            <!-- Dynamic Container (Table + Pagination + Edit Modals) -->
+            <!-- Dynamic Container (Table + Pagination) -->
             <div id="admin-opini-container" class="transition-opacity duration-200">
                 @include('admin.legal-opini-list-partial')
             </div>
-        </div>
-    </div>
-
-    <!-- Modal Tambah Artikel -->
-    <div id="tambahArtikel" aria-hidden="true"
-        class="admin-modal-backdrop hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto">
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
-            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <h3 class="text-base font-bold text-slate-900">Tambah Artikel Hukum</h3>
-                <button type="button" onclick="closeAdminModal('tambahArtikel')"
-                    class="w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-200 hover:text-slate-900 flex items-center justify-center transition">
-                    <i class="ti ti-x text-lg"></i>
-                </button>
-            </div>
-
-            <form method="POST" action="{{ route('legal_opini.store') }}" enctype="multipart/form-data" id="formArticle"
-                onsubmit="document.getElementById('loading-screen').style.display = 'flex';" class="p-6 space-y-4">
-                @csrf
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Judul -->
-                    <div>
-                        <label for="title" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Judul Artikel</label>
-                        <input type="text" id="title" name="title" value="{{ old('title') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('title') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('title')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Penerbit -->
-                    <div>
-                        <label for="publisher" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penerbit</label>
-                        <input type="text" id="publisher" name="publisher" value="{{ old('publisher') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('publisher') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('publisher')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Penulis -->
-                    <div>
-                        <label for="author" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penulis</label>
-                        <input type="text" id="author" name="author" value="{{ old('author') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('author') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('author')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Tanggal Terbit -->
-                    <div>
-                        <label for="date_publish" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Tanggal Terbit</label>
-                        <input type="date" id="date_publish" name="date_publish" value="{{ old('date_publish') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('date_publish') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('date_publish')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Foto Terkait -->
-                <div>
-                    <label for="picture" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Foto Terkait</label>
-                    <input type="file" id="picture" name="picture"
-                        class="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 border border-slate-300 rounded-lg p-1.5" />
-                    @error('picture')
-                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- URL Artikel -->
-                <div>
-                    <label for="url" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">URL Artikel</label>
-                    <input type="url" id="url" name="url" value="{{ old('url') }}"
-                        class="w-full px-3.5 py-2.5 rounded-lg border @error('url') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                    @error('url')
-                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Footer Actions -->
-                <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeAdminModal('tambahArtikel')"
-                        class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition">
-                        Batal
-                    </button>
-                    <button type="submit"
-                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition">
-                        Simpan Artikel
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
 @endsection
@@ -175,7 +83,6 @@
             let debounceTimer = null;
             let currentAbortController = null;
 
-            // Bind SweetAlert2 Delete Confirmation (delegated or re-attached after AJAX)
             function bindDeleteButtons() {
                 if (!container) return;
                 const deleteButtons = container.querySelectorAll('.btn-delete');

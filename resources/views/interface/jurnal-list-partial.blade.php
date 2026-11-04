@@ -34,7 +34,7 @@
                 </h3>
 
                 <div class="text-sm text-ns-ink-700 leading-relaxed flex-1 mb-5 line-clamp-3">
-                    {{ $row->description }}
+                    {{ strip_tags($row->description) }}
                 </div>
 
                 <!-- Action Buttons: Lihat File & Unduh PDF -->

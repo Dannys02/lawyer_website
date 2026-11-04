@@ -23,7 +23,7 @@ class LegalPatnershipController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.legal-patnership-create');
     }
 
     /**
@@ -60,7 +60,7 @@ class LegalPatnershipController extends Controller
      */
     public function edit(legal_patnership $legal_patnership)
     {
-        //
+        return view('admin.legal-patnership-edit', compact('legal_patnership'));
     }
 
     /**

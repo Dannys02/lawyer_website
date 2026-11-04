@@ -25,7 +25,7 @@
                             <th class="py-3.5 pl-6 pr-4">Judul Berita</th>
                             <th class="py-3.5 px-4">Gambar</th>
                             <th class="py-3.5 px-4">Tautan Berita</th>
-                            <th class="py-3.5 px-4">Penerbit &amp; Penulis</th>
+                            <th class="py-3.5 px-4">Penerbit</th>
                             <th class="py-3.5 px-4">Tanggal Terbit</th>
                             <th class="py-3.5 pl-4 pr-6 text-center w-24">Aksi</th>
                         </tr>
@@ -51,14 +51,9 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-4 whitespace-nowrap">
-                                    <div class="flex flex-col text-xs space-y-0.5">
-                                        <span class="font-semibold text-slate-900 inline-flex items-center gap-1.5">
-                                            <i class="ti ti-user text-slate-400"></i> {{ $row->author }}
-                                        </span>
-                                        <span class="text-slate-600 inline-flex items-center gap-1.5">
-                                            <i class="ti ti-building text-slate-400"></i> {{ $row->publisher }}
-                                        </span>
-                                    </div>
+                                    <span class="font-semibold text-slate-900 inline-flex items-center gap-1.5 text-xs">
+                                        <i class="ti ti-building text-amber-600"></i> {{ $row->publisher }}
+                                    </span>
                                 </td>
                                 <td class="py-4 px-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-200 text-xs font-semibold">
@@ -144,16 +139,6 @@
                         @enderror
                     </div>
 
-                    <!-- Penulis -->
-                    <div>
-                        <label for="author" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penulis</label>
-                        <input type="text" id="author" name="author" value="{{ old('author') }}"
-                            class="w-full px-3.5 py-2.5 rounded-lg border @error('author') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        @error('author')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
                     <!-- Tanggal Terbit -->
                     <div>
                         <label for="date_publish" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Tanggal Terbit</label>
@@ -230,13 +215,6 @@
                         <div>
                             <label for="publisher_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penerbit</label>
                             <input type="text" id="publisher_{{ $data->id }}" name="publisher" value="{{ old('publisher', $data->publisher) }}"
-                                class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
-                        </div>
-
-                        <!-- Penulis -->
-                        <div>
-                            <label for="author_{{ $data->id }}" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nama Penulis</label>
-                            <input type="text" id="author_{{ $data->id }}" name="author" value="{{ old('author', $data->author) }}"
                                 class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
                         </div>
 

@@ -14,6 +14,6 @@ class legal_opini extends Model
     ];
 
     protected $fillable = [
-        'title', 'publisher', 'author', 'date_publish', 'url', 'picture'
+        'title', 'slug', 'author', 'text', 'date_publish', 'picture', 'views'
     ];
 }

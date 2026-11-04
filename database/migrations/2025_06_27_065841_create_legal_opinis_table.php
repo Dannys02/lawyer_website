@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('legal_opinis', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('publisher');
+            $table->string('slug')->nullable()->unique();
             $table->string('author');
-            $table->string('url');
+            $table->longText('text');
             $table->date('date_publish');
-            $table->string('picture');
+            $table->string('picture')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
             $table->timestamps();
         });
     }
