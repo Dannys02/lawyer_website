@@ -28,6 +28,8 @@ Route::get('/file', [App\Http\Controllers\LawyerController::class, 'file'])->nam
 Route::get('/contact', [App\Http\Controllers\LawyerController::class, 'contact'])->name('contact');
 Route::get('/break-news', [App\Http\Controllers\LawyerController::class, 'news'])->name('break-news');
 
+Route::post('/chatbot', [App\Http\Controllers\ChatbotController::class, 'ask'])->name('chatbot.ask');
+
 Route::get('/download-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'downloadJurnal'])->name('download-pdf');
 
 

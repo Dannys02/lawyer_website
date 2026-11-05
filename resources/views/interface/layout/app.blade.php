@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('interface/img/LOGO_NS_2.png') }}" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="{{ asset('interface/img/LOGO_NS_2.png') }}">
@@ -152,7 +153,7 @@
             </div>
 
             <!-- Chat Messages Log Container -->
-            <div id="ai-messages-container" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs sm:text-sm bg-ns-navy-900/90">
+            <div id="ai-messages-container" data-lenis-prevent class="flex-1 min-h-0 overscroll-contain overflow-y-auto p-4 sm:p-5 space-y-4 text-xs sm:text-sm bg-ns-navy-900/90">
                 <!-- Sambutan Awal Bot -->
                 <div class="flex items-start gap-2.5">
                     <div class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-950 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
@@ -317,8 +318,28 @@
             }
         }
 
+        var aiChatHistory = [];
+        var aiIsSubmitting = false;
+
+        function formatAiReplyHtml(text) {
+            var safe = escapeHtml(text || '');
+            // Bold **teks**
+            safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong class="text-ns-gold-400 font-semibold">$1</strong>');
+            // Auto-link URLs
+            safe = safe.replace(/(https?:\/\/[^\s<]+)/g, function(url) {
+                var cleanUrl = url.replace(/[.,;!?)]+$/, '');
+                var trailing = url.slice(cleanUrl.length);
+                return '<a href="' + cleanUrl + '" target="_blank" rel="noopener noreferrer" class="text-ns-gold-400 underline font-semibold break-all hover:text-white">' + cleanUrl + '</a>' + trailing;
+            });
+            // Newlines
+            safe = safe.replace(/\n/g, '<br>');
+            return safe;
+        }
+
         function handleAiChatSubmit(e) {
             e.preventDefault();
+            if (aiIsSubmitting) return;
+
             var input = document.getElementById("ai-user-input");
             var container = document.getElementById("ai-messages-container");
             if (!input || !container) return;
@@ -326,10 +347,13 @@
             var userQuery = input.value.trim();
             if (!userQuery) return;
 
+            aiIsSubmitting = true;
+            input.disabled = true;
+
             // Render pesan user
             var userBubble = document.createElement("div");
             userBubble.className = "flex items-start justify-end gap-2.5";
-            userBubble.innerHTML = '<div class="bg-ns-gold-400 text-ns-navy-950 font-medium rounded-2xl rounded-tr-none p-3.5 max-w-[85%] shadow text-right leading-relaxed">' +
+            userBubble.innerHTML = '<div class="bg-ns-gold-400 text-ns-navy-950 font-medium rounded-2xl rounded-tr-none p-3.5 w-fit shadow text-right leading-relaxed">' +
                 escapeHtml(userQuery) +
                 '</div>' +
                 '<div class="w-7 h-7 rounded-full bg-ns-navy-800 border border-ns-gold-400 text-ns-gold-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5"><i class="fas fa-user text-[11px]"></i></div>';
@@ -349,36 +373,70 @@
             container.appendChild(typingBubble);
             container.scrollTop = container.scrollHeight;
 
-            // Simulasi respon cerdas AI
-            setTimeout(function() {
+            var csrfMeta = document.querySelector('meta[name="csrf-token"]');
+            var csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+
+            fetch("{{ route('chatbot.ask') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    message: userQuery,
+                    history: aiChatHistory.slice(-10)
+                })
+            })
+            .then(function(response) {
+                return response.json().then(function(data) {
+                    return { status: response.status, data: data };
+                });
+            })
+            .then(function(result) {
                 var typingEl = document.getElementById(typingId);
                 if (typingEl) typingEl.remove();
 
-                var botReply = generateSmartLegalReply(userQuery);
+                var botReplyText = (result.data && result.data.reply)
+                    ? result.data.reply
+                    : 'Maaf, terjadi kendala saat memproses pertanyaan Anda.';
+
+                if (result.status === 200) {
+                    aiChatHistory.push({ role: 'user', text: userQuery });
+                    aiChatHistory.push({ role: 'model', text: botReplyText });
+                    if (aiChatHistory.length > 10) {
+                        aiChatHistory = aiChatHistory.slice(-10);
+                    }
+                }
+
                 var botBubble = document.createElement("div");
                 botBubble.className = "flex items-start gap-2.5";
                 botBubble.innerHTML = '<div class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-950 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5"><i class="fas fa-robot text-[11px]"></i></div>' +
                     '<div class="bg-ns-navy-800 border border-ns-gold-400/30 rounded-2xl rounded-tl-none p-3.5 text-ns-light-100 max-w-[85%] shadow leading-relaxed">' +
-                    botReply +
+                    formatAiReplyHtml(botReplyText) +
                     '</div>';
                 container.appendChild(botBubble);
                 container.scrollTop = container.scrollHeight;
-            }, 750);
-        }
+            })
+            .catch(function() {
+                var typingEl = document.getElementById(typingId);
+                if (typingEl) typingEl.remove();
 
-        function generateSmartLegalReply(query) {
-            var q = query.toLowerCase();
-            if (q.includes('pidana') || q.includes('polisi') || q.includes('lapor')) {
-                return 'Dalam perkara pidana, tahapan dimulai dari penyelidikan, penyidikan, hingga pendampingan BAP di kepolisian. Anda berhak mendapatkan pendampingan penasihat hukum sejak awal proses pemeriksaan. Hubungi WhatsApp resmi kami di <strong>+62 853-3197-9610</strong> untuk pendampingan darurat 24 jam.';
-            } else if (q.includes('layanan') || q.includes('jasa') || q.includes('service')) {
-                return 'Kantor Hukum Nurul Safii & Partners melayani perkara <strong>Litigasi (Pidana, Perdata, Tata Usaha Negara, Pengadilan Agama)</strong> serta <strong>Non-Litigasi (Legal Opinion, Konsultan Perusahaan, Mediator Bersertifikat, dan Kurator Kepailitan)</strong>. Anda dapat melihat detailnya di menu <a href="{{ route("service") }}" class="text-ns-gold-400 underline font-semibold">Layanan Hukum</a>.';
-            } else if (q.includes('janji') || q.includes('kantor') || q.includes('alamat') || q.includes('temu') || q.includes('lokasi')) {
-                return 'Kantor kami berlokasi di Dusun Muncar Baru, Tembokrejo, Kec. Muncar, Banyuwangi. Jam operasional: Senin - Jumat (08.00 - 17.00 WIB) & Sabtu (09.00 - 14.00 WIB). Anda dapat langsung mengklik tombol <strong>WhatsApp Advokat</strong> di menu sebelumnya untuk menjadwalkan konsultasi tatap muka.';
-            } else if (q.includes('biaya') || q.includes('tarif') || q.includes('harga')) {
-                return 'Skema honorarium advokat ditentukan berdasarkan kompleksitas perkara, ruang lingkup pendampingan hukum, dan kesepakatan bersama secara transparan. Konsultasi awal dapat dilakukan via WhatsApp resmi kantor.';
-            } else {
-                return 'Terima kasih atas pertanyaannya. Terkait pokok persoalan tersebut, kami menyarankan Anda berkonsultasi langsung dengan tim advokat kami via <a href="https://wa.link/psypax" target="_blank" class="text-ns-gold-400 underline font-bold">WhatsApp Resmi</a> agar kronologi berkas dapat ditelaah secara akurat.';
-            }
+                var errBubble = document.createElement("div");
+                errBubble.className = "flex items-start gap-2.5";
+                errBubble.innerHTML = '<div class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-950 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5"><i class="fas fa-robot text-[11px]"></i></div>' +
+                    '<div class="bg-ns-navy-800 border border-red-500/40 rounded-2xl rounded-tl-none p-3.5 text-ns-light-100 max-w-[85%] shadow leading-relaxed">' +
+                    'Maaf, koneksi ke asisten AI sedang terganggu. Silakan coba lagi atau hubungi WhatsApp resmi kami.' +
+                    '</div>';
+                container.appendChild(errBubble);
+                container.scrollTop = container.scrollHeight;
+            })
+            .finally(function() {
+                aiIsSubmitting = false;
+                input.disabled = false;
+                input.focus();
+            });
         }
 
         function escapeHtml(text) {
