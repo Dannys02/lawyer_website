@@ -30,6 +30,7 @@ Route::get('/break-news', [App\Http\Controllers\LawyerController::class, 'news']
 
 Route::post('/chatbot', [App\Http\Controllers\ChatbotController::class, 'ask'])->name('chatbot.ask');
 
+Route::get('/view-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'viewJurnal'])->name('view-pdf');
 Route::get('/download-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'downloadJurnal'])->name('download-pdf');
 
 

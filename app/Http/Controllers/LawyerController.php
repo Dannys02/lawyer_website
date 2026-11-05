@@ -141,6 +141,25 @@ class LawyerController extends Controller
         return view('interface.contact', compact('reviews', 'socialmedia'));
     }
 
+    public function viewJurnal($id)
+    {
+        $jurnal = Jurnal::findOrFail($id);
+
+        // Increment views safely when PDF is viewed
+        $jurnal->increment('views');
+
+        $filePath = storage_path('app/public/' . $jurnal->pdf_file);
+
+        if (file_exists($filePath)) {
+            return response()->file($filePath, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . basename($jurnal->pdf_file) . '"'
+            ]);
+        }
+
+        return redirect()->back()->with('error', 'File tidak ditemukan.');
+    }
+
     public function downloadJurnal($id)
     {
         $jurnal = Jurnal::findOrFail($id);

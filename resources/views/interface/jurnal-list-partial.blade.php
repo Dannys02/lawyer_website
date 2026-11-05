@@ -39,7 +39,7 @@
 
                 <!-- Action Buttons: Lihat File & Unduh PDF -->
                 <div class="pt-4 border-t border-ns-border-light flex items-center justify-between gap-3">
-                    <a href="{{ asset('storage/' . $row->pdf_file) }}"
+                    <a href="{{ route('view-pdf', $row->id) }}"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-ns-paper text-ns-navy-900 font-bold text-xs uppercase tracking-wider rounded border border-[#C8C4BC] hover:bg-ns-navy-900 hover:text-ns-light-100 hover:border-ns-navy-900 transition flex-1 text-center">

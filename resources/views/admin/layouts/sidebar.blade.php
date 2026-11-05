@@ -104,12 +104,4 @@
             </ul>
         </div>
     </nav>
-
-    <!-- Bottom Sidebar Info -->
-    <div class="p-4 border-t border-white/10 bg-ns-navy-950/60">
-        <div class="flex items-center gap-3 px-2 py-1">
-            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
-            <span class="text-xs text-slate-300 font-medium">Sistem Aktif &bull; Terlindungi</span>
-        </div>
-    </div>
 </aside>
