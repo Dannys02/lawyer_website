@@ -12,10 +12,27 @@ class LegalPatnershipController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $legal_patnerships = legal_patnership::all();
-        return view('admin.legal-patnership', compact('legal_patnerships'));
+        $search = trim($request->input('search', ''));
+
+        $query = legal_patnership::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('position', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $legal_patnerships = $query->latest()->paginate(10)->withQueryString();
+
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('admin.legal-patnership-list-partial', compact('legal_patnerships', 'search'));
+        }
+
+        return view('admin.legal-patnership', compact('legal_patnerships', 'search'));
     }
 
     /**

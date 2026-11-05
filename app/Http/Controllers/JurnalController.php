@@ -13,10 +13,26 @@ class JurnalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jurnals = jurnal::all();
-        return view('admin.jurnal', compact('jurnals'));
+        $search = trim($request->input('search', ''));
+
+        $query = jurnal::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $jurnals = $query->latest()->paginate(10)->withQueryString();
+
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('admin.jurnal-list-partial', compact('jurnals', 'search'));
+        }
+
+        return view('admin.jurnal', compact('jurnals', 'search'));
     }
 
     /**

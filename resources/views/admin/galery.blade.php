@@ -79,6 +79,13 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Pagination Bar -->
+            @if ($galeries->hasPages())
+                <div class="px-6 py-2 bg-slate-50 border-t border-slate-200">
+                    {{ $galeries->links('interface.layout.pagination') }}
+                </div>
+            @endif
         </div>
     </div>
 

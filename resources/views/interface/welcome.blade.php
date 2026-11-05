@@ -51,60 +51,14 @@
                     </div>
                 </div>
 
-                <!-- Credential Card Sidebar -->
-                <aside class="lg:col-span-5" aria-label="Identitas dan Fokus Praktik">
+                <!-- Credential Card Sidebar (Logo Showcase) -->
+                <aside class="lg:col-span-5" aria-label="Lambang Resmi Kantor Hukum">
                     <div
                         id="hero-credential-card"
-                        class="bg-ns-navy-800 border border-ns-gold-400/40 border-t-4 border-t-ns-gold-400 rounded-lg p-6 sm:p-8 shadow-2xl transition-transform duration-100 ease-out will-change-transform">
-                        <div class="flex items-center gap-4 pb-5 mb-5 border-b border-white/10">
-                            <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
-                                alt="Lambang Resmi Kantor Hukum Nurul Safii & Partners" width="72" height="72"
-                                class="w-16 h-16 sm:w-18 sm:h-18 object-contain rounded-md bg-ns-navy-900 p-1.5 border border-ns-gold-400/40 flex-shrink-0">
-                            <div>
-                                <span class="block font-serif italic text-sm text-ns-gold-400 tracking-wide">Officium
-                                    Nobile</span>
-                                <h2 class="font-display text-lg sm:text-xl font-bold text-ns-light-100 m-0">Pilar Praktik
-                                    Utama</h2>
-                            </div>
-                        </div>
-
-                        <ul class="space-y-3.5 list-none p-0 m-0 mb-6">
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/70 p-3 sm:p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span class="font-serif font-bold text-base text-ns-gold-400 min-w-[20px]">I</span>
-                                <div>
-                                    <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Litigasi &amp;
-                                        Sengketa</strong>
-                                    <span class="block text-xs text-ns-light-300 leading-snug">Perdata, Pidana, dan Tata
-                                        Usaha Negara</span>
-                                </div>
-                            </li>
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/70 p-3 sm:p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span class="font-serif font-bold text-base text-ns-gold-400 min-w-[20px]">II</span>
-                                <div>
-                                    <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Korporasi &amp; Hukum
-                                        Bisnis</strong>
-                                    <span class="block text-xs text-ns-light-300 leading-snug">Kontrak, Artikel Hukumon,
-                                        Kepatuhan &amp; Mitigasi Risiko</span>
-                                </div>
-                            </li>
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/70 p-3 sm:p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span class="font-serif font-bold text-base text-ns-gold-400 min-w-[20px]">III</span>
-                                <div>
-                                    <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Mediasi &amp;
-                                        Non-Litigasi</strong>
-                                    <span class="block text-xs text-ns-light-300 leading-snug">Penyelesaian Strategis,
-                                        Keluarga, Waris &amp; Agraria</span>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div class="flex items-center gap-2.5 pt-4 border-t border-white/10 text-xs text-ns-light-300">
-                            <i class="lnr lnr-map-marker text-ns-gold-400 text-sm" aria-hidden="true"></i>
-                            <span>Banyuwangi, Jawa Timur &middot; Melayani Penanganan Perkara Nasional</span>
-                        </div>
+                        class="rounded-lg p-6 sm:p-8 transition-transform duration-100 ease-out will-change-transform min-h-[380px] sm:min-h-[420px] flex items-center justify-center">
+                        <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
+                            alt="Lambang Resmi Kantor Hukum Nurul Safii & Partners"
+                            class="w-full max-w-[260px] sm:max-w-[300px] h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
                     </div>
                 </aside>
             </div>

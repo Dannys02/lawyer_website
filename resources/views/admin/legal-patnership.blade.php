@@ -1,93 +1,65 @@
 @extends('admin.layouts.app')
 
 @section('contents')
-    <div class="space-y-6">
+    <div class="space-y-6" id="daftar-partner-admin">
         <!-- Main Card -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <!-- Card Header -->
-            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div>
                     <h1 class="text-lg font-bold text-slate-900">Manajemen Advokat &amp; Legal Partnership</h1>
                     <p class="text-xs text-slate-600">Kelola profil advokat rekanan, mediator, dan mitra kantor hukum</p>
                 </div>
-                <a href="{{ route('legal_patnership.create') }}"
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition cursor-pointer self-start sm:self-auto">
-                    <i class="ti ti-plus text-sm"></i>
-                    <span>Tambah Partnership</span>
-                </a>
+
+                <!-- Search Input (di pinggir kiri tombol Tambah Partnership) & Tombol Tambah Partnership -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                    <form id="admin-partner-search-form" action="{{ route('legal_patnership.index') }}" method="GET" onsubmit="return false;"
+                        class="relative w-full sm:w-72 md:w-80">
+                        <label for="admin-partner-search-input" class="sr-only">Cari nama, jabatan, atau deskripsi partner</label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3.5 text-slate-400 pointer-events-none text-sm">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+
+                            <input type="text" id="admin-partner-search-input" name="search" value="{{ $search ?? '' }}"
+                                placeholder="Cari nama, jabatan, keahlian..." autocomplete="off"
+                                class="w-full pl-9 pr-16 py-2 bg-white text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl focus:outline-none focus:border-ns-gold-500 focus:ring-2 focus:ring-ns-gold-500/20 shadow-sm transition">
+
+                            <div class="absolute right-2.5 flex items-center gap-1.5">
+                                <div id="admin-partner-search-spinner" class="hidden text-amber-600 animate-spin text-xs"
+                                    title="Mencari...">
+                                    <i class="fas fa-circle-notch" aria-hidden="true"></i>
+                                </div>
+
+                                <button type="button" id="admin-partner-search-clear-btn" onclick="clearAdminPartnerSearch()"
+                                    class="{{ empty($search) ? 'hidden' : 'inline-flex' }} items-center justify-center w-6 h-6 text-xs text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded-full transition cursor-pointer"
+                                    aria-label="Hapus kata kunci pencarian">
+                                    <i class="fas fa-times" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <a href="{{ route('legal_patnership.create') }}"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-ns-gold-500 to-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition cursor-pointer flex-shrink-0">
+                        <i class="ti ti-plus text-sm"></i>
+                        <span>Tambah Partnership</span>
+                    </a>
+                </div>
             </div>
 
-            <!-- Table Container -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
-                            <th class="py-3.5 pl-6 pr-4">Nama Advokat / Mitra</th>
-                            <th class="py-3.5 px-4">Foto</th>
-                            <th class="py-3.5 px-4">Jabatan / Keahlian</th>
-                            <th class="py-3.5 px-4">Deskripsi Ringkas</th>
-                            <th class="py-3.5 pl-4 pr-6 text-center w-24">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 text-sm">
-                        @forelse ($legal_patnerships as $row)
-                            <tr class="hover:bg-slate-50/80 transition">
-                                <td class="py-4 pl-6 pr-4 whitespace-nowrap">
-                                    <span class="font-semibold text-slate-900">{{ $row->name }}</span>
-                                </td>
-                                <td class="py-4 px-4 whitespace-nowrap">
-                                    <img src="{{ asset('storage/' . $row->photo) }}" alt="Foto {{ $row->name }}"
-                                        class="w-14 h-14 rounded-lg border border-slate-200 object-cover" loading="lazy">
-                                </td>
-                                <td class="py-4 px-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-200 text-xs font-semibold">
-                                        {{ $row->position }}
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4 max-w-sm">
-                                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed line-clamp-2">
-                                        {{ Str::limit(strip_tags($row->description), 180) }}
-                                    </p>
-                                </td>
-                                <td class="py-4 pl-4 pr-6 text-center whitespace-nowrap relative">
-                                    <div class="relative inline-block">
-                                        <button type="button" onclick="toggleAdminDropdown(event, 'dropdown-partner-{{ $row->id }}')"
-                                            class="w-8 h-8 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 inline-flex items-center justify-center transition">
-                                            <i class="ti ti-dots-vertical text-lg"></i>
-                                        </button>
-                                        <div id="dropdown-partner-{{ $row->id }}"
-                                            class="admin-dropdown-menu hidden absolute right-0 mt-1 w-40 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 text-left">
-                                            <a href="{{ route('legal_patnership.edit', $row->id) }}"
-                                                class="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-amber-800 transition">
-                                                <i class="ti ti-pencil text-sm text-amber-700"></i>
-                                                <span>Edit</span>
-                                            </a>
+            <!-- Status Pencarian Bar -->
+            <div id="admin-partner-search-status-wrapper" class="{{ empty($search) ? 'hidden' : 'block' }} px-6 py-2 bg-amber-50/70 border-b border-amber-200/70 text-xs text-slate-700">
+                <span id="admin-partner-search-status">
+                    @if (!empty($search))
+                        Hasil pencarian untuk: &ldquo;<strong class="text-slate-900">{{ $search }}</strong>&rdquo;
+                    @endif
+                </span>
+            </div>
 
-                                            <form action="{{ route('legal_patnership.destroy', $row->id) }}" method="POST" class="form-delete">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" data-name="{{ $row->name }}"
-                                                    class="btn-delete w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition">
-                                                    <i class="ti ti-trash text-sm"></i>
-                                                    <span>Hapus</span>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="py-12 text-center">
-                                    <div class="flex flex-col items-center justify-center gap-2 text-slate-400">
-                                        <i class="ti ti-users-minus text-4xl"></i>
-                                        <span class="text-sm font-medium text-slate-500">Tidak ada Partner yang tersedia</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <!-- Dynamic Container (Table + Pagination) -->
+            <div id="admin-partner-container" class="transition-opacity duration-200">
+                @include('admin.legal-patnership-list-partial')
             </div>
         </div>
     </div>
@@ -96,31 +68,181 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const deleteButtons = document.querySelectorAll('.btn-delete');
+            const input = document.getElementById('admin-partner-search-input');
+            const spinner = document.getElementById('admin-partner-search-spinner');
+            const clearBtn = document.getElementById('admin-partner-search-clear-btn');
+            const statusWrapper = document.getElementById('admin-partner-search-status-wrapper');
+            const statusText = document.getElementById('admin-partner-search-status');
+            const container = document.getElementById('admin-partner-container');
 
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
+            let debounceTimer = null;
+            let currentAbortController = null;
 
-                    const form = this.closest('form');
-                    const name = this.getAttribute('data-name');
+            function bindDeleteButtons() {
+                if (!container) return;
+                const deleteButtons = container.querySelectorAll('.btn-delete');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
 
-                    Swal.fire({
-                        title: 'Apakah kamu yakin?',
-                        text: `Data "${name}" akan dihapus permanen!`,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#e02424',
-                        cancelButtonColor: '#475569',
-                        confirmButtonText: 'Ya, hapus!',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
+                        const form = this.closest('form');
+                        const name = this.getAttribute('data-name');
+
+                        Swal.fire({
+                            title: 'Apakah kamu yakin?',
+                            text: `Data "${name}" akan dihapus permanen!`,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#e02424',
+                            cancelButtonColor: '#475569',
+                            confirmButtonText: 'Ya, hapus!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
                     });
                 });
-            });
+            }
+
+            if (input && container) {
+                input.addEventListener('input', function() {
+                    const query = input.value.trim();
+
+                    if (clearBtn) {
+                        if (query.length > 0) {
+                            clearBtn.classList.remove('hidden');
+                            clearBtn.classList.add('inline-flex');
+                        } else {
+                            clearBtn.classList.add('hidden');
+                            clearBtn.classList.remove('inline-flex');
+                        }
+                    }
+
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        fetchAdminPartner(query);
+                    }, 400);
+                });
+            }
+
+            function fetchAdminPartner(keyword) {
+                if (currentAbortController) {
+                    currentAbortController.abort();
+                }
+                currentAbortController = new AbortController();
+
+                if (spinner) spinner.classList.remove('hidden');
+                if (statusWrapper && statusText) {
+                    statusWrapper.classList.remove('hidden');
+                    statusText.innerHTML = keyword
+                        ? `Mencari &ldquo;<strong class="text-slate-900">${keyword}</strong>&rdquo;...`
+                        : 'Memuat seluruh partner...';
+                }
+                container.style.opacity = '0.6';
+
+                const url = new URL("{{ route('legal_patnership.index') }}", window.location.origin);
+                if (keyword) {
+                    url.searchParams.set('search', keyword);
+                }
+
+                fetch(url.toString(), {
+                        signal: currentAbortController.signal,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'text/html, application/xhtml+xml'
+                        }
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error('Network error');
+                        return res.text();
+                    })
+                    .then(html => {
+                        container.innerHTML = html;
+                        container.style.opacity = '1';
+                        if (spinner) spinner.classList.add('hidden');
+
+                        if (statusWrapper && statusText) {
+                            if (keyword) {
+                                statusWrapper.classList.remove('hidden');
+                                statusText.innerHTML = `Hasil pencarian untuk: &ldquo;<strong class="text-slate-900">${keyword}</strong>&rdquo;`;
+                            } else {
+                                statusWrapper.classList.add('hidden');
+                                statusText.innerHTML = '';
+                            }
+                        }
+
+                        window.history.replaceState({}, '', url.toString());
+                        attachAdminPaginationEvents();
+                        bindDeleteButtons();
+                    })
+                    .catch(err => {
+                        if (err.name !== 'AbortError') {
+                            console.error('Fetch error:', err);
+                            if (spinner) spinner.classList.add('hidden');
+                            container.style.opacity = '1';
+                            if (statusWrapper && statusText) {
+                                statusWrapper.classList.remove('hidden');
+                                statusText.innerHTML = '<span class="text-red-600 font-semibold">Gagal memuat data pencarian.</span>';
+                            }
+                        }
+                    });
+            }
+
+            function attachAdminPaginationEvents() {
+                if (!container) return;
+                const paginationLinks = container.querySelectorAll('a[href*="page="]');
+                paginationLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetUrl = new URL(this.href);
+
+                        if (spinner) spinner.classList.remove('hidden');
+                        container.style.opacity = '0.6';
+
+                        fetch(targetUrl.toString(), {
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                    'Accept': 'text/html, application/xhtml+xml'
+                                }
+                            })
+                            .then(res => res.text())
+                            .then(html => {
+                                container.innerHTML = html;
+                                container.style.opacity = '1';
+                                if (spinner) spinner.classList.add('hidden');
+                                window.history.pushState({}, '', targetUrl.toString());
+                                attachAdminPaginationEvents();
+                                bindDeleteButtons();
+
+                                const headerElement = document.getElementById('daftar-partner-admin');
+                                if (headerElement) {
+                                    headerElement.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Pagination error:', err);
+                                window.location.href = targetUrl.toString();
+                            });
+                    });
+                });
+            }
+
+            attachAdminPaginationEvents();
+            bindDeleteButtons();
+
+            window.clearAdminPartnerSearch = function() {
+                if (!input) return;
+                input.value = '';
+                if (clearBtn) {
+                    clearBtn.classList.add('hidden');
+                    clearBtn.classList.remove('inline-flex');
+                }
+                clearTimeout(debounceTimer);
+                fetchAdminPartner('');
+                input.focus();
+            };
         });
     </script>
 @endpush

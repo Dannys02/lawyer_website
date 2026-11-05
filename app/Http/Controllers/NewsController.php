@@ -14,10 +14,26 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $news = news::all();
-        return view('admin.news', compact('news'));
+        $search = trim($request->input('search', ''));
+
+        $query = news::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('publisher', 'like', "%{$search}%");
+            });
+        }
+
+        $news = $query->latest('date_publish')->paginate(10)->withQueryString();
+
+        if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+            return view('admin.news-list-partial', compact('news', 'search'));
+        }
+
+        return view('admin.news', compact('news', 'search'));
     }
 
     /**
