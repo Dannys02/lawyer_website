@@ -207,7 +207,18 @@
                     <i class="fas fa-check-circle text-emerald-400 text-lg flex-shrink-0" aria-hidden="true"></i>
                     <div>
                         <strong class="font-bold">Terima kasih!</strong>
-                        <span>{{ session('success') }} Ulasan Anda telah berhasil disimpan dan dipublikasikan.</span>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                </div>
+            @endif
+
+            <!-- Flash Alert Error / Anti-Spam Rate Limit -->
+            @if(session('error'))
+                <div class="mb-8 p-4 rounded-lg bg-red-950 border-2 border-red-500 text-red-100 text-sm flex items-center gap-3" role="alert">
+                    <i class="fas fa-shield-alt text-red-400 text-lg flex-shrink-0" aria-hidden="true"></i>
+                    <div>
+                        <strong class="font-bold">Pengiriman Dibatasi:</strong>
+                        <span>{{ session('error') }}</span>
                     </div>
                 </div>
             @endif
@@ -216,6 +227,15 @@
             <div class="bg-ns-navy-950 border-2 border-ns-gold-400/40 rounded-xl p-6 sm:p-10 shadow-2xl">
                 <form action="{{ route('reviews.store') }}" method="POST" id="reviewForm" class="space-y-6">
                     @csrf
+
+                    <!-- Time-trap Encrypted Timestamp -->
+                    <input type="hidden" name="_form_rendered_at" value="{{ \Illuminate\Support\Facades\Crypt::encryptString((string) time()) }}">
+
+                    <!-- Honeypot Field (Hidden from real users & screen readers, traps automated bots) -->
+                    <div class="sr-only" aria-hidden="true">
+                        <label for="website_url">Jangan isi kolom ini jika Anda manusia</label>
+                        <input type="text" id="website_url" name="website_url" value="" tabindex="-1" autocomplete="off">
+                    </div>
 
                     <!-- Name Input -->
                     <div>
@@ -226,6 +246,8 @@
                                id="name"
                                name="name"
                                value="{{ old('name') }}"
+                               minlength="2"
+                               maxlength="60"
                                placeholder="Contoh: Budi Santoso / B.S."
                                required
                                class="w-full px-4 py-3 bg-ns-navy-900 text-sm text-ns-light-100 placeholder:text-ns-ink-500 border border-ns-gold-400/30 rounded-lg focus:outline-none focus:border-ns-gold-400 focus:ring-1 focus:ring-ns-gold-400 transition @error('name') border-red-500 @enderror">
@@ -238,16 +260,17 @@
                     </div>
 
                     <!-- Star Rating Interactive Selection -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-ns-gold-400 mb-2 text-center">
+                    <fieldset>
+                        <legend class="block w-full text-xs font-bold uppercase tracking-wider text-ns-gold-400 mb-2 text-center">
                             Penilaian Layanan (Rating Bintang) <span class="text-red-400">*</span>
-                        </label>
+                        </legend>
                         <div class="flex justify-center items-center py-2">
                             <div class="ns-star-rating flex flex-row-reverse gap-2">
                                 @for ($i = 5; $i >= 1; $i--)
                                     <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" {{ old('rating') == $i ? 'checked' : '' }} class="sr-only" required>
-                                    <label for="star{{ $i }}" title="{{ $i }} Bintang" class="cursor-pointer text-3xl sm:text-4xl text-slate-600 hover:text-ns-gold-400 transition-colors">
-                                        &#9733;
+                                    <label for="star{{ $i }}" title="{{ $i }} Bintang" class="cursor-pointer min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md text-3xl sm:text-4xl text-slate-500 hover:text-ns-gold-400 transition-colors">
+                                        <span aria-hidden="true">&#9733;</span>
+                                        <span class="sr-only">{{ $i }} Bintang</span>
                                     </label>
                                 @endfor
                             </div>
@@ -258,7 +281,7 @@
                                 <span>{{ $message }}</span>
                             </p>
                         @enderror
-                    </div>
+                    </fieldset>
 
                     <!-- Review Message -->
                     <div>
@@ -268,12 +291,13 @@
                         <textarea id="message"
                                   name="message"
                                   rows="4"
+                                  minlength="10"
                                   maxlength="200"
                                   placeholder="Ceritakan pengalaman Anda selama berkonsultasi atau didampingi oleh tim advokat kami..."
                                   required
                                   class="w-full px-4 py-3 bg-ns-navy-900 text-sm text-ns-light-100 placeholder:text-ns-ink-500 border border-ns-gold-400/30 rounded-lg focus:outline-none focus:border-ns-gold-400 focus:ring-1 focus:ring-ns-gold-400 transition @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
-                        <div class="flex justify-between items-center text-[11px] text-ns-light-300/70 mt-1">
-                            <span>Maksimal 200 karakter</span>
+                        <div class="flex justify-between items-center text-[11px] text-ns-light-300 mt-1">
+                            <span>Minimal 10, maksimal 200 karakter (tanpa tautan/link)</span>
                             <span id="char-count">0 / 200</span>
                         </div>
                         @error('message')
@@ -287,9 +311,10 @@
                     <!-- Submit Button -->
                     <div class="text-center pt-2">
                         <button type="submit"
-                                class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-950 font-bold text-sm tracking-wide uppercase rounded hover:bg-white hover:text-ns-navy-900 transition-all duration-150 shadow-lg">
+                                id="reviewSubmitBtn"
+                                class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-950 font-bold text-sm tracking-wide uppercase rounded hover:bg-white hover:text-ns-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ns-gold-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-150 shadow-lg cursor-pointer">
                             <i class="fas fa-paper-plane mr-2" aria-hidden="true"></i>
-                            <span>Kirim Ulasan Anda</span>
+                            <span id="reviewSubmitText">Kirim Ulasan Anda</span>
                         </button>
                     </div>
                 </form>
@@ -301,12 +326,16 @@
 
 @push('styles')
 <style>
-    /* Pure CSS Star Rating Highlight Effect */
+    /* Pure CSS Star Rating Highlight Effect & Keyboard Focus Ring */
     .ns-star-rating input:checked ~ label,
     .ns-star-rating label:hover,
     .ns-star-rating label:hover ~ label {
         color: #E2B842 !important;
         text-shadow: 0 0 10px rgba(226, 184, 66, 0.4);
+    }
+    .ns-star-rating input:focus-visible + label {
+        outline: 2px solid #E2B842;
+        outline-offset: 2px;
     }
 </style>
 @endpush
@@ -322,6 +351,16 @@
             }
             textarea.addEventListener('input', updateCount);
             updateCount();
+        }
+
+        const reviewForm = document.getElementById('reviewForm');
+        const submitBtn = document.getElementById('reviewSubmitBtn');
+        const submitText = document.getElementById('reviewSubmitText');
+        if (reviewForm && submitBtn && submitText) {
+            reviewForm.addEventListener('submit', function () {
+                submitBtn.disabled = true;
+                submitText.textContent = 'Mengirim Ulasan...';
+            });
         }
     });
 </script>

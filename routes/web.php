@@ -37,7 +37,10 @@ Route::resource('legal_opini', App\Http\Controllers\LegalOpiniController::class)
 Route::resource('legal_patnership', App\Http\Controllers\LegalPatnershipController::class);
 Route::resource('jurnal', App\Http\Controllers\JurnalController::class);
 Route::resource('galery', App\Http\Controllers\GaleryController::class);
-Route::resource('reviews', App\Http\Controllers\ReviewsController::class);
+Route::post('reviews', [App\Http\Controllers\ReviewsController::class, 'store'])
+    ->middleware('throttle:3,10')
+    ->name('reviews.store');
+Route::resource('reviews', App\Http\Controllers\ReviewsController::class)->except(['store']);
 Route::resource('news', NewsController::class);
 Route::resource('abouts', App\Http\Controllers\AboutController::class);
 Route::resource('socialmedia', App\Http\Controllers\SocialmediaController::class);
