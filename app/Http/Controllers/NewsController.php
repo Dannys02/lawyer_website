@@ -41,7 +41,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.news-create');
     }
 
     /**
@@ -80,7 +80,7 @@ class NewsController extends Controller
      */
     public function edit(news $news)
     {
-        //
+        return view('admin.news-edit', compact('news'));
     }
 
     /**

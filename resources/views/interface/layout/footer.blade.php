@@ -88,7 +88,6 @@
                     <div class="flex items-center justify-between mb-2 pb-1 border-b border-white/10">
                         <h2
                             class="font-display text-sm sm:text-base font-bold text-ns-gold-400 m-0 flex items-center gap-2">
-                            <i class="fas fa-map-marked-alt text-xs" aria-hidden="true"></i>
                             <span>Peta Lokasi</span>
                         </h2>
                         <a href="https://maps.google.com/?q=-8.4335819,114.331305" target="_blank"

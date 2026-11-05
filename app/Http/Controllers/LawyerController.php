@@ -18,7 +18,7 @@ class LawyerController extends Controller
         $reviews = reviews::latest()->get();
         $patners = legal_patnership::all();
         $news = news::latest()->get();
-        $services = service::all();
+        $services = service::latest()->get();
         return view('interface.welcome', compact('reviews', 'patners', 'news', 'services'));
     }
 
@@ -29,7 +29,7 @@ class LawyerController extends Controller
 
     public function service()
     {
-        $services = service::all();
+        $services = service::latest()->get();
         return view('interface.service', compact('services'));
     }
 
@@ -41,7 +41,7 @@ class LawyerController extends Controller
 
     public function picture()
     {
-        $galeries = galery::all();
+        $galeries = galery::latest()->get();
         return view('interface.galery', compact('galeries'));
     }
 

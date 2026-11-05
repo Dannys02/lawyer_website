@@ -24,7 +24,7 @@ class GaleryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.galery-create');
     }
 
     /**
@@ -60,7 +60,7 @@ class GaleryController extends Controller
      */
     public function edit(galery $galery)
     {
-        //
+        return view('admin.galery-edit', compact('galery'));
     }
 
     /**
