@@ -52,7 +52,16 @@
                 </p>
             </div>
 
-            <!-- Contact Cards Grid (5 Saluran Komunikasi Elegan) -->
+            @php
+                $soc = $socialmedia ?? $socialMediaData ?? null;
+                $waUrl = $soc->wa ?? 'https://wa.link/psypax';
+                $igUrl = $soc->instagram ?? '#';
+                $tiktokUrl = $soc->tiktok ?? 'https://www.tiktok.com/@pengacara_nurul_safii';
+                $fbUrl = $soc->facebook ?? null;
+                $officeAddress = $soc->address ?? 'Dusun Muncar Baru, RT.01/RW.05, Desa Tembokrejo, Kec. Muncar, Kabupaten Banyuwangi, Jawa Timur 68472';
+            @endphp
+
+            <!-- Contact Cards Grid (Saluran Komunikasi Elegan) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 <!-- Alamat Kantor -->
                 <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
@@ -63,7 +72,7 @@
                         <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Kantor Utama</div>
                         <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Alamat Kantor Hukum</h3>
                         <p class="text-sm text-ns-ink-700 leading-relaxed">
-                            Dusun Muncar Baru, RT.01/RW.05, Desa Tembokrejo, Kec. Muncar, Kabupaten Banyuwangi, Jawa Timur 68472
+                            {{ $officeAddress }}
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-ns-border-light text-xs font-semibold text-ns-ink-500">
@@ -84,7 +93,7 @@
                         </p>
                     </div>
                     <div class="pt-3 border-t border-ns-border-light">
-                        <a href="https://wa.link/psypax" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                        <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
                             <span>+62 853-3197-9610</span>
                             <span aria-hidden="true">&rarr;</span>
                         </a>
@@ -123,8 +132,8 @@
                         </p>
                     </div>
                     <div class="pt-3 border-t border-ns-border-light">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
-                            <span>@nurulsafiilaw</span>
+                        <a href="{{ $igUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                            <span>Kunjungi Instagram</span>
                             <span aria-hidden="true">&rarr;</span>
                         </a>
                     </div>
@@ -143,29 +152,30 @@
                         </p>
                     </div>
                     <div class="pt-3 border-t border-ns-border-light">
-                        <a href="https://www.tiktok.com/@pengacara_nurul_safii" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                        <a href="{{ $tiktokUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
                             <span>@pengacara_nurul_safii</span>
                             <span aria-hidden="true">&rarr;</span>
                         </a>
                     </div>
                 </article>
 
-                <!-- Jam Layanan Kantor -->
-                <article class="bg-ns-navy-900 text-ns-light-100 border border-ns-navy-800 border-t-4 border-t-ns-gold-400 rounded-lg p-6 sm:p-7 shadow-md flex flex-col justify-between">
+                <!-- Facebook -->
+                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-800 border border-ns-gold-400 text-ns-gold-400 flex items-center justify-center text-xl mb-4">
-                            <i class="far fa-clock" aria-hidden="true"></i>
+                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
                         </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-400 mb-1">Jam Operasional</div>
-                        <h3 class="font-display font-bold text-lg text-ns-light-100 mb-2">Waktu Layanan Kantor</h3>
-                        <ul class="text-xs sm:text-sm text-ns-light-300 space-y-1.5 list-none p-0 m-0">
-                            <li class="flex justify-between"><span>Senin &ndash; Jumat:</span> <strong class="text-ns-gold-400">08.00 &ndash; 17.00 WIB</strong></li>
-                            <li class="flex justify-between"><span>Sabtu:</span> <strong class="text-ns-light-100">09.00 &ndash; 14.00 WIB</strong></li>
-                            <li class="flex justify-between"><span>Minggu / Tanggal Merah:</span> <span class="italic text-ns-light-300">Dengan Perjanjian</span></li>
-                        </ul>
+                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Jejaring Sosial</div>
+                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Facebook Resmi</h3>
+                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-4">
+                            Informasi kegiatan kantor hukum, diskusi publik, serta liputan pendampingan masyarakat.
+                        </p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-white/10 text-[11px] text-ns-gold-400 font-semibold">
-                        *Layanan gawat darurat perkara pidana 24 Jam via WhatsApp
+                    <div class="pt-3 border-t border-ns-border-light">
+                        <a href="{{ $fbUrl ?? '#' }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                            <span>Kunjungi Facebook</span>
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
                     </div>
                 </article>
             </div>

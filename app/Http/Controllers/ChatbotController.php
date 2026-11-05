@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\about;
 use App\Models\jurnal;
 use App\Models\legal_opini;
 use App\Models\legal_patnership;
 use App\Models\news;
 use App\Models\reviews;
 use App\Models\service;
+use App\Models\socialmedia;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -117,15 +119,24 @@ PROMPT;
     {
         $clean = fn ($text, $limit = 300) => Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(html_entity_decode((string) $text)))), $limit);
 
+        $aboutRow = about::select('text_about')->latest()->first();
+        $socRow = socialmedia::select('facebook', 'instagram', 'wa', 'tiktok', 'maps', 'address')->latest()->first();
+
         $lines = [];
 
-        $lines[] = '[PROFIL KANTOR]';
+        $lines[] = '[PROFIL KANTOR & TENTANG KAMI]';
         $lines[] = 'Nama: Kantor Hukum Nurul Safii, S.H., M.H., C.MSP & Partners (Pengacara Banyuwangi). Pendiri & Managing Partner: Nurul Safii, S.H., M.H., C.MSP.';
+        if ($aboutRow && !empty($aboutRow->text_about)) {
+            $lines[] = 'Deskripsi About: ' . $clean($aboutRow->text_about, 600);
+        }
         $lines[] = 'Bidang: Litigasi (Pidana, Perdata, Tata Usaha Negara, Pengadilan Agama) dan Non-Litigasi (Legal Opinion, Konsultan Perusahaan, Mediator Bersertifikat, Kurator).';
-        $lines[] = 'Alamat: Dusun Muncar Baru, Tembokrejo, Kec. Muncar, Banyuwangi, Jawa Timur.';
+        $lines[] = 'Alamat: ' . ($socRow->address ?? 'Dusun Muncar Baru, Tembokrejo, Kec. Muncar, Banyuwangi, Jawa Timur.');
         $lines[] = 'Jam operasional: Senin-Jumat 08.00-17.00 WIB, Sabtu 09.00-14.00 WIB.';
-        $lines[] = 'WhatsApp resmi: +62 853-3197-9610 (https://wa.link/psypax).';
-        $lines[] = 'Halaman: Layanan ' . route('service') . ' | Partner ' . route('partner') . ' | Artikel ' . route('article') . ' | Jurnal ' . route('file') . ' | Berita ' . route('break-news') . ' | Kontak ' . route('contact');
+        $lines[] = 'WhatsApp resmi: +62 853-3197-9610 (' . ($socRow->wa ?? 'https://wa.link/psypax') . ').';
+        if ($socRow) {
+            $lines[] = "Media Sosial Resmi: Facebook: {$socRow->facebook} | Instagram: {$socRow->instagram} | TikTok: {$socRow->tiktok} | Google Maps: {$socRow->maps}";
+        }
+        $lines[] = 'Halaman: Tentang Kami ' . route('about') . ' | Layanan ' . route('service') . ' | Partner ' . route('partner') . ' | Artikel ' . route('article') . ' | Jurnal ' . route('file') . ' | Berita ' . route('break-news') . ' | Kontak ' . route('contact');
 
         $lines[] = "\n[LAYANAN]";
         foreach (service::select('title', 'description')->get() as $s) {

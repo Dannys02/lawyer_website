@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\about;
 use App\Models\news;
 use App\Models\galery;
 use App\Models\jurnal;
 use App\Models\legal_opini;
 use App\Models\reviews;
 use App\Models\service;
+use App\Models\socialmedia;
 use Illuminate\Http\Request;
 use App\Models\legal_patnership;
 
@@ -19,12 +21,16 @@ class LawyerController extends Controller
         $patners = legal_patnership::all();
         $news = news::latest()->get();
         $services = service::latest()->get();
-        return view('interface.welcome', compact('reviews', 'patners', 'news', 'services'));
+        $about = about::latest()->first();
+        $socialmedia = socialmedia::latest()->first();
+        return view('interface.welcome', compact('reviews', 'patners', 'news', 'services', 'about', 'socialmedia'));
     }
 
     public function about()
     {
-        return view('interface.about');
+        $about = about::latest()->first();
+        $socialmedia = socialmedia::latest()->first();
+        return view('interface.about', compact('about', 'socialmedia'));
     }
 
     public function service()
@@ -131,7 +137,8 @@ class LawyerController extends Controller
     public function contact()
     {
         $reviews = reviews::latest()->get();
-        return view('interface.contact', compact('reviews'));
+        $socialmedia = socialmedia::latest()->first();
+        return view('interface.contact', compact('reviews', 'socialmedia'));
     }
 
     public function downloadJurnal($id)

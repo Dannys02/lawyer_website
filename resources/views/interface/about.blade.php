@@ -46,16 +46,13 @@
         aria-labelledby="profil-title">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                <!-- Visual Triptych Split Frame (3 Bagian Terpotong Sejajar Kiri-Kanan & Tengah Agak ke Bawah) -->
+                <!-- Visual Frame -->
                 <div class="lg:col-span-5 flex flex-col items-center">
                     <div class="w-full max-w-md">
                         <div
-                            class="relative h-64 sm:h-76 md:h-80 rounded-lg overflow-hidden bg-ns-navy-900 border-2 border-ns-gold-500/60 shadow-lg">
-                            <div
-                                class="flex items-center justify-center">
-                                <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Logo Kantor Hukum Nurul Safii"
-                                    class="max-w-[200px] sm:max-w-[240px] w-full h-auto object-contain">
-                            </div>
+                            class="relative h-64 sm:h-76 md:h-80 rounded-lg overflow-hidden bg-ns-navy-900 border-2 border-ns-gold-500/60 shadow-lg flex items-center justify-center">
+                            <img src="{{ asset('storage/' . ($about->image ?? $aboutData->image)) }}"
+                                alt="Profil Kantor Hukum Nurul Safii" class="max-w-[200px] sm:max-w-[240px] object-cover">
                         </div>
 
                         <!-- Caption / Identitas Pendiri & Managing Partner -->
@@ -82,20 +79,34 @@
                         class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-ink-900 mb-5 leading-tight">
                         Profil Kantor Hukum
                     </h2>
-                    <p class="text-base text-ns-ink-700 leading-relaxed mb-4 text-justify">
-                        <strong class="text-ns-ink-900 font-semibold">Kantor Hukum Nurul Safii, S.H., M.H., C.MSP &amp;
-                            PARTNERS</strong> adalah kantor hukum independen yang hadir sebagai representasi integritas,
-                        kecermatan, dan keberanian dalam menegakkan keadilan di tengah kompleksitas dinamika hukum
-                        kontemporer. Berdiri di atas nilai-nilai luhur profesi hukum (*officium nobile*), kantor ini
-                        didirikan oleh <strong>Nurul Safii, S.H., M.H., C.MSP</strong>, seorang advokat sekaligus konsultan
-                        strategis yang dikenal atas ketajaman analisis hukum serta kepedulian sosialnya.
-                    </p>
-                    <p class="text-base text-ns-ink-700 leading-relaxed mb-6 text-justify">
-                        Kami bukan sekadar penyedia jasa hukum, melainkan mitra strategis yang mendampingi klien dalam
-                        menghadapi risiko hukum, merumuskan langkah taktis, dan memperjuangkan setiap perkara secara
-                        terhormat. Dengan pendekatan yang sistematis, berbasis riset, dan berorientasi pada hasil, kami
-                        meyakini bahwa keadilan bukan hanya untuk dicari, tetapi untuk diperjuangkan dengan kehormatan.
-                    </p>
+                    @php
+                        $aboutText = $about->text_about ?? ($aboutData->text_about ?? null);
+                    @endphp
+                    @if (!empty($aboutText))
+                        <div class="text-base text-ns-ink-700 leading-relaxed mb-6 text-justify space-y-4">
+                            @if ($aboutText !== strip_tags($aboutText))
+                                {!! $aboutText !!}
+                            @else
+                                {!! nl2br(e($aboutText)) !!}
+                            @endif
+                        </div>
+                    @else
+                        <p class="text-base text-ns-ink-700 leading-relaxed mb-4 text-justify">
+                            <strong class="text-ns-ink-900 font-semibold">Kantor Hukum Nurul Safii, S.H., M.H., C.MSP &amp;
+                                PARTNERS</strong> adalah kantor hukum independen yang hadir sebagai representasi integritas,
+                            kecermatan, dan keberanian dalam menegakkan keadilan di tengah kompleksitas dinamika hukum
+                            kontemporer. Berdiri di atas nilai-nilai luhur profesi hukum (*officium nobile*), kantor ini
+                            didirikan oleh <strong>Nurul Safii, S.H., M.H., C.MSP</strong>, seorang advokat sekaligus
+                            konsultan
+                            strategis yang dikenal atas ketajaman analisis hukum serta kepedulian sosialnya.
+                        </p>
+                        <p class="text-base text-ns-ink-700 leading-relaxed mb-6 text-justify">
+                            Kami bukan sekadar penyedia jasa hukum, melainkan mitra strategis yang mendampingi klien dalam
+                            menghadapi risiko hukum, merumuskan langkah taktis, dan memperjuangkan setiap perkara secara
+                            terhormat. Dengan pendekatan yang sistematis, berbasis riset, dan berorientasi pada hasil, kami
+                            meyakini bahwa keadilan bukan hanya untuk dicari, tetapi untuk diperjuangkan dengan kehormatan.
+                        </p>
+                    @endif
 
                     <!-- Quote Box Callout -->
                     <div class="bg-white border-l-4 border-ns-gold-500 border border-ns-border-light p-5 rounded shadow-sm">

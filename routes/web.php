@@ -39,3 +39,5 @@ Route::resource('jurnal', App\Http\Controllers\JurnalController::class);
 Route::resource('galery', App\Http\Controllers\GaleryController::class);
 Route::resource('reviews', App\Http\Controllers\ReviewsController::class);
 Route::resource('news', NewsController::class);
+Route::resource('abouts', App\Http\Controllers\AboutController::class);
+Route::resource('socialmedia', App\Http\Controllers\SocialmediaController::class);

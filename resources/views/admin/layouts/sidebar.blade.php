@@ -87,6 +87,20 @@
                         <span>Galeri Foto</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('abouts.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('abouts.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-info-circle text-lg {{ Route::is('abouts.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Tentang Kami</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('socialmedia.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('socialmedia.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-share text-lg {{ Route::is('socialmedia.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Media Sosial</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

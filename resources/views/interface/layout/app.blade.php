@@ -84,7 +84,7 @@
             <!-- Pop-up Menu Options -->
             <div class="p-4 space-y-3">
                 <!-- Option 1: WhatsApp Advokat Resmi -->
-                <a href="https://wa.link/psypax" target="_blank" rel="noopener noreferrer"
+                <a href="{{ $socialMediaData->wa ?? 'https://wa.link/psypax' }}" target="_blank" rel="noopener noreferrer"
                     class="group flex items-start gap-3.5 p-3 rounded-lg bg-ns-navy-800/80 border border-white/10 hover:border-emerald-500/60 hover:bg-emerald-950/30 transition-all duration-200">
                     <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 group-hover:bg-emerald-500 group-hover:text-ns-navy-950 transition-all">
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
