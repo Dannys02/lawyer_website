@@ -189,7 +189,7 @@
             </div>
 
             <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4   gap-6 sm:gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
@@ -389,70 +389,6 @@
     </section>
     <!--================ End Why Choose Us Area =================-->
 
-    <!--================ Start Team / Legal Partnership Area =================-->
-    <section class="py-16 sm:py-20 lg:py-24 bg-ns-ivory border-b border-ns-border-light"
-        aria-labelledby="partner-heading">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-                class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-12 pb-6 border-b border-ns-border-light">
-                <div>
-                    <div
-                        class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-2">
-                        <span class="inline-block w-6 h-0.5 bg-ns-gold-700" aria-hidden="true"></span>
-                        <span>Tim Advokat &amp; Konsultan</span>
-                    </div>
-                    <h2 id="partner-heading"
-                        class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-ink-900 m-0">
-                        Legal Partnership
-                    </h2>
-                </div>
-                <p class="text-sm sm:text-base text-ns-ink-700 max-w-xl leading-relaxed m-0">
-                    Reputasi kami dibangun di atas dedikasi rekanan advokat dan konsultan hukum yang mendampingi setiap
-                    perkara secara menyeluruh.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                @forelse ($patners as $row)
-                    <article
-                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="bg-ns-navy-900 overflow-hidden">
-                            <img src="{{ asset('storage/' . $row->photo) }}"
-                                alt="Foto {{ $row->name }} - {{ $row->position }}" width="400" height="480"
-                                loading="lazy" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <span
-                                class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">{{ $row->position }}</span>
-                            <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">{{ $row->name }}</h3>
-                            <p class="text-sm text-ns-ink-700 leading-relaxed whitespace-pre-line m-0">
-                                {{ $row->description }}</p>
-                        </div>
-                    </article>
-                @empty
-                    <div
-                        class="col-span-full max-w-2xl mx-auto w-full bg-white border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 rounded-lg p-8 sm:p-10 text-center shadow-sm">
-                        <div class="w-14 h-14 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 inline-flex items-center justify-center text-2xl mb-4"
-                            aria-hidden="true">
-                            <i class="lnr lnr-users"></i>
-                        </div>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2">Data Profil Partner Sedang
-                            Diperbarui</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-6">
-                            Saat ini daftar profil rekanan advokat (Legal Partnership) belum ditampilkan di halaman ini.
-                            Anda tetap dapat menghubungi kantor kami untuk informasi tim pendamping perkara.
-                        </p>
-                        <a href="{{ route('contact') }}"
-                            class="inline-flex items-center justify-center min-h-[48px] px-7 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded hover:bg-ns-navy-800 transition">
-                            Hubungi Kantor Kami
-                        </a>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </section>
-    <!--================ End Team Area =================-->
-
     <!--================ Start Client Reviews & Feedback CTA Area (Featured Single Card Slider) =================-->
     <section class="py-16 sm:py-20 lg:py-24 bg-ns-navy-900 text-ns-light-100 border-t-2 border-b-2 border-ns-gold-500 relative overflow-hidden"
         aria-labelledby="ulasan-heading">
@@ -623,7 +559,7 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 @forelse($news as $row)
                     <article
                         class="flex flex-col h-full bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">

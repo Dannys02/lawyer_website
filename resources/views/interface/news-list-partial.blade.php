@@ -1,5 +1,5 @@
 <!-- Grid 3 Kolom Sejajar Konsisten -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<div class="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
     @forelse ($news as $index => $row)
         @php
             $targetUrl = !empty($row->url) ? $row->url : '#';
@@ -63,7 +63,7 @@
 
                 <!-- Card Footer Action -->
                 <div class="pt-4 border-t border-ns-border-light flex items-center justify-between">
-                    <span class="text-[11px] font-semibold text-ns-ink-500 uppercase tracking-wider">
+                    <span class="hidden md:block text-[11px] font-semibold text-ns-ink-500 uppercase tracking-wider">
                         {{ !empty($row->publisher) ? $row->publisher : 'Warta Hukum' }}
                     </span>
                     <a href="{{ $targetUrl }}"

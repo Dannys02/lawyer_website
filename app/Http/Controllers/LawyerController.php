@@ -19,13 +19,12 @@ class LawyerController extends Controller
     public function welcome()
     {
         $reviews = reviews::latest()->get();
-        $patners = legal_patnership::all();
         $news = news::latest()->get();
         $services = service::latest()->get();
         $about = about::latest()->first();
         $socialmedia = socialmedia::latest()->first();
         $segmentation = segmentation::first();
-        return view('interface.welcome', compact('reviews', 'patners', 'news', 'services', 'about', 'socialmedia', 'segmentation'));
+        return view('interface.welcome', compact('reviews', 'news', 'services', 'about', 'socialmedia', 'segmentation'));
     }
 
     public function about()
@@ -38,7 +37,8 @@ class LawyerController extends Controller
     public function service()
     {
         $services = service::latest()->get();
-        return view('interface.service', compact('services'));
+        $segmentation = segmentation::first();
+        return view('interface.service', compact('services', 'segmentation'));
     }
 
     public function partner()

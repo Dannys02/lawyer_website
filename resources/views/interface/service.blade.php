@@ -65,7 +65,7 @@
             </div>
 
             <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
@@ -122,7 +122,7 @@
                     </h2>
                     <p class="text-sm sm:text-base text-ns-light-300 leading-relaxed mb-6">
                         Setiap perkara membutuhkan ketepatan strategi dan kejelasan komunikasi. Kami memastikan setiap
-                        langkah hukum terukur dan dapat dipertanggungjawabkan secara profesional.
+                        langkah hukum terukur dan dapat dipertanggungjawabkan.
                     </p>
 
                     <ul class="space-y-3.5 list-none p-0 m-0">
@@ -133,8 +133,8 @@
                                 <i class="fas fa-check"></i>
                             </span>
                             <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Pendampingan Tajam, Solutif
-                                    &amp; Strategis</strong>
+                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Pendampingan Tajam,
+                                    Solutif &amp; Strategis</strong>
                                 <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Merumuskan
                                     konstruksi hukum yang tepat sasaran sesuai duduk perkara.</span>
                             </div>
@@ -146,8 +146,8 @@
                                 <i class="fas fa-check"></i>
                             </span>
                             <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Tim Profesional Berdedikasi
-                                    Tinggi</strong>
+                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Tim Profesional
+                                    Berdedikasi Tinggi</strong>
                                 <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Dukungan advokat
                                     dan konsultan yang kompeten di bidangnya.</span>
                             </div>
@@ -230,27 +230,33 @@
                         </div>
                     </div>
 
-                    <!-- Mosaic Gallery (Dokumentasi Aktivitas Kantor Hukum) -->
+                    <!-- Mosaic Gallery (Foto Dokumentasi Segmentasi Klien) -->
+                    @php
+                        $img1 = !empty($segmentation->picture1) ? asset('storage/' . $segmentation->picture1) : asset('interface/img/service/service4.jpg');
+                        $img2 = !empty($segmentation->picture2) ? asset('storage/' . $segmentation->picture2) : asset('interface/img/service/service5.jpg');
+                        $img3 = !empty($segmentation->picture3) ? asset('storage/' . $segmentation->picture3) : asset('interface/img/service/service6.jpg');
+                        $img4 = !empty($segmentation->picture4) ? asset('storage/' . $segmentation->picture4) : asset('interface/img/service/service7.jpg');
+                    @endphp
                     <div class="grid grid-cols-2 gap-3" aria-label="Dokumentasi Aktivitas Kantor Hukum">
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service4.jpg') }}" alt="Pendampingan hukum klien 1"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img1 }}" alt="Dokumentasi penanganan perkara hukum klien 1"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service5.jpg') }}" alt="Pendampingan hukum klien 2"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img2 }}" alt="Dokumentasi pendampingan hukum klien 2"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service6.jpg') }}" alt="Diskusi strategi hukum 3"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img3 }}" alt="Dokumentasi diskusi strategi hukum 3"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service7.jpg') }}" alt="Konsultasi kantor hukum 4"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img4 }}" alt="Dokumentasi konsultasi advokat kantor hukum 4"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                     </div>
                 </div>

@@ -66,7 +66,7 @@
             </div>
 
             <!-- Grid 3 Kolom Modern & Konsisten -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                 @forelse ($galeries as $index => $row)
                     @php
                         // Format caption name if generic like 'foto1', otherwise show meaningful caption

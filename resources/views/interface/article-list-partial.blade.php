@@ -1,5 +1,5 @@
 <!-- Grid 3 Kolom Sejajar Konsisten -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<div class="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
     @forelse($articles as $index => $row)
         <article
             class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
@@ -54,7 +54,7 @@
 
                 <!-- Card Footer Action with Read More Button -->
                 <div class="pt-4 border-t border-ns-border-light flex items-center justify-between">
-                    <span class="text-[11px] font-semibold text-ns-ink-500 uppercase tracking-wider">
+                    <span class="hidden md:block text-[11px] font-semibold text-ns-ink-500 uppercase tracking-wider">
                         {{ !empty($row->publisher) ? $row->publisher : 'Nurul Safii & Partners' }}
                     </span>
                     <a href="{{ route('article.show', $row->slug) }}"
