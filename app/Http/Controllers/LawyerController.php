@@ -8,6 +8,7 @@ use App\Models\galery;
 use App\Models\jurnal;
 use App\Models\legal_opini;
 use App\Models\reviews;
+use App\Models\segmentation;
 use App\Models\service;
 use App\Models\socialmedia;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class LawyerController extends Controller
         $services = service::latest()->get();
         $about = about::latest()->first();
         $socialmedia = socialmedia::latest()->first();
-        return view('interface.welcome', compact('reviews', 'patners', 'news', 'services', 'about', 'socialmedia'));
+        $segmentation = segmentation::first();
+        return view('interface.welcome', compact('reviews', 'patners', 'news', 'services', 'about', 'socialmedia', 'segmentation'));
     }
 
     public function about()

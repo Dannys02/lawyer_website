@@ -354,27 +354,33 @@
                         </div>
                     </div>
 
-                    <!-- Mosaic Gallery -->
+                    <!-- Mosaic Gallery (Foto Dokumentasi Segmentasi Klien) -->
+                    @php
+                        $img1 = !empty($segmentation->picture1) ? asset('storage/' . $segmentation->picture1) : asset('interface/img/service/service4.jpg');
+                        $img2 = !empty($segmentation->picture2) ? asset('storage/' . $segmentation->picture2) : asset('interface/img/service/service5.jpg');
+                        $img3 = !empty($segmentation->picture3) ? asset('storage/' . $segmentation->picture3) : asset('interface/img/service/service6.jpg');
+                        $img4 = !empty($segmentation->picture4) ? asset('storage/' . $segmentation->picture4) : asset('interface/img/service/service7.jpg');
+                    @endphp
                     <div class="grid grid-cols-2 gap-3" aria-label="Dokumentasi Aktivitas Kantor Hukum">
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service4.jpg') }}" alt="Pendampingan hukum klien 1"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img1 }}" alt="Dokumentasi penanganan perkara hukum klien 1"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service5.jpg') }}" alt="Pendampingan hukum klien 2"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img2 }}" alt="Dokumentasi pendampingan hukum klien 2"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service6.jpg') }}" alt="Diskusi strategi hukum 3"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover object-top">
+                            <img src="{{ $img3 }}" alt="Dokumentasi diskusi strategi hukum 3"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ asset('interface/img/service/service7.jpg') }}" alt="Konsultasi kantor hukum 4"
-                                width="280" height="200" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
+                            <img src="{{ $img4 }}" alt="Dokumentasi konsultasi advokat kantor hukum 4"
+                                width="320" height="240" loading="lazy" decoding="async"
+                                class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                     </div>
                 </div>
