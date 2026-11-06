@@ -61,123 +61,117 @@
                 $officeAddress = $soc->address ?? 'Dusun Muncar Baru, RT.01/RW.05, Desa Tembokrejo, Kec. Muncar, Kabupaten Banyuwangi, Jawa Timur 68472';
             @endphp
 
-            <!-- Contact Cards Grid (Saluran Komunikasi Elegan) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                <!-- Alamat Kantor -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
-                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <!-- Direct Directory / List Komunikasi Ringkas & Elegan (Editorial Row Architecture) -->
+            <div class="max-w-4xl mx-auto mb-16">
+                <div class="bg-white border border-[#C8C4BC] rounded-xl shadow-sm overflow-hidden divide-y divide-ns-border-light">
+                    
+                    <!-- 1. Alamat Kantor Utama -->
+                    <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-ns-ivory/50">
+                        <div class="flex items-start sm:items-center gap-4 min-w-0 sm:w-1/2">
+                            <span class="w-11 h-11 rounded-lg bg-ns-navy-950 text-ns-gold-400 flex items-center justify-center text-base shrink-0 shadow-sm border border-ns-navy-800">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-ns-gold-700">Kantor Utama</span>
+                                <h3 class="font-display font-bold text-sm sm:text-base text-ns-ink-900 leading-snug">Alamat Kantor Hukum</h3>
+                                <p class="text-xs text-ns-ink-600 mt-1 leading-relaxed">
+                                    {{ $officeAddress }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Kantor Utama</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Alamat Kantor Hukum</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed">
-                            {{ $officeAddress }}
-                        </p>
+                        <div class="sm:w-1/2 flex sm:justify-end items-center">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-ns-ink-600 bg-ns-ivory px-3 py-1.5 rounded-md border border-ns-border-light">
+                                <span>Banyuwangi, Jawa Timur</span>
+                            </span>
+                        </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-ns-border-light text-xs font-semibold text-ns-ink-500">
-                        Banyuwangi &amp; Jawa Timur
-                    </div>
-                </article>
 
-                <!-- WhatsApp / Telepon -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                    <!-- 2. WhatsApp / Telepon -->
+                    <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-ns-ivory/50">
+                        <div class="flex items-start sm:items-center gap-4 min-w-0 sm:w-1/2">
+                            <span class="w-11 h-11 rounded-lg bg-ns-navy-950 text-ns-gold-400 flex items-center justify-center text-base shrink-0 shadow-sm border border-ns-navy-800">
+                                <i class="fab fa-whatsapp text-lg" aria-hidden="true"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-ns-gold-700">Respons Cepat</span>
+                                <h3 class="font-display font-bold text-sm sm:text-base text-ns-ink-900 leading-snug">WhatsApp &amp; Telepon</h3>
+                                <p class="text-xs text-ns-ink-600 mt-1 leading-relaxed">
+                                    Konsultasi perkara langsung &amp; administrasi jadwal.
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">WhatsApp &amp; Telepon</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Konsultasi Langsung</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-4">
-                            Layanan konsultasi perkara dan administrasi berkas perkara melalui WhatsApp resmi.
-                        </p>
+                        <div class="sm:w-1/2 flex sm:justify-end items-center">
+                            <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center justify-center gap-2 text-xs font-bold text-ns-navy-950 bg-ns-gold-400 hover:bg-ns-navy-900 hover:text-white px-5 py-2.5 rounded-md shadow-sm transition group">
+                                <i class="fab fa-whatsapp text-sm" aria-hidden="true"></i>
+                                <span>+62 853-3197-9610</span>
+                                <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="pt-3 border-t border-ns-border-light">
-                        <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
-                            <span>+62 853-3197-9610</span>
-                            <span aria-hidden="true">&rarr;</span>
-                        </a>
-                    </div>
-                </article>
 
-                <!-- Email Kantor -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
-                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <!-- 3. Email Kantor -->
+                    <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-ns-ivory/50">
+                        <div class="flex items-start sm:items-center gap-4 min-w-0 sm:w-1/2">
+                            <span class="w-11 h-11 rounded-lg bg-ns-navy-950 text-ns-gold-400 flex items-center justify-center text-base shrink-0 shadow-sm border border-ns-navy-800">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-ns-gold-700">Surat Elektronik</span>
+                                <h3 class="font-display font-bold text-sm sm:text-base text-ns-ink-900 leading-snug">Korespondensi Resmi</h3>
+                                <p class="text-xs text-ns-ink-600 mt-1 leading-relaxed">
+                                    Pengiriman berkas perkara &amp; dokumen legal audit.
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Surat Elektronik</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Korespondensi Resmi</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-4">
-                            Pengiriman berkas perkara, dokumen legal audit, serta undangan kerjasama institusional.
-                        </p>
+                        <div class="sm:w-1/2 flex sm:justify-end items-center">
+                            <a href="mailto:snurulsafiilawoffice@gmail.com"
+                                class="inline-flex items-center gap-2 text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 bg-ns-ivory hover:bg-white px-4 py-2 rounded-md border border-ns-border-light transition shadow-sm break-all">
+                                <span>snurulsafiilawoffice@gmail.com</span>
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="pt-3 border-t border-ns-border-light">
-                        <a href="mailto:snurulsafiilawoffice@gmail.com" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition break-all">
-                            <span>snurulsafiilawoffice@gmail.com</span>
-                        </a>
-                    </div>
-                </article>
 
-                <!-- Instagram -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                    <!-- 4. Media Sosial & Kanal Daring -->
+                    <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-ns-ivory/50">
+                        <div class="flex items-start sm:items-center gap-4 min-w-0 sm:w-1/2">
+                            <span class="w-11 h-11 rounded-lg bg-ns-navy-950 text-ns-gold-400 flex items-center justify-center text-base shrink-0 shadow-sm border border-ns-navy-800">
+                                <i class="fas fa-globe" aria-hidden="true"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-ns-gold-700">Kanal Publik</span>
+                                <h3 class="font-display font-bold text-sm sm:text-base text-ns-ink-900 leading-snug">Media Sosial Resmi</h3>
+                                <p class="text-xs text-ns-ink-600 mt-1 leading-relaxed">
+                                    Aktivitas persidangan &amp; video edukasi hukum.
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Media Sosial</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Instagram Resmi</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-4">
-                            Dokumentasi aktivitas persidangan, edukasi hukum harian, dan kegiatan sosial firma.
-                        </p>
+                        <div class="sm:w-1/2 flex sm:justify-end items-center gap-2 flex-wrap">
+                            <a href="{{ $igUrl }}" target="_blank" rel="noopener noreferrer"
+                                title="Instagram Resmi"
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-ns-ivory hover:bg-ns-navy-900 text-ns-ink-800 hover:text-white border border-ns-border-light text-xs font-semibold transition shadow-sm">
+                                <i class="fab fa-instagram text-ns-gold-600"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="{{ $tiktokUrl }}" target="_blank" rel="noopener noreferrer"
+                                title="TikTok Edukasi Hukum"
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-ns-ivory hover:bg-ns-navy-900 text-ns-ink-800 hover:text-white border border-ns-border-light text-xs font-semibold transition shadow-sm">
+                                <i class="fab fa-tiktok text-ns-gold-600"></i>
+                                <span>TikTok</span>
+                            </a>
+                            @if (!empty($fbUrl))
+                                <a href="{{ $fbUrl }}" target="_blank" rel="noopener noreferrer"
+                                    title="Facebook Resmi"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-ns-ivory hover:bg-ns-navy-900 text-ns-ink-800 hover:text-white border border-ns-border-light text-xs font-semibold transition shadow-sm">
+                                    <i class="fab fa-facebook-f text-ns-gold-600"></i>
+                                    <span>Facebook</span>
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                    <div class="pt-3 border-t border-ns-border-light">
-                        <a href="{{ $igUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
-                            <span>Kunjungi Instagram</span>
-                            <span aria-hidden="true">&rarr;</span>
-                        </a>
-                    </div>
-                </article>
 
-                <!-- TikTok -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
-                            <i class="fab fa-tiktok" aria-hidden="true"></i>
-                        </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Edukasi Video</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">TikTok Edukasi Hukum</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-4">
-                            Video penjelasan singkat seputar hak hukum masyarakat, sengketa, dan undang-undang.
-                        </p>
-                    </div>
-                    <div class="pt-3 border-t border-ns-border-light">
-                        <a href="{{ $tiktokUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
-                            <span>@pengacara_nurul_safii</span>
-                            <span aria-hidden="true">&rarr;</span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Facebook -->
-                <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-lg bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-xl mb-4 shadow">
-                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                        </div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">Jejaring Sosial</div>
-                        <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-2">Facebook Resmi</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed mb-4">
-                            Informasi kegiatan kantor hukum, diskusi publik, serta liputan pendampingan masyarakat.
-                        </p>
-                    </div>
-                    <div class="pt-3 border-t border-ns-border-light">
-                        <a href="{{ $fbUrl ?? '#' }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
-                            <span>Kunjungi Facebook</span>
-                            <span aria-hidden="true">&rarr;</span>
-                        </a>
-                    </div>
-                </article>
+                </div>
             </div>
         </div>
     </section>
