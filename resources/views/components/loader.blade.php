@@ -18,7 +18,7 @@
         <!-- Tipografi Filosofis Firma Hukum -->
         <div class="loader-brand-block">
             <span class="loader-firm-name">KANTOR HUKUM NURUL SYAFII</span>
-            <span class="loader-firm-motto">JUSTITIA ET FIDES &bull; INTEGRITAS &amp; KEADILAN</span>
+            <span class="loader-firm-motto">ADVOKAT &middot; MEDIATOR &middot; KONSULTAN HUKUM</span>
         </div>
 
         <!-- Garis Progress Emas Sinematik -->

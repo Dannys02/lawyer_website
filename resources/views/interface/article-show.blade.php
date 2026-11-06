@@ -19,7 +19,7 @@
                 aria-label="Breadcrumb">
                 <a href="{{ route('welcome') }}" class="hover:text-ns-gold-400 transition-colors">Home</a>
                 <span class="text-ns-gold-400">&bull;</span>
-                <a href="{{ route('article') }}" class="hover:text-ns-gold-400 transition-colors">Artikel &amp; Legal
+                <a href="{{ route('article') }}" class="hover:text-ns-gold-400 transition-colors">Artikel & Legal
                     Opini</a>
                 <span class="text-ns-gold-400">&bull;</span>
                 <span class="text-ns-gold-400 truncate max-w-[200px] sm:max-w-xs"
@@ -29,7 +29,7 @@
             <div
                 class="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-widest uppercase text-ns-gold-400 mb-3">
                 <span class="inline-block w-8 sm:w-10 h-0.5 bg-ns-gold-400" aria-hidden="true"></span>
-                KAJIAN HUKUM &amp; LEGAL OPINI
+                KAJIAN HUKUM & LEGAL OPINI
             </div>
 
             <h1 id="article-detail-heading"
@@ -106,6 +106,30 @@
                             {!! $article->text !!}
                         </div>
 
+                        <!-- Share Article Area: Copy Link -->
+                        <div
+                            class="mt-8 pt-6 border-t border-ns-border-light flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-ns-ivory/60 p-4 rounded-lg border border-ns-border-light/70">
+                            <div class="flex items-center gap-2.5">
+                                <span
+                                    class="w-9 h-9 rounded-full bg-ns-navy-900 text-ns-gold-400 flex items-center justify-center text-sm shrink-0">
+                                    <i class="fas fa-share-alt" aria-hidden="true"></i>
+                                </span>
+                                <div>
+                                    <span class="block text-xs font-bold uppercase tracking-wider text-ns-navy-900">Bagikan
+                                        Artikel</span>
+                                    <span class="text-xs text-ns-ink-600">Salin tautan artikel ini untuk dibagikan</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="copyArticleLinkBtn" data-url="{{ url()->current() }}"
+                                    class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white hover:bg-ns-navy-900 text-ns-navy-900 hover:text-white border border-ns-border-light hover:border-ns-navy-900 rounded-md text-xs font-bold transition shadow-sm group">
+                                    <i class="far fa-copy text-ns-gold-600 group-hover:text-ns-gold-400"
+                                        id="copyArticleLinkIcon"></i>
+                                    <span id="copyArticleLinkText">Salin Link</span>
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Article Footer: Author Signature Box -->
                         <div
                             class="mt-10 pt-6 border-t-2 border-ns-border-light flex flex-col sm:flex-row items-center sm:items-start gap-5 bg-ns-ivory p-6 rounded-lg border">
@@ -120,7 +144,7 @@
                                     {{ $article->author ?? 'Nurul Safii, S.H., M.H., C.MSP & Partners' }}
                                 </h2>
                                 <p class="text-xs sm:text-sm text-ns-ink-700 leading-relaxed mb-3">
-                                    Advokat, Konsultan Hukum, Kurator &amp; Mediator bersumpah Pengadilan Tinggi yang
+                                    Advokat, Konsultan Hukum, Kurator & Mediator bersumpah Pengadilan Tinggi yang
                                     berfokus pada litigasi dan non-litigasi.
                                 </p>
                                 <a href="{{ route('contact') }}"
@@ -172,7 +196,7 @@
                     <!-- Recent / Related Articles List -->
                     <div class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 shadow-sm">
                         <div class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1">
-                            Arsip &amp; Rekomendasi
+                            Arsip & Rekomendasi
                         </div>
                         <h2
                             class="font-display font-bold text-lg text-ns-ink-900 pb-4 mb-4 border-b border-ns-border-light">
@@ -228,3 +252,49 @@
     </section>
     <!--================ End Article Content & Sidebar Section =================-->
 @endsection
+
+@push('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('copyArticleLinkBtn');
+            if (!btn) return;
+
+            const textEl = document.getElementById('copyArticleLinkText');
+            const iconEl = document.getElementById('copyArticleLinkIcon');
+            const url = btn.getAttribute('data-url') || window.location.href;
+
+            btn.addEventListener('click', async function() {
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(url);
+                    } else {
+                        // Fallback jika browser lawas atau non-secure context
+                        const input = document.createElement('input');
+                        input.value = url;
+                        input.style.position = 'fixed';
+                        input.style.left = '-9999px';
+                        document.body.appendChild(input);
+                        input.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(input);
+                    }
+
+                    // Tampilan feedback sukses
+                    textEl.textContent = 'Link Tersalin!';
+                    iconEl.className = 'fas fa-check text-emerald-500';
+                    btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-700');
+
+                    setTimeout(function() {
+                        textEl.textContent = 'Salin Link';
+                        iconEl.className =
+                            'far fa-copy text-ns-gold-600 group-hover:text-ns-gold-400';
+                        btn.classList.remove('border-emerald-500', 'bg-emerald-50',
+                            'text-emerald-700');
+                    }, 2000);
+                } catch (e) {
+                    console.error('Gagal menyalin tautan:', e);
+                }
+            });
+        });
+    </script>
+@endpush
