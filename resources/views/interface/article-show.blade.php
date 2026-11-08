@@ -1,6 +1,32 @@
 @extends('interface.layout.app')
 @section('title', $article->title . ' | Pengacara Banyuwangi Safi')
 
+@php
+    $metaDescription = Str::limit(trim(strip_tags($article->text)), 160);
+    $metaImage = !empty($article->picture) ? asset('storage/' . $article->picture) : asset('interface/img/LOGO_NS_2.png');
+@endphp
+
+@push('meta')
+    <meta name="description" content="{{ $metaDescription }}">
+
+    <!-- Open Graph / WhatsApp Preview Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kantor Hukum Nurul Safii & Partners">
+    <meta property="og:title" content="{{ $article->title }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $metaImage }}">
+    <meta property="og:image:secure_url" content="{{ $metaImage }}">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="315">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $article->title }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $metaImage }}">
+@endpush
+
 @section('content')
     <!--================ Start Page Banner Area (Editorial Navy & Gold) =================-->
     <section
