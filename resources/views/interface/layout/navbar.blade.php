@@ -77,7 +77,7 @@
                             <li>
                                 <a class="block px-4 py-2.5 text-xs uppercase font-medium text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-900 transition-colors border-b border-white/5 {{ Route::is('file') ? 'bg-ns-gold-400 text-ns-navy-900 font-bold' : '' }}"
                                     href="{{ route('file') }}">
-                                    Jurnal Hukum
+                                    Kumpulan Undang-Undang
                                 </a>
                             </li>
                             <li>
@@ -129,7 +129,7 @@
                     <a class="block px-3 py-1.5 text-xs uppercase text-ns-light-300 hover:text-ns-gold-400 {{ Route::is('article') ? 'text-ns-gold-400 font-bold' : '' }}"
                         href="{{ route('article') }}">Artikel Hukum</a>
                     <a class="block px-3 py-1.5 text-xs uppercase text-ns-light-300 hover:text-ns-gold-400 {{ Route::is('file') ? 'text-ns-gold-400 font-bold' : '' }}"
-                        href="{{ route('file') }}">Jurnal Hukum</a>
+                        href="{{ route('file') }}">Kumpulan Undang-Undang</a>
                     <a class="block px-3 py-1.5 text-xs uppercase text-ns-light-300 hover:text-ns-gold-400 {{ Route::is('break-news') ? 'text-ns-gold-400 font-bold' : '' }}"
                         href="{{ route('break-news') }}">Berita</a>
                 </div>

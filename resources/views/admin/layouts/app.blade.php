@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Dashboard Admin Lawyer &mdash; Kantor Hukum Nurul Syafii</title>
-    <meta name="description" content="Dashboard Panel Kendali Administrator Kantor Hukum Nurul Syafii" />
+    <title>Dashboard Admin Lawyer &mdash; Kantor Hukum Nurul Safii</title>
+    <meta name="description" content="Dashboard Panel Kendali Administrator Kantor Hukum Nurul Safii" />
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('interface/img/LOGO_NS_2.png') }}" type="image/png">
@@ -14,7 +14,9 @@
     <!-- Fonts: Poppins Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet" />
 
     <!-- Icons (FontAwesome & Tabler Icons Only, ZERO Bootstrap) -->
     <link rel="stylesheet" href="{{ asset('assets_admin/vendor/fonts/fontawesome.css') }}" />
@@ -29,13 +31,15 @@
     @stack('styles')
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800 font-sans antialiased selection:bg-ns-gold-400 selection:text-ns-navy-950">
+<body
+    class="min-h-screen bg-slate-50 text-slate-800 font-sans antialiased selection:bg-ns-gold-400 selection:text-ns-navy-950">
     <x-loader />
 
     <div class="flex min-h-screen relative">
         <!-- Mobile Sidebar Backdrop -->
         <div id="admin-sidebar-backdrop" onclick="toggleAdminSidebar()"
-            class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 hidden xl:hidden transition-opacity duration-300"></div>
+            class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 hidden xl:hidden transition-opacity duration-300">
+        </div>
 
         <!-- Sidebar Kiri (Navy & Gold) -->
         @include('admin.layouts.sidebar')
@@ -124,7 +128,7 @@
         }
 
         // Tutup dropdown saat klik di luar, dan tutup modal saat klik backdrop atau tekan Escape
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             closeAllAdminDropdowns();
 
             if (e.target.classList.contains('admin-modal-backdrop')) {
@@ -134,7 +138,7 @@
             }
         });
 
-        document.addEventListener('keydown', function (e) {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeAllAdminDropdowns();
                 document.querySelectorAll('.admin-modal-backdrop:not(.hidden)').forEach(modal => {

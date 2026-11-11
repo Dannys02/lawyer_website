@@ -58,26 +58,30 @@
                         Layanan Hukum Unggulan
                     </h2>
                 </div>
-                <p class="text-sm sm:text-base text-ns-ink-700 max-w-xl leading-relaxed m-0">
-                    Pendampingan komprehensif di jalur pengadilan (litigasi) maupun penyelesaian sengketa di luar pengadilan
-                    (non-litigasi) dengan struktur penanganan yang terukur.
-                </p>
             </div>
 
             <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($services as $index => $item)
                     <article
-                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="relative bg-ns-navy-800">
+                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
+                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 aspect-[16/11] overflow-hidden">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
                                 width="480" height="320" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">{{ $item->title }}</h3>
-                            <div class="text-sm text-ns-ink-700 leading-relaxed flex-1 service-rich-desc">
-                                {!! $item->description !!}
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </a>
+                        <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-white">
+                            <h3 class="font-display font-bold text-base sm:text-lg text-ns-ink-900 mb-4 line-clamp-2 leading-snug">
+                                <a href="{{ route('service.show', $item->id) }}" class="hover:text-ns-gold-700 transition-colors">
+                                    {{ $item->title }}
+                                </a>
+                            </h3>
+                            <div class="pt-3 border-t border-ns-border-light mt-auto">
+                                <a href="{{ route('service.show', $item->id) }}"
+                                    class="inline-flex items-center gap-1.5 text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                                    <span>Lihat Detail Layanan</span>
+                                    <span aria-hidden="true">&rarr;</span>
+                                </a>
                             </div>
                         </div>
                     </article>

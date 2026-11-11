@@ -25,6 +25,7 @@
                             <th class="py-3.5 pl-6 pr-4">Facebook</th>
                             <th class="py-3.5 px-4">Instagram</th>
                             <th class="py-3.5 px-4">WhatsApp (wa)</th>
+                            <th class="py-3.5 px-4">Email</th>
                             <th class="py-3.5 px-4">TikTok</th>
                             <th class="py-3.5 px-4">Maps</th>
                             <th class="py-3.5 px-4">Alamat (address)</th>
@@ -50,6 +51,12 @@
                                     <a href="{{ $row->wa }}" target="_blank" rel="noopener noreferrer"
                                         class="text-xs font-medium text-amber-800 hover:underline truncate block" title="{{ $row->wa }}">
                                         {{ $row->wa }}
+                                    </a>
+                                </td>
+                                <td class="py-4 px-4 max-w-[160px]">
+                                    <a href="mailto:{{ $row->email }}"
+                                        class="text-xs font-medium text-amber-800 hover:underline truncate block" title="{{ $row->email }}">
+                                        {{ $row->email ?? '-' }}
                                     </a>
                                 </td>
                                 <td class="py-4 px-4 max-w-[160px]">
@@ -98,7 +105,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="py-12 text-center">
+                                <td colspan="8" class="py-12 text-center">
                                     <div class="flex flex-col items-center justify-center gap-2 text-slate-400">
                                         <i class="ti ti-share-off text-4xl"></i>
                                         <span class="text-sm font-medium text-slate-500">Belum ada data Media Sosial yang tersedia</span>

@@ -55,6 +55,7 @@
             @php
                 $soc = $socialmedia ?? $socialMediaData ?? null;
                 $waUrl = $soc->wa ?? 'https://wa.link/psypax';
+                $emailContact = $soc->email ?? 'nurulsafii.sh@gmail.com';
                 $igUrl = $soc->instagram ?? '#';
                 $tiktokUrl = $soc->tiktok ?? 'https://www.tiktok.com/@pengacara_nurul_safii';
                 $fbUrl = $soc->facebook ?? null;
@@ -125,9 +126,9 @@
                             </div>
                         </div>
                         <div class="sm:w-1/2 flex sm:justify-end items-center">
-                            <a href="mailto:snurulsafiilawoffice@gmail.com"
+                            <a href="mailto:{{ $emailContact }}"
                                 class="inline-flex items-center gap-2 text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 bg-ns-ivory hover:bg-white px-4 py-2 rounded-md border border-ns-border-light transition shadow-sm break-all">
-                                <span>snurulsafiilawoffice@gmail.com</span>
+                                <span>{{ $emailContact }}</span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </div>

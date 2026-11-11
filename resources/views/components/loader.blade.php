@@ -1,4 +1,4 @@
-<div id="loading-screen" role="status" aria-live="polite" aria-label="Memuat portal Kantor Hukum Nurul Syafii">
+<div id="loading-screen" role="status" aria-live="polite" aria-label="Memuat portal Kantor Hukum Nurul Safii">
     <!-- Latar Belakang Ambient Glow Elegan -->
     <div class="loader-backdrop-glow" aria-hidden="true"></div>
 
@@ -7,11 +7,10 @@
         <div class="loader-emblem-container">
             <div class="loader-ring-pulse" aria-hidden="true"></div>
             <div class="loader-ring-spin" aria-hidden="true"></div>
-            
+
             <div class="loader-logo-frame">
-                <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" 
-                     alt="Lambang Kantor Hukum Nurul Syafii" 
-                     class="loader-logo-img" />
+                <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Lambang Kantor Hukum Nurul Safii"
+                    class="loader-logo-img" />
             </div>
         </div>
 
@@ -196,37 +195,70 @@
 
     /* Animations */
     @keyframes emblemSpin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     @keyframes glowPulse {
-        0%, 100% { transform: scale(1); opacity: 0.6; }
-        50% { transform: scale(1.15); opacity: 0.95; }
+
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.6;
+        }
+
+        50% {
+            transform: scale(1.15);
+            opacity: 0.95;
+        }
     }
 
     @keyframes ringPulse {
-        0% { transform: scale(0.9); opacity: 0.7; }
-        50% { transform: scale(1.15); opacity: 0.15; }
-        100% { transform: scale(0.9); opacity: 0.7; }
+        0% {
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+
+        50% {
+            transform: scale(1.15);
+            opacity: 0.15;
+        }
+
+        100% {
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
     }
 
     @keyframes progressSlide {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(350%); }
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(350%);
+        }
     }
 
     /* Accessibility Reduced Motion */
     @media (prefers-reduced-motion: reduce) {
+
         .loader-ring-spin,
         .loader-ring-pulse,
         .loader-progress-bar,
         .loader-backdrop-glow {
             animation: none !important;
         }
+
         .loader-ring-spin {
             border-color: #D4AF37;
         }
+
         .loader-progress-bar {
             width: 100%;
             background: #D4AF37;
@@ -237,7 +269,7 @@
 
 <script>
     // Kunci scroll segera di level HTML dan Body
-    (function () {
+    (function() {
         document.documentElement.classList.add('is-locked-loading');
         document.body.classList.add('is-locked-loading');
 
@@ -246,8 +278,12 @@
         }
 
         // Cegah wheel, touchmove, dan tombol navigasi scroll selama loading aktif
-        window.addEventListener('wheel', preventScroll, { passive: false });
-        window.addEventListener('touchmove', preventScroll, { passive: false });
+        window.addEventListener('wheel', preventScroll, {
+            passive: false
+        });
+        window.addEventListener('touchmove', preventScroll, {
+            passive: false
+        });
 
         function preventScrollKeys(e) {
             var keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Space', ' '];
@@ -271,7 +307,7 @@
             var loader = document.getElementById('loading-screen');
             if (loader) {
                 loader.classList.add('loader-fade-out');
-                setTimeout(function () {
+                setTimeout(function() {
                     loader.style.display = 'none';
                     document.documentElement.classList.remove('is-locked-loading');
                     document.body.classList.remove('is-locked-loading');
@@ -301,7 +337,7 @@
         if (document.readyState === 'complete') {
             setTimeout(dismissLoader, 300);
         } else {
-            window.addEventListener('load', function () {
+            window.addEventListener('load', function() {
                 setTimeout(dismissLoader, 350);
             });
         }

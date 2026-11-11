@@ -8,9 +8,9 @@
         aria-labelledby="hero-heading">
         <!-- Background Media with Gradient Overlay and Parallax Scroll Effect -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
-                id="hero-parallax-bg"
-                class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 will-change-transform" fetchpriority="high">
+            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" id="hero-parallax-bg"
+                class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 will-change-transform"
+                fetchpriority="high">
             {{-- <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div> --}}
         </div>
 
@@ -34,7 +34,7 @@
                         class="font-serif italic text-lg sm:text-xl md:text-2xl leading-snug text-ns-gold-400 border-l-4 border-ns-gold-400 pl-4 sm:pl-5 my-5">
                         &ldquo;Solusi Hukum Terpercaya, Solusi Tepat Untuk Anda&rdquo;
                     </blockquote>
-                    <p class="text-sm sm:text-base leading-relaxed text-ns-light-300 max-w-2xl mb-8">
+                    <p class="text-justify text-sm sm:text-base leading-relaxed text-ns-light-300 max-w-2xl mb-8">
                         Mendampingi klien perorangan, korporasi, dan institusi dalam menghadapi kompleksitas hukum melalui
                         analisis tajam, strategi litigasi maupun non-litigasi yang terukur, serta integritas profesi yang
                         bermartabat.
@@ -53,8 +53,7 @@
 
                 <!-- Credential Card Sidebar (Logo Showcase) -->
                 <aside class="lg:col-span-5" aria-label="Lambang Resmi Kantor Hukum">
-                    <div
-                        id="hero-credential-card"
+                    <div id="hero-credential-card"
                         class="rounded-lg p-6 sm:p-8 transition-transform duration-100 ease-out will-change-transform min-h-[380px] sm:min-h-[420px] flex items-center justify-center">
                         <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
                             alt="Lambang Resmi Kantor Hukum Nurul Safii & Partners"
@@ -76,8 +75,8 @@
                     <div class="w-full max-w-md">
                         <div
                             class="relative h-64 sm:h-76 md:h-80 rounded-lg overflow-hidden bg-ns-navy-900 border-2 border-ns-gold-500/60 shadow-lg flex items-center justify-center">
-                            <img src="{{ asset('storage/' . ($about->image ?? $aboutData->image)) }}" alt="Profil Kantor Hukum Nurul Safii"
-                                class="max-w-[200px] sm:max-w-[240px] object-cover">
+                            <img src="{{ asset('storage/' . ($about->image ?? $aboutData->image)) }}"
+                                alt="Profil Kantor Hukum Nurul Safii" class="max-w-[200px] sm:max-w-[240px] object-cover">
                         </div>
 
                         <!-- Caption / Identitas Pendiri & Managing Partner -->
@@ -105,10 +104,10 @@
                         Profil Kantor Hukum
                     </h2>
                     @php
-                        $welcomeAboutText = $about->text_about ?? $aboutData->text_about ?? null;
+                        $welcomeAboutText = $about->text_about ?? ($aboutData->text_about ?? null);
                     @endphp
                     @if (!empty($welcomeAboutText))
-                        <div class="text-base text-ns-ink-700 leading-relaxed mb-6 space-y-4">
+                        <div class="text-base text-ns-ink-700 leading-relaxed mb-6 space-y-4 text-justify">
                             @if ($welcomeAboutText !== strip_tags($welcomeAboutText))
                                 {!! $welcomeAboutText !!}
                             @else
@@ -123,7 +122,8 @@
                         </p>
                         <p class="text-base text-ns-ink-700 leading-relaxed mb-6">
                             Berdiri di atas nilai-nilai luhur profesi hukum, kantor hukum ini didirikan oleh <strong
-                                class="text-ns-ink-900 font-semibold">Nurul Safii, S.H., M.H., C.MSP</strong>, seorang advokat
+                                class="text-ns-ink-900 font-semibold">Nurul Safii, S.H., M.H., C.MSP</strong>, seorang
+                            advokat
                             sekaligus konsultan strategis yang dikenal atas ketajaman analisis hukumnya dan kepedulian
                             sosialnya. Kami mendampingi klien dalam memitigasi risiko hukum, merumuskan langkah taktis, dan
                             memperjuangkan keadilan secara bermartabat.
@@ -182,26 +182,31 @@
                         Layanan Hukum Unggulan
                     </h2>
                 </div>
-                <p class="text-sm sm:text-base text-ns-ink-700 max-w-xl leading-relaxed m-0">
-                    Pendampingan komprehensif di jalur pengadilan (litigasi) maupun penyelesaian sengketa di luar pengadilan
-                    (non-litigasi) dengan struktur penanganan yang terukur.
-                </p>
+
             </div>
 
             <!-- Practice Grid Dinamis dari Database (Table: services) - 3 Kolom Sejajar -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($services as $index => $item)
                     <article
-                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">
-                        <div class="relative overflow-hidden bg-ns-navy-800">
+                        class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
+                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 aspect-[16/11] overflow-hidden">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
                                 width="480" height="320" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <h3 class="font-display font-bold text-lg text-ns-ink-900 mb-3">{{ $item->title }}</h3>
-                            <div class="text-sm text-ns-ink-700 leading-relaxed flex-1 service-rich-desc">
-                                {!! $item->description !!}
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </a>
+                        <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-white">
+                            <h3 class="font-display font-bold text-base sm:text-lg text-ns-ink-900 mb-4 line-clamp-2 leading-snug">
+                                <a href="{{ route('service.show', $item->id) }}" class="hover:text-ns-gold-700 transition-colors">
+                                    {{ $item->title }}
+                                </a>
+                            </h3>
+                            <div class="pt-3 border-t border-ns-border-light mt-auto">
+                                <a href="{{ route('service.show', $item->id) }}"
+                                    class="inline-flex items-center gap-1.5 text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                                    <span>Lihat Detail Layanan</span>
+                                    <span aria-hidden="true">&rarr;</span>
+                                </a>
                             </div>
                         </div>
                     </article>
@@ -356,10 +361,18 @@
 
                     <!-- Mosaic Gallery (Foto Dokumentasi Segmentasi Klien) -->
                     @php
-                        $img1 = !empty($segmentation->picture1) ? asset('storage/' . $segmentation->picture1) : asset('interface/img/service/service4.jpg');
-                        $img2 = !empty($segmentation->picture2) ? asset('storage/' . $segmentation->picture2) : asset('interface/img/service/service5.jpg');
-                        $img3 = !empty($segmentation->picture3) ? asset('storage/' . $segmentation->picture3) : asset('interface/img/service/service6.jpg');
-                        $img4 = !empty($segmentation->picture4) ? asset('storage/' . $segmentation->picture4) : asset('interface/img/service/service7.jpg');
+                        $img1 = !empty($segmentation->picture1)
+                            ? asset('storage/' . $segmentation->picture1)
+                            : asset('interface/img/service/service4.jpg');
+                        $img2 = !empty($segmentation->picture2)
+                            ? asset('storage/' . $segmentation->picture2)
+                            : asset('interface/img/service/service5.jpg');
+                        $img3 = !empty($segmentation->picture3)
+                            ? asset('storage/' . $segmentation->picture3)
+                            : asset('interface/img/service/service6.jpg');
+                        $img4 = !empty($segmentation->picture4)
+                            ? asset('storage/' . $segmentation->picture4)
+                            : asset('interface/img/service/service7.jpg');
                     @endphp
                     <div class="grid grid-cols-2 gap-3" aria-label="Dokumentasi Aktivitas Kantor Hukum">
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
@@ -368,13 +381,13 @@
                                 class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ $img2 }}" alt="Dokumentasi pendampingan hukum klien 2"
-                                width="320" height="240" loading="lazy" decoding="async"
+                            <img src="{{ $img2 }}" alt="Dokumentasi pendampingan hukum klien 2" width="320"
+                                height="240" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ $img3 }}" alt="Dokumentasi diskusi strategi hukum 3"
-                                width="320" height="240" loading="lazy" decoding="async"
+                            <img src="{{ $img3 }}" alt="Dokumentasi diskusi strategi hukum 3" width="320"
+                                height="240" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
@@ -390,11 +403,14 @@
     <!--================ End Why Choose Us Area =================-->
 
     <!--================ Start Client Reviews & Feedback CTA Area (Featured Single Card Slider) =================-->
-    <section class="py-16 sm:py-20 lg:py-24 bg-ns-navy-900 text-ns-light-100 border-t-2 border-b-2 border-ns-gold-500 relative overflow-hidden"
+    <section
+        class="py-16 sm:py-20 lg:py-24 bg-ns-navy-900 text-ns-light-100 border-t-2 border-b-2 border-ns-gold-500 relative overflow-hidden"
         aria-labelledby="ulasan-heading">
         <!-- Subtle Background Glow -->
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-ns-gold-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-ns-gold-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-ns-gold-500/5 rounded-full blur-3xl pointer-events-none"
+            aria-hidden="true"></div>
+        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-ns-gold-500/5 rounded-full blur-3xl pointer-events-none"
+            aria-hidden="true"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -410,7 +426,8 @@
                         Ulasan &amp; Penilaian Layanan
                     </h2>
                     <p class="text-sm sm:text-base text-ns-light-300 leading-relaxed mb-6">
-                        Masukan dan testimoni dari klien yang telah kami dampingi menjadi tolok ukur utama peningkatan mutu pelayanan hukum kami yang amanah dan profesional.
+                        Masukan dan testimoni dari klien yang telah kami dampingi menjadi tolok ukur utama peningkatan mutu
+                        pelayanan hukum kami yang amanah dan profesional.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a href="{{ route('contact') }}#review-form"
@@ -425,7 +442,8 @@
                     @if ($reviews->count() > 0)
                         <!-- Kontrol Navigasi & Indikator -->
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs sm:text-sm font-semibold text-ns-gold-400 flex items-center gap-2" id="review-counter-text">
+                            <span class="text-xs sm:text-sm font-semibold text-ns-gold-400 flex items-center gap-2"
+                                id="review-counter-text">
                                 <span id="review-current-index">1</span> dari {{ $reviews->count() }} ulasan klien
                             </span>
                             @if ($reviews->count() > 1)
@@ -451,14 +469,16 @@
                         </div>
 
                         <!-- Card Slider Wrapper (Vertical Fixed Height Container) -->
-                        <div id="review-slider-wrapper" class="overflow-hidden rounded-2xl relative h-[310px] sm:h-[300px]">
+                        <div id="review-slider-wrapper"
+                            class="overflow-hidden rounded-2xl relative h-[310px] sm:h-[300px]">
                             <div class="ns-review-slider flex flex-col transition-transform duration-700 ease-out h-full">
                                 @foreach ($reviews as $review)
                                     <div class="w-full h-[310px] sm:h-[300px] flex-shrink-0 box-border py-1">
                                         <article
                                             class="bg-ns-navy-800/95 border border-ns-gold-400/30 border-t-4 border-t-ns-gold-400 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden h-full box-border">
                                             <!-- Watermark Quote -->
-                                            <div class="absolute -top-3 right-6 text-ns-gold-400/10 text-8xl font-serif select-none pointer-events-none" aria-hidden="true">
+                                            <div class="absolute -top-3 right-6 text-ns-gold-400/10 text-8xl font-serif select-none pointer-events-none"
+                                                aria-hidden="true">
                                                 &rdquo;
                                             </div>
 
@@ -468,12 +488,15 @@
                                                     <div class="flex items-center gap-1.5 text-ns-gold-400 text-base"
                                                         aria-label="Rating {{ $review->rating }} dari 5 bintang">
                                                         @for ($i = 0; $i < $review->rating; $i++)
-                                                            <i class="fas fa-star text-sm text-ns-gold-400" aria-hidden="true"></i>
+                                                            <i class="fas fa-star text-sm text-ns-gold-400"
+                                                                aria-hidden="true"></i>
                                                         @endfor
                                                         @for ($i = $review->rating; $i < 5; $i++)
-                                                            <i class="far fa-star text-sm text-slate-600" aria-hidden="true"></i>
+                                                            <i class="far fa-star text-sm text-slate-600"
+                                                                aria-hidden="true"></i>
                                                         @endfor
-                                                        <span class="ml-2 text-xs font-bold text-ns-gold-400 bg-ns-navy-900/80 border border-ns-gold-400/30 px-2 py-0.5 rounded">
+                                                        <span
+                                                            class="ml-2 text-xs font-bold text-ns-gold-400 bg-ns-navy-900/80 border border-ns-gold-400/30 px-2 py-0.5 rounded">
                                                             {{ $review->rating }}.0 / 5.0
                                                         </span>
                                                     </div>
@@ -485,24 +508,28 @@
 
                                                 <!-- Isi Pesan Testimoni Card (Scrollable jika teks panjang, ukuran card tetap seragam) -->
                                                 <div class="overflow-y-auto pr-1 flex-1 mb-3">
-                                                    <p class="text-base sm:text-lg text-ns-light-100 font-normal leading-relaxed italic relative z-10 m-0">
+                                                    <p
+                                                        class="text-base sm:text-lg text-ns-light-100 font-normal leading-relaxed italic relative z-10 m-0">
                                                         &ldquo;{{ $review->message }}&rdquo;
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <!-- Identitas Klien & Avatar (Posisi Bawah Card Selalu Seragam) -->
-                                            <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-4 flex-shrink-0 mt-auto">
+                                            <div
+                                                class="pt-4 border-t border-white/10 flex items-center justify-between gap-4 flex-shrink-0 mt-auto">
                                                 <div class="flex items-center gap-3.5">
-                                                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-ns-gold-500 to-ns-gold-400 text-ns-navy-950 font-bold text-base flex items-center justify-center flex-shrink-0 shadow-lg">
+                                                    <div
+                                                        class="w-11 h-11 rounded-full bg-gradient-to-tr from-ns-gold-500 to-ns-gold-400 text-ns-navy-950 font-bold text-base flex items-center justify-center flex-shrink-0 shadow-lg">
                                                         {{ strtoupper(substr($review->name, 0, 1)) }}
                                                     </div>
                                                     <div>
-                                                        <h3 class="font-bold text-sm sm:text-base text-ns-light-100 m-0 leading-tight">
+                                                        <h3
+                                                            class="font-bold text-sm sm:text-base text-ns-light-100 m-0 leading-tight">
                                                             {{ $review->name }}
                                                         </h3>
                                                         <span class="text-xs text-ns-gold-400 font-medium block mt-0.5">
-                                                            Klien Terverifikasi &bull; Kantor Hukum Nurul Syafii
+                                                            Klien Terverifikasi &bull; Kantor Hukum Nurul Safii
                                                         </span>
                                                     </div>
                                                 </div>
@@ -519,7 +546,8 @@
                                 aria-hidden="true">
                                 <i class="lnr lnr-bubble"></i>
                             </div>
-                            <h3 class="font-display font-bold text-xl text-ns-light-100 mb-2">Belum Ada Ulasan yang Ditampilkan</h3>
+                            <h3 class="font-display font-bold text-xl text-ns-light-100 mb-2">Belum Ada Ulasan yang
+                                Ditampilkan</h3>
                             <p class="text-sm text-ns-light-300 leading-relaxed mb-6">
                                 Ulasan dari klien yang telah menggunakan layanan hukum kami akan ditampilkan di bagian ini.
                                 Jika Anda pernah berkonsultasi bersama kami, silakan kirimkan ulasan Anda.
@@ -570,13 +598,16 @@
                         </div>
                         <div class="p-6 flex flex-col flex-1">
                             <div class="flex flex-wrap items-center gap-2 text-xs font-semibold text-ns-ink-500 mb-2">
-                                <time datetime="{{ \Carbon\Carbon::parse($row->date_publish)->format('Y-m-d') }}" class="text-ns-gold-700 font-bold">
+                                <time datetime="{{ \Carbon\Carbon::parse($row->date_publish)->format('Y-m-d') }}"
+                                    class="text-ns-gold-700 font-bold">
                                     {{ \Carbon\Carbon::parse($row->date_publish)->format('d F Y') }}
                                 </time>
                                 <span aria-hidden="true">&middot;</span>
                                 <span class="truncate max-w-[130px]">{{ $row->author }}</span>
                                 <span aria-hidden="true">&middot;</span>
-                                <span class="inline-flex items-center gap-1 text-ns-ink-600 bg-ns-ivory px-2 py-0.5 rounded border border-ns-border-light text-[11px]" title="Dibaca {{ number_format($row->views ?? 0) }} kali">
+                                <span
+                                    class="inline-flex items-center gap-1 text-ns-ink-600 bg-ns-ivory px-2 py-0.5 rounded border border-ns-border-light text-[11px]"
+                                    title="Dibaca {{ number_format($row->views ?? 0) }} kali">
                                     <i class="far fa-eye text-ns-gold-700" aria-hidden="true"></i>
                                     <span>{{ number_format($row->views ?? 0) }}x</span>
                                 </span>
@@ -606,7 +637,7 @@
                         </h3>
                         <p class="text-sm text-ns-ink-700 leading-relaxed mb-6">
                             Artikel berita dan pembaruan kegiatan hukum sedang dalam tahap penyusunan oleh tim redaksi kami.
-                            Anda dapat menelusuri Artikel Hukum atau Jurnal Hukum yang tersedia.
+                            Anda dapat menelusuri Artikel Hukum atau Kumpulan Undang-Undang yang tersedia.
                         </p>
                         <div class="flex flex-wrap justify-center gap-3">
                             <a href="{{ route('article') }}"
@@ -615,7 +646,7 @@
                             </a>
                             <a href="{{ route('file') }}"
                                 class="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 bg-transparent text-ns-navy-900 font-bold text-xs uppercase tracking-wide rounded border-2 border-ns-navy-900 hover:bg-ns-navy-900 hover:text-ns-light-100 transition">
-                                Lihat Jurnal Hukum
+                                Lihat Kumpulan Undang-Undang
                             </a>
                         </div>
                     </div>

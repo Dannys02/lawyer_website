@@ -7,8 +7,8 @@
             <div
                 class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                    <h1 class="text-lg font-bold text-slate-900">Edit Jurnal Hukum</h1>
-                    <p class="text-xs text-slate-600">Perbarui dokumen atau deskripsi jurnal ilmiah</p>
+                    <h1 class="text-lg font-bold text-slate-900">Edit Kumpulan Undang-Undang</h1>
+                    <p class="text-xs text-slate-600">Perbarui berkas peraturan perundang-undangan atau deskripsi dokumen</p>
                 </div>
                 <a href="{{ route('jurnal.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition self-start sm:self-auto">

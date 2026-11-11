@@ -20,6 +20,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [App\Http\Controllers\LawyerController::class, 'welcome'])->name('welcome');
 Route::get('/about', [App\Http\Controllers\LawyerController::class, 'about'])->name('about');
 Route::get('/service', [App\Http\Controllers\LawyerController::class, 'service'])->name('service');
+Route::get('/service/{id}', [App\Http\Controllers\LawyerController::class, 'showService'])->name('service.show');
 Route::get('/partner', [App\Http\Controllers\LawyerController::class, 'partner'])->name('partner');
 Route::get('/picture', [App\Http\Controllers\LawyerController::class, 'picture'])->name('picture');
 Route::get('/article', [App\Http\Controllers\LawyerController::class, 'article'])->name('article');

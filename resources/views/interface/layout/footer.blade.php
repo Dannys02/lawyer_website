@@ -4,6 +4,7 @@
     $footerAddress =
         $socialMediaData->address ?? 'Dusun Muncar Baru, RT.01/RW.05, Tembokrejo, Kec. Muncar, Banyuwangi, Jatim 68472';
     $footerWa = $socialMediaData->wa ?? 'https://wa.link/psypax';
+    $footerEmail = $socialMediaData->email ?? 'nurulsafii.sh@gmail.com';
     $footerTiktok = $socialMediaData->tiktok ?? 'https://www.tiktok.com/@pengacara_nurul_safii';
     $footerIg = $socialMediaData->instagram ?? null;
     $footerFb = $socialMediaData->facebook ?? null;
@@ -65,7 +66,7 @@
                             class="w-9 h-9 rounded-lg bg-ns-navy-900 border border-ns-gold-500/30 text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-950 hover:border-ns-gold-400 transition flex items-center justify-center text-sm shadow-sm">
                             <i class="fab fa-tiktok" aria-hidden="true"></i>
                         </a>
-                        <a href="mailto:snurulsafiilawoffice@gmail.com"
+                        <a href="mailto:{{ $footerEmail }}"
                             aria-label="Kirim Email ke Kantor Hukum Nurul Safii"
                             class="w-9 h-9 rounded-lg bg-ns-navy-900 border border-ns-gold-500/30 text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-950 hover:border-ns-gold-400 transition flex items-center justify-center text-sm shadow-sm">
                             <i class="lnr lnr-envelope" aria-hidden="true"></i>
@@ -96,7 +97,7 @@
                                 class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Artikel Hukum</a>
                         </li>
                         <li><a href="{{ route('file') }}"
-                                class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Jurnal Hukum</a>
+                                class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Kumpulan Undang-Undang</a>
                         </li>
                         <li><a href="{{ route('break-news') }}"
                                 class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Berita</a></li>
@@ -124,9 +125,9 @@
                         </li>
                         <li class="flex items-center gap-2.5">
                             <i class="lnr lnr-envelope text-ns-gold-400 text-sm flex-shrink-0" aria-hidden="true"></i>
-                            <a href="mailto:snurulsafiilawoffice@gmail.com"
+                            <a href="mailto:{{ $footerEmail }}"
                                 class="hover:text-ns-gold-400 transition-colors text-ns-light-100 break-all text-xs">
-                                snurulsafiilawoffice@gmail.com
+                                {{ $footerEmail }}
                             </a>
                         </li>
                     </ul>

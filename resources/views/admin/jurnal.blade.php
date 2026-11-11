@@ -7,22 +7,22 @@
             <!-- Card Header -->
             <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div>
-                    <h1 class="text-lg font-bold text-slate-900">Manajemen Jurnal Hukum</h1>
-                    <p class="text-xs text-slate-600">Kelola berkas publikasi riset dan jurnal ilmiah hukum</p>
+                    <h1 class="text-lg font-bold text-slate-900">Manajemen Kumpulan Undang-Undang</h1>
+                    <p class="text-xs text-slate-600">Kelola berkas publikasi peraturan perundang-undangan dan dokumen hukum</p>
                 </div>
 
                 <!-- Search Input (di pinggir kiri tombol Tambah Jurnal) & Tombol Tambah Jurnal -->
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                     <form id="admin-jurnal-search-form" action="{{ route('jurnal.index') }}" method="GET" onsubmit="return false;"
                         class="relative w-full sm:w-72 md:w-80">
-                        <label for="admin-jurnal-search-input" class="sr-only">Cari jurnal hukum</label>
+                        <label for="admin-jurnal-search-input" class="sr-only">Cari undang-undang</label>
                         <div class="relative flex items-center">
                             <span class="absolute left-3.5 text-slate-400 pointer-events-none text-sm">
                                 <i class="fas fa-search" aria-hidden="true"></i>
                             </span>
 
                             <input type="text" id="admin-jurnal-search-input" name="search" value="{{ $search ?? '' }}"
-                                placeholder="Cari judul atau deskripsi jurnal..." autocomplete="off"
+                                placeholder="Cari judul atau deskripsi undang-undang..." autocomplete="off"
                                 class="w-full pl-9 pr-16 py-2 bg-white text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl focus:outline-none focus:border-ns-gold-500 focus:ring-2 focus:ring-ns-gold-500/20 shadow-sm transition">
 
                             <div class="absolute right-2.5 flex items-center gap-1.5">

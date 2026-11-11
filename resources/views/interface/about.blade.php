@@ -134,7 +134,7 @@
                 </div>
                 <h2 id="visi-misi-heading"
                     class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-light-100 mb-4">
-                    Visi &amp; Misi Firma Hukum
+                    Visi &amp; Misi
                 </h2>
                 <p class="text-sm sm:text-base text-ns-light-300 leading-relaxed">
                     Fondasi cita-cita dan komitmen operasional yang memandu setiap langkah penanganan perkara dan

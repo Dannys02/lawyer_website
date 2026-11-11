@@ -7,8 +7,8 @@
             <div
                 class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                    <h1 class="text-lg font-bold text-slate-900">Tambah Jurnal Hukum</h1>
-                    <p class="text-xs text-slate-600">Unggah dokumen publikasi riset dan jurnal ilmiah baru</p>
+                    <h1 class="text-lg font-bold text-slate-900">Tambah Kumpulan Undang-Undang</h1>
+                    <p class="text-xs text-slate-600">Unggah berkas peraturan perundang-undangan dan dokumen hukum baru</p>
                 </div>
                 <a href="{{ route('jurnal.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition self-start sm:self-auto">
@@ -25,10 +25,10 @@
                 <!-- Judul -->
                 <div>
                     <label for="title" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        Judul Jurnal <span class="text-red-500">*</span>
+                        Judul Dokumen / Undang-Undang <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="title" name="title" value="{{ old('title') }}" required
-                        placeholder="Masukkan judul jurnal hukum..."
+                        placeholder="Masukkan judul kumpulan undang-undang..."
                         class="w-full px-4 py-2.5 rounded-xl border @error('title') border-red-500 @else border-slate-300 @enderror text-slate-900 text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20" />
                     @error('title')
                         <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>

@@ -15,6 +15,7 @@ class socialmedia extends Model
         'facebook',
         'instagram',
         'wa',
+        'email',
         'tiktok',
         'maps',
         'address',

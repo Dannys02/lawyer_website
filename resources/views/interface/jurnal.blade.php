@@ -1,5 +1,5 @@
 @extends('interface.layout.app')
-@section('title', 'Jurnal & Publikasi Hukum | Pengacara Banyuwangi Safi')
+@section('title', 'Kumpulan Undang-Undang | Pengacara Banyuwangi Safi')
 
 @section('content')
     <!--================ Start Page Banner Area (Editorial Navy & Gold) =================-->
@@ -20,21 +20,21 @@
                     aria-label="Breadcrumb">
                     <a href="{{ route('welcome') }}" class="hover:text-ns-gold-400 transition-colors">Home</a>
                     <span class="text-ns-gold-400">&bull;</span>
-                    <span class="text-ns-gold-400" aria-current="page">Jurnal Hukum</span>
+                    <span class="text-ns-gold-400" aria-current="page">Kumpulan Undang-Undang</span>
                 </nav>
 
                 <p
                     class="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-widest uppercase text-ns-gold-400 mb-2">
                     <span class="inline-block w-8 sm:w-10 h-0.5 bg-ns-gold-400" aria-hidden="true"></span>
-                    ARSIP &amp; PUBLIKASI AKADEMIK
+                    ARSIP &amp; PUBLIKASI HUKUM
                 </p>
                 <h1 id="jurnal-banner-heading"
                     class="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ns-light-100 leading-tight tracking-tight mb-3">
-                    Jurnal &amp; <span class="text-ns-gold-400">Riset Hukum</span>
+                    Kumpulan <span class="text-ns-gold-400">Undang-Undang</span>
                 </h1>
                 <p class="text-sm sm:text-base text-ns-light-300 leading-relaxed max-w-2xl">
-                    Koleksi karya tulis ilmiah, riset doktrinal, dan dokumen telaah hukum dari Kantor Hukum Nurul Safii
-                    &amp; Partners yang dapat diakses dan diunduh sebagai referensi akademis maupun praktis.
+                    Koleksi dokumen peraturan perundang-undangan dan telaah hukum dari Kantor Hukum Nurul Safii
+                    &amp; Partners yang dapat diakses dan diunduh sebagai referensi praktis maupun akademis.
                 </p>
             </div>
         </div>
@@ -52,11 +52,11 @@
                     <div
                         class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-2">
                         <span class="inline-block w-6 h-0.5 bg-ns-gold-700" aria-hidden="true"></span>
-                        <span>Literatur &amp; Dokumen Ilmiah</span>
+                        <span>Dokumen Peraturan &amp; Literatur</span>
                     </div>
                     <h2 id="jurnal-heading"
                         class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-ns-ink-900 m-0">
-                        Jurnal Kami
+                        Kumpulan Undang-Undang
                     </h2>
                 </div>
 
@@ -64,14 +64,14 @@
                 <div class="w-full lg:w-96 flex-shrink-0">
                     <form id="jurnal-search-form" action="{{ route('file') }}" method="GET" onsubmit="return false;"
                         class="relative">
-                        <label for="jurnal-search-input" class="sr-only">Cari judul atau topik jurnal</label>
+                        <label for="jurnal-search-input" class="sr-only">Cari judul atau topik undang-undang</label>
                         <div class="relative flex items-center">
                             <span class="absolute left-3.5 text-ns-ink-500 pointer-events-none text-sm">
                                 <i class="fas fa-search" aria-hidden="true"></i>
                             </span>
 
                             <input type="text" id="jurnal-search-input" name="search" value="{{ $search ?? '' }}"
-                                placeholder="Cari jurnal atau kata kunci..." autocomplete="off"
+                                placeholder="Cari undang-undang atau kata kunci..." autocomplete="off"
                                 class="w-full pl-10 pr-20 py-3 bg-white text-sm text-ns-ink-900 placeholder:text-ns-ink-500 border-2 border-ns-border-light rounded-lg focus:outline-none focus:border-ns-gold-500 focus:ring-1 focus:ring-ns-gold-500 shadow-sm transition">
 
                             <!-- Clear & Loading Indicators -->

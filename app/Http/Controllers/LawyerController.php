@@ -41,6 +41,13 @@ class LawyerController extends Controller
         return view('interface.service', compact('services', 'segmentation'));
     }
 
+    public function showService($id)
+    {
+        $service = service::findOrFail($id);
+        $otherServices = service::where('id', '!=', $service->id)->latest()->take(6)->get();
+        return view('interface.service-show', compact('service', 'otherServices'));
+    }
+
     public function partner()
     {
         $patners = legal_patnership::all();
