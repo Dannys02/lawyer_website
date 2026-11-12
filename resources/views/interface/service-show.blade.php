@@ -72,7 +72,7 @@
                     <article class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-9 shadow-sm">
                         <!-- Featured Image -->
                         @if (!empty($service->image))
-                            <div class="relative rounded-lg overflow-hidden border border-ns-border-light bg-ns-navy-950 mb-7 aspect-[16/10] sm:aspect-[16/9]">
+                            <div class="relative rounded-lg overflow-hidden border border-ns-border-light bg-ns-navy-950 mb-7">
                                 <img src="{{ asset('storage/' . $service->image) }}"
                                     alt="Layanan {{ $service->title }}"
                                     width="800" height="450"
@@ -82,10 +82,6 @@
 
                         <!-- Service Title Header -->
                         <div class="pb-5 mb-6 border-b border-ns-border-light">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-ns-ivory border border-ns-border-light text-xs font-bold uppercase tracking-wider text-ns-gold-700 mb-2">
-                                <i class="fas fa-balance-scale" aria-hidden="true"></i>
-                                <span>Lingkup Layanan Hukum</span>
-                            </span>
                             <h2 class="font-display font-bold text-xl sm:text-2xl text-ns-ink-900 mt-2 mb-0">
                                 {{ $service->title }}
                             </h2>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\reviews;
-use App\Models\jurnal;
+use App\Models\Peraturan;
 use App\Models\legal_opini;
 use App\Models\news;
 use App\Models\legal_patnership;
@@ -29,10 +29,10 @@ class HomeController extends Controller
     public function index()
     {
         $reviews = reviews::latest()->get();
-        $jurnals = jurnal::count();
+        $peraturans = Peraturan::count();
         $opinies = legal_opini::count();
         $news = news::count();
         $patners = legal_patnership::count();
-        return view('admin.home' , compact('reviews', 'jurnals', 'opinies', 'news', 'patners'));
+        return view('admin.home' , compact('reviews', 'peraturans', 'opinies', 'news', 'patners'));
     }
 }

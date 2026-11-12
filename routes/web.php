@@ -26,18 +26,18 @@ Route::get('/picture', [App\Http\Controllers\LawyerController::class, 'picture']
 Route::get('/article', [App\Http\Controllers\LawyerController::class, 'article'])->name('article');
 Route::get('/article/{slug}', [App\Http\Controllers\LawyerController::class, 'showArticle'])->name('article.show');
 Route::get('/file', [App\Http\Controllers\LawyerController::class, 'file'])->name('file');
+Route::get('/peraturan/{id}', [App\Http\Controllers\LawyerController::class, 'showPeraturan'])->name('peraturan.detail');
 Route::get('/contact', [App\Http\Controllers\LawyerController::class, 'contact'])->name('contact');
 Route::get('/break-news', [App\Http\Controllers\LawyerController::class, 'news'])->name('break-news');
 
 Route::post('/chatbot', [App\Http\Controllers\ChatbotController::class, 'ask'])->name('chatbot.ask');
 
-Route::get('/view-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'viewJurnal'])->name('view-pdf');
-Route::get('/download-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'downloadJurnal'])->name('download-pdf');
-
+Route::get('/view-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'viewPeraturan'])->name('view-pdf');
+Route::get('/download-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'downloadPeraturan'])->name('download-pdf');
 
 Route::resource('legal_opini', App\Http\Controllers\LegalOpiniController::class);
 Route::resource('legal_patnership', App\Http\Controllers\LegalPatnershipController::class);
-Route::resource('jurnal', App\Http\Controllers\JurnalController::class);
+Route::resource('peraturan', App\Http\Controllers\PeraturanController::class);
 Route::resource('galery', App\Http\Controllers\GaleryController::class);
 Route::post('reviews', [App\Http\Controllers\ReviewsController::class, 'store'])
     ->middleware('throttle:3,10')

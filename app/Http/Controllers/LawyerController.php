@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\about;
 use App\Models\news;
 use App\Models\galery;
-use App\Models\jurnal;
+use App\Models\Peraturan;
 use App\Models\legal_opini;
 use App\Models\reviews;
 use App\Models\segmentation;
@@ -103,22 +103,42 @@ class LawyerController extends Controller
     {
         $search = trim($request->input('search', ''));
 
-        $query = jurnal::query();
+        $query = Peraturan::query();
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                $q->where('tentang', 'like', "%{$search}%")
+                  ->orWhere('nomor', 'like', "%{$search}%")
+                  ->orWhere('jenis_peraturan', 'like', "%{$search}%")
+                  ->orWhere('tahun', 'like', "%{$search}%")
+                  ->orWhere('materi_pokok', 'like', "%{$search}%")
+                  ->orWhere('latar_belakang', 'like', "%{$search}%");
             });
         }
 
-        $file = $query->latest()->paginate(9)->withQueryString();
+        $file = $query->latest('tahun')->latest('nomor')->paginate(9)->withQueryString();
 
         if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
-            return view('interface.jurnal-list-partial', compact('file', 'search'));
+            return view('interface.peraturan-list-partial', compact('file', 'search'));
         }
 
-        return view('interface.jurnal', compact('file', 'search'));
+        return view('interface.peraturan', compact('file', 'search'));
+    }
+
+    public function showPeraturan($id)
+    {
+        $peraturan = Peraturan::findOrFail($id);
+
+        // Increment views safely saat detail dilihat (dibaca)
+        $peraturan->increment('views');
+
+        $otherPeraturans = Peraturan::where('id', '!=', $peraturan->id)
+            ->latest('tahun')
+            ->latest('nomor')
+            ->take(5)
+            ->get();
+
+        return view('interface.peraturan-show', compact('peraturan', 'otherPeraturans'));
     }
 
     public function news(Request $request)
@@ -150,36 +170,38 @@ class LawyerController extends Controller
         return view('interface.contact', compact('reviews', 'socialmedia'));
     }
 
-    public function viewJurnal($id)
+    public function viewPeraturan($id)
     {
-        $jurnal = Jurnal::findOrFail($id);
+        $peraturan = Peraturan::findOrFail($id);
 
-        // Increment views safely when PDF is viewed
-        $jurnal->increment('views');
+        if (!$peraturan->file_path) {
+            return redirect()->back()->with('error', 'Berkas PDF peraturan belum tersedia.');
+        }
 
-        $filePath = storage_path('app/public/' . $jurnal->pdf_file);
+        $filePath = storage_path('app/public/' . $peraturan->file_path);
 
         if (file_exists($filePath)) {
             return response()->file($filePath, [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="' . basename($jurnal->pdf_file) . '"'
+                'Content-Disposition' => 'inline; filename="' . basename($peraturan->file_path) . '"'
             ]);
         }
 
         return redirect()->back()->with('error', 'File tidak ditemukan.');
     }
 
-    public function downloadJurnal($id)
+    public function downloadPeraturan($id)
     {
-        $jurnal = Jurnal::findOrFail($id);
+        $peraturan = Peraturan::findOrFail($id);
 
-        // Increment views safely when downloaded/read
-        $jurnal->increment('views');
+        if (!$peraturan->file_path) {
+            return redirect()->back()->with('error', 'Berkas PDF peraturan belum tersedia.');
+        }
 
-        $filePath = storage_path('app/public/' . $jurnal->pdf_file);
+        $filePath = storage_path('app/public/' . $peraturan->file_path);
 
         if (file_exists($filePath)) {
-            return response()->download($filePath, basename($jurnal->pdf_file));
+            return response()->download($filePath, basename($peraturan->file_path));
         }
 
         return redirect()->back()->with('error', 'File not found.');

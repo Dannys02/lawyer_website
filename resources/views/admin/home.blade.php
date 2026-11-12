@@ -20,21 +20,21 @@
 
         <!-- 4 Kartu Metrik Utama -->
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-            <!-- Metrik Jurnal -->
+            <!-- Metrik Peraturan -->
             <div
                 class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition flex items-center justify-between">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Total Jurnal</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 my-1">{{ $jurnals }}</h2>
-                    <a href="{{ route('jurnal.index') }}"
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Total Peraturan</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 my-1">{{ $peraturans }}</h2>
+                    <a href="{{ route('peraturan.index') }}"
                         class="inline-flex items-center gap-1 text-xs font-bold text-amber-700 hover:text-amber-900 transition">
-                        <span>Kelola Jurnal</span>
+                        <span>Kelola Peraturan</span>
                         <i class="ti ti-chevron-right text-xs"></i>
                     </a>
                 </div>
                 <div
                     class="w-12 h-12 rounded-xl bg-amber-100 border border-amber-200 text-amber-800 flex items-center justify-center text-2xl flex-shrink-0">
-                    <i class="ti ti-book"></i>
+                    <i class="ti ti-scale"></i>
                 </div>
             </div>
 

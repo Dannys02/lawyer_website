@@ -58,10 +58,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('jurnal.index') }}"
-                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('jurnal.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
-                        <i class="ti ti-book text-lg {{ Route::is('jurnal.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
-                        <span>Kumpulan Undang-Undang</span>
+                    <a href="{{ route('peraturan.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('peraturan.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i class="ti ti-scale text-lg {{ Route::is('peraturan.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Kumpulan Peraturan</span>
                     </a>
                 </li>
             </ul>
