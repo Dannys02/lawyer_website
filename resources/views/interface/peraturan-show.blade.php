@@ -3,8 +3,7 @@
 
 @php
     $metaTitle = $peraturan->jenis_peraturan . ' Nomor ' . $peraturan->nomor . ' Tahun ' . $peraturan->tahun . ' tentang ' . $peraturan->tentang;
-    $rawSummary = !empty($peraturan->materi_pokok) ? $peraturan->materi_pokok : (!empty($peraturan->latar_belakang) ? $peraturan->latar_belakang : $peraturan->ketentuan_peralihan_penutup);
-    $metaDescription = Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($rawSummary ?? ''))), 160);
+    $metaDescription = Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($peraturan->deskripsi ?? ''))), 160);
 @endphp
 
 @push('meta')
@@ -49,17 +48,14 @@
 
                 @if ($peraturan->status === 'Berlaku')
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
                         Status: {{ $peraturan->status }}
                     </span>
                 @elseif ($peraturan->status === 'Diubah')
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40">
-                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
                         Status: {{ $peraturan->status }}
                     </span>
                 @else
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-500/20 text-slate-300 border border-slate-400/40">
-                        <span class="w-2 h-2 rounded-full bg-slate-400"></span>
                         Status: {{ $peraturan->status }}
                     </span>
                 @endif
@@ -166,47 +162,17 @@
                             </div>
                         </div>
 
-                        <!-- Section: Latar Belakang / Menimbang -->
-                        @if (!empty($peraturan->latar_belakang))
+                        <!-- Section: Deskripsi Peraturan -->
+                        @if (!empty($peraturan->deskripsi))
                             <div class="mb-8">
                                 <div class="flex items-center gap-2 pb-2 mb-3 border-b-2 border-ns-gold-400">
-                                    <i class="fas fa-landmark text-ns-gold-600 text-base"></i>
+                                    <i class="fas fa-file-alt text-ns-gold-600 text-base"></i>
                                     <h3 class="font-serif font-bold text-lg text-ns-ink-900 m-0">
-                                        Latar Belakang / Menimbang
+                                        Deskripsi Peraturan
                                     </h3>
                                 </div>
-                                <div class="prose max-w-none text-sm text-ns-ink-800 leading-relaxed">
-                                    {!! $peraturan->latar_belakang !!}
-                                </div>
-                            </div>
-                        @endif
-
-                        <!-- Section: Materi Pokok -->
-                        @if (!empty($peraturan->materi_pokok))
-                            <div class="mb-8">
-                                <div class="flex items-center gap-2 pb-2 mb-3 border-b-2 border-ns-gold-400">
-                                    <i class="fas fa-list-check text-ns-gold-600 text-base"></i>
-                                    <h3 class="font-serif font-bold text-lg text-ns-ink-900 m-0">
-                                        Materi Pokok &amp; Pokok Pengaturan
-                                    </h3>
-                                </div>
-                                <div class="prose max-w-none text-sm text-ns-ink-800 leading-relaxed">
-                                    {!! $peraturan->materi_pokok !!}
-                                </div>
-                            </div>
-                        @endif
-
-                        <!-- Section: Ketentuan Peralihan dan Penutup -->
-                        @if (!empty($peraturan->ketentuan_peralihan_penutup))
-                            <div class="mb-8">
-                                <div class="flex items-center gap-2 pb-2 mb-3 border-b-2 border-ns-gold-400">
-                                    <i class="fas fa-scale-balanced text-ns-gold-600 text-base"></i>
-                                    <h3 class="font-serif font-bold text-lg text-ns-ink-900 m-0">
-                                        Ketentuan Peralihan &amp; Penutup
-                                    </h3>
-                                </div>
-                                <div class="prose max-w-none text-sm text-ns-ink-800 leading-relaxed">
-                                    {!! $peraturan->ketentuan_peralihan_penutup !!}
+                                <div class="prose max-w-none text-sm text-ns-ink-800 leading-relaxed space-y-4">
+                                    {!! $peraturan->deskripsi !!}
                                 </div>
                             </div>
                         @endif
@@ -266,7 +232,7 @@
                             Konsultasi Hukum Peraturan
                         </h2>
                         <p class="text-xs sm:text-sm text-ns-light-300 leading-relaxed mb-6">
-                            Memerlukan telaah kepatuhan hukum (*legal compliance*) atau penyesuaian operasional bisnis terhadap regulasi ini? Hubungi tim advokat kami.
+                            Memerlukan telaah kepatuhan hukum atau penyesuaian operasional bisnis terhadap regulasi ini? Hubungi tim advokat kami.
                         </p>
                         <a href="{{ route('contact') }}"
                             class="inline-flex items-center justify-center w-full min-h-[46px] px-6 py-3 bg-ns-gold-400 text-ns-navy-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-white transition shadow-md">

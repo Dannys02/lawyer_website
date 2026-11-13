@@ -142,38 +142,14 @@
                     </div>
                 </div>
 
-                <!-- Latar Belakang (Summernote) -->
+                <!-- Deskripsi (Summernote) -->
                 <div>
-                    <label for="latar_belakang" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        Latar Belakang / Menimbang
+                    <label for="deskripsi" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                        Deskripsi Peraturan
                     </label>
-                    <textarea id="latar_belakang" name="latar_belakang" rows="6"
-                        class="summernote-editor">{{ old('latar_belakang', $peraturan->latar_belakang) }}</textarea>
-                    @error('latar_belakang')
-                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Materi Pokok (Summernote) -->
-                <div>
-                    <label for="materi_pokok" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        Materi Pokok / Pokok Pengaturan
-                    </label>
-                    <textarea id="materi_pokok" name="materi_pokok" rows="6"
-                        class="summernote-editor">{{ old('materi_pokok', $peraturan->materi_pokok) }}</textarea>
-                    @error('materi_pokok')
-                        <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Ketentuan Peralihan dan Penutup (Summernote) -->
-                <div>
-                    <label for="ketentuan_peralihan_penutup" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        Ketentuan Peralihan &amp; Penutup
-                    </label>
-                    <textarea id="ketentuan_peralihan_penutup" name="ketentuan_peralihan_penutup" rows="6"
-                        class="summernote-editor">{{ old('ketentuan_peralihan_penutup', $peraturan->ketentuan_peralihan_penutup) }}</textarea>
-                    @error('ketentuan_peralihan_penutup')
+                    <textarea id="deskripsi" name="deskripsi" rows="8"
+                        class="summernote-editor">{{ old('deskripsi', $peraturan->deskripsi) }}</textarea>
+                    @error('deskripsi')
                         <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
                     @enderror
                 </div>

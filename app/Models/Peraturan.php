@@ -22,9 +22,7 @@ class Peraturan extends Model
         'tentang',
         'tanggal_pengundangan',
         'status',
-        'latar_belakang',
-        'materi_pokok',
-        'ketentuan_peralihan_penutup',
+        'deskripsi',
         'file_path',
         'views',
     ];

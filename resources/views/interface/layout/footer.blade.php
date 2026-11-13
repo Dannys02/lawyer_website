@@ -163,7 +163,7 @@
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
             <p class="text-xs text-ns-light-300 text-center m-0">
-                &copy; {{ date('Y') }} Kantor Hukum Nurul Safii, S.H., M.H., C.MSP &amp; Partners. Desain oleh PPLG
+                &copy; {{ date('Y') }} Kantor Hukum Nurul Safii, S.H., M.H., C.MSP &amp; Partners. Dibuat oleh PPLG
                 SMEMSA.
             </p>
         </div>

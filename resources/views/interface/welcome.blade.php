@@ -190,7 +190,7 @@
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
-                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 aspect-[16/11] overflow-hidden">
+                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 overflow-hidden">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
                                 width="480" height="320" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">

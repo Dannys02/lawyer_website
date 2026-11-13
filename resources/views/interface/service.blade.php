@@ -65,14 +65,17 @@
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
-                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 aspect-[16/11] overflow-hidden">
+                        <a href="{{ route('service.show', $item->id) }}"
+                            class="block relative bg-ns-navy-800 overflow-hidden">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
-                                width="480" height="320" loading="lazy" decoding="async"
+                                loading="lazy" decoding="async"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </a>
                         <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-white">
-                            <h3 class="font-display font-bold text-base sm:text-lg text-ns-ink-900 mb-4 line-clamp-2 leading-snug">
-                                <a href="{{ route('service.show', $item->id) }}" class="hover:text-ns-gold-700 transition-colors">
+                            <h3
+                                class="font-display font-bold text-base sm:text-lg text-ns-ink-900 mb-4 line-clamp-2 leading-snug">
+                                <a href="{{ route('service.show', $item->id) }}"
+                                    class="hover:text-ns-gold-700 transition-colors">
                                     {{ $item->title }}
                                 </a>
                             </h3>
@@ -236,10 +239,18 @@
 
                     <!-- Mosaic Gallery (Foto Dokumentasi Segmentasi Klien) -->
                     @php
-                        $img1 = !empty($segmentation->picture1) ? asset('storage/' . $segmentation->picture1) : asset('interface/img/service/service4.jpg');
-                        $img2 = !empty($segmentation->picture2) ? asset('storage/' . $segmentation->picture2) : asset('interface/img/service/service5.jpg');
-                        $img3 = !empty($segmentation->picture3) ? asset('storage/' . $segmentation->picture3) : asset('interface/img/service/service6.jpg');
-                        $img4 = !empty($segmentation->picture4) ? asset('storage/' . $segmentation->picture4) : asset('interface/img/service/service7.jpg');
+                        $img1 = !empty($segmentation->picture1)
+                            ? asset('storage/' . $segmentation->picture1)
+                            : asset('interface/img/service/service4.jpg');
+                        $img2 = !empty($segmentation->picture2)
+                            ? asset('storage/' . $segmentation->picture2)
+                            : asset('interface/img/service/service5.jpg');
+                        $img3 = !empty($segmentation->picture3)
+                            ? asset('storage/' . $segmentation->picture3)
+                            : asset('interface/img/service/service6.jpg');
+                        $img4 = !empty($segmentation->picture4)
+                            ? asset('storage/' . $segmentation->picture4)
+                            : asset('interface/img/service/service7.jpg');
                     @endphp
                     <div class="grid grid-cols-2 gap-3" aria-label="Dokumentasi Aktivitas Kantor Hukum">
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
@@ -248,13 +259,13 @@
                                 class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ $img2 }}" alt="Dokumentasi pendampingan hukum klien 2"
-                                width="320" height="240" loading="lazy" decoding="async"
+                            <img src="{{ $img2 }}" alt="Dokumentasi pendampingan hukum klien 2" width="320"
+                                height="240" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
-                            <img src="{{ $img3 }}" alt="Dokumentasi diskusi strategi hukum 3"
-                                width="320" height="240" loading="lazy" decoding="async"
+                            <img src="{{ $img3 }}" alt="Dokumentasi diskusi strategi hukum 3" width="320"
+                                height="240" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover object-top [content-visibility:auto]">
                         </div>
                         <div class="rounded-lg overflow-hidden border border-ns-gold-400/30 bg-ns-navy-800 aspect-[4/3]">
@@ -285,7 +296,8 @@
                     class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-navy-900 hover:bg-ns-navy-800 hover:text-ns-gold-400 hover:border-ns-gold-400 transition-all duration-150 shadow-md">
                     Jadwalkan Konsultasi Sekarang
                 </a>
-                <a href="{{ $socialMediaData->wa ?? 'https://wa.link/psypax' }}" target="_blank" rel="noopener noreferrer"
+                <a href="{{ $socialMediaData->wa ?? 'https://wa.link/psypax' }}" target="_blank"
+                    rel="noopener noreferrer"
                     class="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-900 font-bold text-sm tracking-wide rounded border-2 border-ns-gold-400 hover:bg-white hover:border-white transition-all duration-150 shadow-md">
                     <i class="fab fa-whatsapp text-base" aria-hidden="true"></i> Hubungi via WhatsApp
                 </a>

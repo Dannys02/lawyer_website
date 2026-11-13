@@ -28,9 +28,7 @@ class PeraturanUpdateRequest extends FormRequest
             'tentang' => 'required|string|max:1000',
             'tanggal_pengundangan' => 'nullable|date',
             'status' => 'required|string|max:100',
-            'latar_belakang' => 'nullable|string',
-            'materi_pokok' => 'nullable|string',
-            'ketentuan_peralihan_penutup' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
             'file_path' => 'nullable|file|mimes:pdf|max:10240',
         ];
     }

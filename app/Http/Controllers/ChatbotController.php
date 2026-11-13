@@ -155,8 +155,8 @@ PROMPT;
         }
 
         $lines[] = "\n[PERATURAN PERUNDANG-UNDANGAN]";
-        foreach (Peraturan::select('jenis_peraturan', 'nomor', 'tahun', 'tentang', 'materi_pokok')->latest('tahun')->latest('nomor')->take(20)->get() as $p) {
-            $lines[] = "- {$p->jenis_peraturan} Nomor {$p->nomor} Tahun {$p->tahun} tentang {$p->tentang}: " . $clean($p->materi_pokok, 200);
+        foreach (Peraturan::select('jenis_peraturan', 'nomor', 'tahun', 'tentang', 'deskripsi')->latest('tahun')->latest('nomor')->take(20)->get() as $p) {
+            $lines[] = "- {$p->jenis_peraturan} Nomor {$p->nomor} Tahun {$p->tahun} tentang {$p->tentang}: " . $clean($p->deskripsi, 250);
         }
 
         $lines[] = "\n[BERITA & LIPUTAN MEDIA]";

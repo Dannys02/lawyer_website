@@ -18,6 +18,10 @@ class PeraturanSeeder extends Seeder
 
         $ketentuanPeralihanPenutup = '<p><strong>Ketentuan Peralihan:</strong></p><p>Pada saat Undang-Undang ini mulai berlaku, terhadap tindak pidana yang perbuatannya dilakukan sebelum berlakunya Undang-Undang ini dan belum berkekuatan hukum tetap (inkracht), diberlakukan ketentuan perundang-undangan yang paling menguntungkan bagi pelaku tindak pidana sesuai dengan asas transitoir hukum pidana.</p><p>Ketentuan pidana dalam undang-undang sektoral maupun peraturan daerah yang belum tercantum secara eksplisit dalam lampiran undang-undang ini wajib ditafsirkan dan disesuaikan pelaksanaannya merujuk pada pedoman Buku Kesatu UU Nomor 1 Tahun 2023.</p><p><strong>Ketentuan Penutup:</strong></p><p>Undang-Undang Nomor 1 Tahun 2026 tentang Penyesuaian Pidana mulai berlaku pada tanggal diundangkan, yaitu 2 Januari 2026, dan diumumkan dalam Lembaran Negara Republik Indonesia.</p>';
 
+        $deskripsi = '<div class="mb-4"><strong>Latar Belakang:</strong><br>' . $latarBelakang . '</div>' . "\n" .
+            '<div class="mb-4"><strong>Materi Pokok:</strong><br>' . $materiPokok . '</div>' . "\n" .
+            '<div class="mb-4"><strong>Ketentuan Peralihan &amp; Penutup:</strong><br>' . $ketentuanPeralihanPenutup . '</div>';
+
         DB::table('peraturan')->updateOrInsert(
             [
                 'jenis_peraturan' => 'Undang-Undang',
@@ -28,9 +32,7 @@ class PeraturanSeeder extends Seeder
                 'tentang' => 'Penyesuaian Pidana',
                 'tanggal_pengundangan' => '2026-01-02',
                 'status' => 'Berlaku',
-                'latar_belakang' => $latarBelakang,
-                'materi_pokok' => $materiPokok,
-                'ketentuan_peralihan_penutup' => $ketentuanPeralihanPenutup,
+                'deskripsi' => $deskripsi,
                 'file_path' => null,
                 'created_at' => now(),
                 'updated_at' => now(),

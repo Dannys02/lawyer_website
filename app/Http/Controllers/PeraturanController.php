@@ -25,8 +25,7 @@ class PeraturanController extends Controller
                   ->orWhere('nomor', 'like', "%{$search}%")
                   ->orWhere('jenis_peraturan', 'like', "%{$search}%")
                   ->orWhere('tahun', 'like', "%{$search}%")
-                  ->orWhere('materi_pokok', 'like', "%{$search}%")
-                  ->orWhere('latar_belakang', 'like', "%{$search}%");
+                  ->orWhere('deskripsi', 'like', "%{$search}%");
             });
         }
 

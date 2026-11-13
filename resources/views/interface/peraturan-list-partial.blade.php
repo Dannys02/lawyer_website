@@ -2,8 +2,7 @@
 <div class="space-y-5">
     @forelse ($file as $index => $row)
         @php
-            $rawDesc = !empty($row->materi_pokok) ? $row->materi_pokok : (!empty($row->latar_belakang) ? $row->latar_belakang : $row->ketentuan_peralihan_penutup);
-            $cleanDesc = trim(preg_replace('/\s+/', ' ', strip_tags($rawDesc ?? '')));
+            $cleanDesc = trim(preg_replace('/\s+/', ' ', strip_tags($row->deskripsi ?? '')));
         @endphp
         <article
             class="bg-white border border-[#C8C4BC] border-l-4 border-l-ns-navy-900 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-l-ns-gold-500 transition-all duration-200">

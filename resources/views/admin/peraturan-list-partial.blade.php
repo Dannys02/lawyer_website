@@ -27,9 +27,9 @@
                         <div class="font-medium text-slate-900 leading-snug line-clamp-2" title="{{ $row->tentang }}">
                             {{ $row->tentang }}
                         </div>
-                        @if ($row->materi_pokok)
+                        @if ($row->deskripsi)
                             <p class="text-[11px] text-slate-500 mt-1 line-clamp-1">
-                                {{ Str::limit(strip_tags($row->materi_pokok), 100) }}
+                                {{ Str::limit(strip_tags($row->deskripsi), 100) }}
                             </p>
                         @endif
                     </td>
