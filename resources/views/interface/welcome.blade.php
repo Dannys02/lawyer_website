@@ -8,9 +8,13 @@
         aria-labelledby="hero-heading">
         <!-- Background Media with Gradient Overlay and Parallax Scroll Effect -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" id="hero-parallax-bg"
-                class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 will-change-transform"
-                fetchpriority="high">
+            <picture>
+                <source srcset="{{ asset('interface/img/pengadilan.webp') }}" type="image/webp">
+                <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" id="hero-parallax-bg"
+                    width="1920" height="1280"
+                    class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 will-change-transform"
+                    fetchpriority="high">
+            </picture>
             {{-- <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div> --}}
         </div>
 
@@ -538,7 +542,7 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                 @forelse($news as $row)
                     <article
                         class="flex flex-col h-full bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">

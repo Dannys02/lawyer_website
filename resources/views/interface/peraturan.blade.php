@@ -8,8 +8,11 @@
         aria-labelledby="peraturan-banner-heading">
         <!-- Background Media with Gradient Overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
-                class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            <picture>
+                <source srcset="{{ asset('interface/img/pengadilan.webp') }}" type="image/webp">
+                <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" width="1920" height="1280"
+                    class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div>
         </div>
 

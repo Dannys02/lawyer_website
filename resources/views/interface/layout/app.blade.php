@@ -7,13 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
+    @php
+        $defaultPageTitle = 'Kantor Hukum Nurul Safii, S.H., M.H., C.MSP & Partners | Advokat & Konsultan Hukum';
+        $defaultPageDesc = 'Kantor Hukum Nurul Safii & Partners — Kantor advokat, mediator, dan konsultan hukum tepercaya di Banyuwangi. Melayani penanganan perkara perdata, pidana, keluarga, sengketa bisnis, dan konsultasi hukum profesional.';
+        $defaultPageImage = asset('interface/img/logo-navy.jpeg');
+    @endphp
+
+    <title>@yield('title', $defaultPageTitle)</title>
+
+    <!-- Global Open Graph / WhatsApp Preview Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kantor Hukum Nurul Safii &amp; Partners">
+    <meta property="og:title" content="@yield('meta_title', View::getSection('title', $defaultPageTitle))">
+    <meta property="og:description" content="@yield('meta_description', $defaultPageDesc)">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="@yield('meta_image', $defaultPageImage)">
+    <meta property="og:image:secure_url" content="@yield('meta_image', $defaultPageImage)">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="@yield('meta_title', View::getSection('title', $defaultPageTitle))">
+    <meta name="twitter:description" content="@yield('meta_description', $defaultPageDesc)">
+    <meta name="twitter:image" content="@yield('meta_image', $defaultPageImage)">
+
     @stack('meta')
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('interface/img/LOGO_NS_2.png') }}" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="{{ asset('interface/img/LOGO_NS_2.png') }}">
     <link rel="shortcut icon" href="{{ asset('interface/img/LOGO_NS_2.png') }}" type="image/png">
-
-    <title>@yield('title', 'Kantor Hukum Nurul Safii, S.H., M.H., C.MSP & Partners | Advokat & Konsultan Hukum')</title>
 
     <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +110,7 @@
             <!-- Pop-up Menu Options -->
             <div class="p-4 space-y-3">
                 <!-- Option 1: WhatsApp Advokat Resmi -->
-                <a href="{{ $socialMediaData->wa ?? 'https://wa.link/psypax' }}" target="_blank" rel="noopener noreferrer"
+                <a href="{{ $whatsappUrl ?? ($socialMediaData->wa ?? 'https://wa.me/6285331979610') }}" target="_blank" rel="noopener noreferrer"
                     class="group flex items-start gap-3.5 p-3 rounded-lg bg-ns-navy-800/80 border border-white/10 hover:border-emerald-500/60 hover:bg-emerald-950/30 transition-all duration-200">
                     <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 group-hover:bg-emerald-500 group-hover:text-ns-navy-950 transition-all">
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>

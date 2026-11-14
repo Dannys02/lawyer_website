@@ -8,8 +8,11 @@
         aria-labelledby="service-heading">
         <!-- Background Media with Gradient Overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
-                class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            <picture>
+                <source srcset="{{ asset('interface/img/pengadilan.webp') }}" type="image/webp">
+                <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" width="1920" height="1280"
+                    class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div>
         </div>
 
@@ -245,7 +248,7 @@
                     class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 bg-ns-navy-900 text-ns-light-100 font-bold text-sm tracking-wide rounded border-2 border-ns-navy-900 hover:bg-ns-navy-800 hover:text-ns-gold-400 hover:border-ns-gold-400 transition-all duration-150 shadow-md">
                     Jadwalkan Konsultasi Sekarang
                 </a>
-                <a href="{{ $socialMediaData->wa ?? 'https://wa.link/psypax' }}" target="_blank"
+                <a href="{{ $whatsappUrl ?? ($socialMediaData->wa ?? 'https://wa.me/6285331979610') }}" target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-ns-gold-400 text-ns-navy-900 font-bold text-sm tracking-wide rounded border-2 border-ns-gold-400 hover:bg-white hover:border-white transition-all duration-150 shadow-md">
                     <i class="fab fa-whatsapp text-base" aria-hidden="true"></i> Hubungi via WhatsApp

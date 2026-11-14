@@ -6,7 +6,11 @@
     <section class="relative bg-ns-navy-950 text-ns-light-100 pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-hidden border-b-4 border-ns-gold-500" aria-labelledby="contact-banner-heading">
         <!-- Background Media with Gradient Overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            <picture>
+                <source srcset="{{ asset('interface/img/pengadilan.webp') }}" type="image/webp">
+                <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" width="1920" height="1280"
+                    class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div>
         </div>
 
@@ -54,7 +58,7 @@
 
             @php
                 $soc = $socialmedia ?? $socialMediaData ?? null;
-                $waUrl = $soc->wa ?? 'https://wa.link/psypax';
+                $waUrl = $whatsappUrl ?? ($soc->wa ?? 'https://wa.me/6285331979610');
                 $emailContact = $soc->email ?? 'nurulsafii.sh@gmail.com';
                 $igUrl = $soc->instagram ?? '#';
                 $tiktokUrl = $soc->tiktok ?? 'https://www.tiktok.com/@pengacara_nurul_safii';

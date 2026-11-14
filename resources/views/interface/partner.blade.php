@@ -8,8 +8,11 @@
         aria-labelledby="partner-banner-heading">
         <!-- Background Media with Gradient Overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt=""
-                class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            <picture>
+                <source srcset="{{ asset('interface/img/pengadilan.webp') }}" type="image/webp">
+                <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" width="1920" height="1280"
+                    class="w-full h-full object-cover object-center opacity-15" fetchpriority="high">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div>
         </div>
 
@@ -62,7 +65,7 @@
             </div>
 
             <!-- Grid 3 Kolom Sejajar: Menonjolkan Potret Card Tim -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
                 @forelse ($patners as $row)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl">

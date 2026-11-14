@@ -3,7 +3,7 @@
     $footerAboutText = $aboutData->text_about ?? null;
     $footerAddress =
         $socialMediaData->address ?? 'Dusun Muncar Baru, RT.01/RW.05, Tembokrejo, Kec. Muncar, Banyuwangi, Jatim 68472';
-    $footerWa = $socialMediaData->wa ?? 'https://wa.link/psypax';
+    $footerWa = $whatsappUrl ?? ($socialMediaData->wa ?? 'https://wa.me/6285331979610');
     $footerEmail = $socialMediaData->email ?? 'nurulsafii.sh@gmail.com';
     $footerTiktok = $socialMediaData->tiktok ?? 'https://www.tiktok.com/@pengacara_nurul_safii';
     $footerIg = $socialMediaData->instagram ?? null;
@@ -26,7 +26,8 @@
                             <h2 class="font-display text-sm sm:text-base font-bold text-ns-gold-400 mb-1 leading-snug">
                                 Kantor Hukum Nurul Safii, S.H., M.H., C.MSP &amp; Partners
                             </h2>
-                            <span class="inline-block text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-ns-light-300/90">
+                            <span
+                                class="inline-block text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-ns-light-300/90">
                                 Advokat &middot; Mediator &middot; Konsultan
                             </span>
                         </div>
@@ -37,7 +38,8 @@
                             {{ \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($footerAboutText))), 220) }}
                         @else
                             Kantor hukum independen yang hadir sebagai representasi integritas, kecermatan, dan
-                            keberanian dalam menegakkan keadilan serta mendampingi klien memperjuangkan hak secara bermartabat.
+                            keberanian dalam menegakkan keadilan serta mendampingi klien memperjuangkan hak secara
+                            bermartabat.
                         @endif
                     </p>
 
@@ -66,8 +68,7 @@
                             class="w-9 h-9 rounded-lg bg-ns-navy-900 border border-ns-gold-500/30 text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-950 hover:border-ns-gold-400 transition flex items-center justify-center text-sm shadow-sm">
                             <i class="fab fa-tiktok" aria-hidden="true"></i>
                         </a>
-                        <a href="mailto:{{ $footerEmail }}"
-                            aria-label="Kirim Email ke Kantor Hukum Nurul Safii"
+                        <a href="mailto:{{ $footerEmail }}" aria-label="Kirim Email ke Kantor Hukum Nurul Safii"
                             class="w-9 h-9 rounded-lg bg-ns-navy-900 border border-ns-gold-500/30 text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-950 hover:border-ns-gold-400 transition flex items-center justify-center text-sm shadow-sm">
                             <i class="lnr lnr-envelope" aria-hidden="true"></i>
                         </a>
@@ -97,7 +98,8 @@
                                 class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Artikel Hukum</a>
                         </li>
                         <li><a href="{{ route('file') }}"
-                                class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Kumpulan Undang-Undang</a>
+                                class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Kumpulan
+                                Undang-Undang</a>
                         </li>
                         <li><a href="{{ route('break-news') }}"
                                 class="hover:text-ns-gold-400 transition-colors inline-block py-0.5">Berita</a></li>
@@ -134,10 +136,12 @@
 
                     <!-- Logo PERARI -->
                     <div class="mt-4 pt-3.5 border-t border-white/10">
+                        <span class="block text-[11px] font-bold uppercase tracking-wider text-ns-gold-400 mb-2">
+                            PERARI
+                        </span>
                         <picture>
                             <source srcset="{{ asset('interface/img/perari.webp') }}" type="image/webp">
-                            <img src="{{ asset('interface/img/perari-optimized.png') }}"
-                                alt="Logo PERARI"
+                            <img src="{{ asset('interface/img/perari-optimized.png') }}" alt="Logo PERARI"
                                 width="72" height="70" loading="lazy" decoding="async"
                                 class="w-16 sm:w-20 h-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                         </picture>
@@ -171,8 +175,7 @@
 
     <!-- Copyright Bar -->
     <div class="bg-[#050A14] border-t border-white/10 py-5">
-        <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
             <p class="text-xs text-ns-light-300 text-center m-0">
                 &copy; {{ date('Y') }} Kantor Hukum Nurul Safii, S.H., M.H., C.MSP &amp; Partners. Dibuat oleh PPLG
                 SMEMSA.
