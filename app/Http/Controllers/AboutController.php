@@ -63,7 +63,7 @@ class AboutController extends Controller
 
             return redirect()->route('abouts.index')->with('success', 'Data Tentang Kami berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -118,7 +118,7 @@ class AboutController extends Controller
 
             return redirect()->route('abouts.index')->with('success', 'Data Tentang Kami berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -137,7 +137,7 @@ class AboutController extends Controller
 
             return redirect()->route('abouts.index')->with('success', 'Data Tentang Kami berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
 

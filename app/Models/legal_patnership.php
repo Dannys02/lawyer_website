@@ -14,5 +14,5 @@ class legal_patnership extends Model
         'position',
         'description',
     ];
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
 }

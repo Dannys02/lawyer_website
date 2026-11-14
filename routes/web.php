@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Public interfaces & features
 Route::get('/', [App\Http\Controllers\LawyerController::class, 'welcome'])->name('welcome');
 Route::get('/about', [App\Http\Controllers\LawyerController::class, 'about'])->name('about');
 Route::get('/service', [App\Http\Controllers\LawyerController::class, 'service'])->name('service');
@@ -35,14 +36,19 @@ Route::post('/chatbot', [App\Http\Controllers\ChatbotController::class, 'ask'])-
 Route::get('/view-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'viewPeraturan'])->name('view-pdf');
 Route::get('/download-pdf/{id}', [App\Http\Controllers\LawyerController::class, 'downloadPeraturan'])->name('download-pdf');
 
-Route::resource('legal_opini', App\Http\Controllers\LegalOpiniController::class);
-Route::resource('legal_patnership', App\Http\Controllers\LegalPatnershipController::class);
-Route::resource('peraturan', App\Http\Controllers\PeraturanController::class);
-Route::resource('galery', App\Http\Controllers\GaleryController::class);
+// Public review submission (rate-limited)
 Route::post('reviews', [App\Http\Controllers\ReviewsController::class, 'store'])
     ->middleware('throttle:3,10')
     ->name('reviews.store');
-Route::resource('reviews', App\Http\Controllers\ReviewsController::class)->except(['store']);
-Route::resource('news', NewsController::class);
-Route::resource('abouts', App\Http\Controllers\AboutController::class);
-Route::resource('socialmedia', App\Http\Controllers\SocialmediaController::class);
+
+// Admin panel management (protected with auth)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('legal_opini', App\Http\Controllers\LegalOpiniController::class);
+    Route::resource('legal_patnership', App\Http\Controllers\LegalPatnershipController::class);
+    Route::resource('peraturan', App\Http\Controllers\PeraturanController::class);
+    Route::resource('galery', App\Http\Controllers\GaleryController::class);
+    Route::resource('reviews', App\Http\Controllers\ReviewsController::class)->except(['store']);
+    Route::resource('news', NewsController::class);
+    Route::resource('abouts', App\Http\Controllers\AboutController::class);
+    Route::resource('socialmedia', App\Http\Controllers\SocialmediaController::class);
+});

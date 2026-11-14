@@ -61,7 +61,7 @@ class PeraturanController extends Controller
             Peraturan::create($data);
             return redirect()->route('peraturan.index')->with('success', 'Data peraturan berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -100,7 +100,7 @@ class PeraturanController extends Controller
             $peraturan->update($data);
             return redirect()->route('peraturan.index')->with('success', 'Data peraturan berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -117,7 +117,7 @@ class PeraturanController extends Controller
             $peraturan->delete();
             return redirect()->route('peraturan.index')->with('success', 'Data peraturan berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
 }

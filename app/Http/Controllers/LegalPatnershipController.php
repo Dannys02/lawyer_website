@@ -6,6 +6,7 @@ use App\Http\Requests\legal_patnershipCreateRequest;
 use App\Http\Requests\legal_patnershipUpdateRequest;
 use App\Models\legal_patnership;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LegalPatnershipController extends Controller
 {
@@ -56,10 +57,10 @@ class LegalPatnershipController extends Controller
             $data['photo'] = $request->file('photo')->store('legal_patnership', 'public');
         }
 
-        legal_patnership::create($data);
-        return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership created successfully.');
+            legal_patnership::create($data);
+            return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership created successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
         }
 
     }
@@ -90,22 +91,18 @@ class LegalPatnershipController extends Controller
 
             // Upload file jika ada
             if ($request->hasFile('photo')) {
+                // Hapus file lama jika ada
+                if ($legal_patnership->photo && Storage::disk('public')->exists($legal_patnership->photo)) {
+                    Storage::disk('public')->delete($legal_patnership->photo);
+                }
                 $data['photo'] = $request->file('photo')->store('legal_patnership', 'public');
             }
 
-            // Hapus file lama jika ada
-            if ($legal_patnership->photo && $request->hasFile('photo')) {
-                $oldPhotoPath = public_path('storage/' . $legal_patnership->photo);
-                if (file_exists($oldPhotoPath)) {
-                    unlink($oldPhotoPath);
-                }
-            }
             $legal_patnership->update($data);
             return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership updated successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
         }
-
     }
 
     /**
@@ -115,16 +112,14 @@ class LegalPatnershipController extends Controller
     {
         try {
             // Hapus file jika ada
-            if ($legal_patnership->photo) {
-                $photoPath = public_path('storage/' . $legal_patnership->photo);
-                if (file_exists($photoPath)) {
-                    unlink($photoPath);
-                }
+            if ($legal_patnership->photo && Storage::disk('public')->exists($legal_patnership->photo)) {
+                Storage::disk('public')->delete($legal_patnership->photo);
             }
+
             $legal_patnership->delete();
             return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
+            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
 }

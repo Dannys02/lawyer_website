@@ -43,7 +43,7 @@ class GaleryController extends Controller
             galery::create($data);
             return redirect()->route('galery.index')->with('success', 'Galery created successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -84,7 +84,7 @@ class GaleryController extends Controller
             $galery->update($data);
             return redirect()->route('galery.index')->with('success', 'Galery updated successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -102,7 +102,7 @@ class GaleryController extends Controller
             $galery->delete();
             return redirect()->route('galery.index')->with('success', 'Galery deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
 }
