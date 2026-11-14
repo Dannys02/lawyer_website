@@ -155,12 +155,11 @@
                             <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-400 mb-2 block">Visi
                                 Kami</span>
                             <h3 class="font-display font-bold text-xl sm:text-2xl text-ns-light-100 mb-4">
-                                Garda Terdepan Penegakan Hukum Nasional
+                                {{ $about->visi_title ?? 'Garda Terdepan Penegakan Hukum Nasional' }}
                             </h3>
                             <blockquote
                                 class="font-serif italic text-base sm:text-lg text-ns-light-100 leading-relaxed border-l-2 border-ns-gold-400 pl-4 py-1 m-0">
-                                &ldquo;Menjadi kantor hukum yang unggul dan terpercaya secara nasional, dengan reputasi
-                                sebagai pelindung hak-hak hukum yang tangguh, profesional, dan progresif.&rdquo;
+                                &ldquo;{{ $about->visi_text ?? 'Menjadi kantor hukum yang unggul dan terpercaya secara nasional, dengan reputasi sebagai pelindung hak-hak hukum yang tangguh, profesional, dan progresif.' }}&rdquo;
                             </blockquote>
                         </div>
                         <div class="pt-6 mt-6 border-t border-white/10 text-xs text-ns-light-300">
@@ -186,42 +185,26 @@
                             </div>
                         </div>
 
+                        @php
+                            $misiLines = !empty($about->misi_text)
+                                ? array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $about->misi_text)))
+                                : [
+                                    'Menyediakan layanan hukum yang berstandar tinggi, responsif, dan berorientasi solusi.',
+                                    'Menjaga marwah profesi advokat melalui integritas, objektivitas, dan keteladanan.',
+                                    'Mendorong terciptanya kepastian dan keadilan hukum bagi setiap klien.',
+                                    'Memberikan edukasi hukum yang membumi, mencerdaskan, dan membebaskan.',
+                                    'Membangun kemitraan jangka panjang dengan entitas bisnis dan institusi negara.'
+                                ];
+                        @endphp
                         <ul class="space-y-3.5 list-none p-0 m-0">
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/80 p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-ns-gold-400 text-ns-navy-900 font-bold text-xs inline-flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
-                                <span class="text-sm text-ns-light-200 leading-relaxed">Menyediakan layanan hukum yang
-                                    berstandar tinggi, responsif, dan berorientasi solusi.</span>
-                            </li>
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/80 p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-ns-gold-400 text-ns-navy-900 font-bold text-xs inline-flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
-                                <span class="text-sm text-ns-light-200 leading-relaxed">Menjaga marwah profesi advokat
-                                    melalui integritas, objektivitas, dan keteladanan.</span>
-                            </li>
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/80 p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-ns-gold-400 text-ns-navy-900 font-bold text-xs inline-flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
-                                <span class="text-sm text-ns-light-200 leading-relaxed">Mendorong terciptanya kepastian dan
-                                    keadilan hukum bagi setiap klien.</span>
-                            </li>
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/80 p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-ns-gold-400 text-ns-navy-900 font-bold text-xs inline-flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
-                                <span class="text-sm text-ns-light-200 leading-relaxed">Memberikan edukasi hukum yang
-                                    membumi, mencerdaskan, dan membebaskan.</span>
-                            </li>
-                            <li
-                                class="flex items-start gap-3.5 bg-ns-navy-900/80 p-3.5 rounded border-l-2 border-ns-gold-400">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-ns-gold-400 text-ns-navy-900 font-bold text-xs inline-flex items-center justify-center flex-shrink-0 mt-0.5">5</span>
-                                <span class="text-sm text-ns-light-200 leading-relaxed">Membangun kemitraan jangka panjang
-                                    dengan entitas bisnis dan institusi negara.</span>
-                            </li>
+                            @foreach ($misiLines as $idx => $line)
+                                <li
+                                    class="flex items-start gap-3.5 bg-ns-navy-900/80 p-3.5 rounded border-l-2 border-ns-gold-400">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-ns-gold-400 text-ns-navy-900 font-bold text-xs inline-flex items-center justify-center flex-shrink-0 mt-0.5">{{ $idx + 1 }}</span>
+                                    <span class="text-sm text-ns-light-200 leading-relaxed">{{ $line }}</span>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -249,97 +232,42 @@
                 </p>
             </div>
 
-            <!-- 5 Fundamental Value Cards -->
+            @php
+                $romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+                $defaultIcons = ['fa-balance-scale', 'fa-shield-alt', 'fa-briefcase', 'fa-lightbulb', 'fa-hands-helping'];
+                $values = json_decode($about->values_json ?? '[]', true) ?: [
+                    ['title' => 'Integritas', 'desc' => 'Menjaga kejujuran dan keterbukaan sebagai fondasi tak tergoyahkan dalam setiap tindakan hukum yang kami ambil.'],
+                    ['title' => 'Keberanian', 'desc' => 'Bertindak tegas, gigih, dan pantang menyerah dalam membela kepentingan klien, tanpa kompromi terhadap tegaknya keadilan.'],
+                    ['title' => 'Profesionalisme', 'desc' => 'Berpegang teguh pada kode etik profesi advokat, kompetensi yuridis teruji, dan ketelitian tinggi dalam setiap dokumen serta persidangan.'],
+                    ['title' => 'Inovasi', 'desc' => 'Mengintegrasikan pendekatan hukum modern berbasis riset dengan strategi kontemporer yang relevan dengan dinamika era digital.'],
+                    ['title' => 'Kepedulian', 'desc' => 'Memahami bahwa hukum harus berpihak kepada kebenaran dan mereka yang membutuhkan. Kami senantiasa menghadirkan empati serta kehangatan kemanusiaan dalam setiap pendampingan hukum.']
+                ];
+            @endphp
+
+            <!-- Fundamental Value Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <!-- 1. Integritas -->
-                <article
-                    class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 flex items-center justify-center text-xl mb-4"
-                            aria-hidden="true">
-                            <i class="fas fa-balance-scale"></i>
+                @foreach ($values as $idx => $val)
+                    @php
+                        $iconClass = $defaultIcons[$idx % count($defaultIcons)];
+                        $roman = $romanNumerals[$idx] ?? ($idx + 1);
+                        $isLastOdd = $loop->last && (count($values) % 3 === 2);
+                    @endphp
+                    <article
+                        class="{{ $isLastOdd ? 'md:col-span-2 lg:col-span-1 ' : '' }}bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 flex items-center justify-center text-xl mb-4"
+                                aria-hidden="true">
+                                <i class="fas {{ $iconClass }}"></i>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1 block">Pilar
+                                {{ $roman }}</span>
+                            <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2.5">{{ $val['title'] ?? '' }}</h3>
+                            <p class="text-sm text-ns-ink-700 leading-relaxed m-0">
+                                {{ $val['desc'] ?? '' }}
+                            </p>
                         </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1 block">Pilar
-                            I</span>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2.5">Integritas</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed m-0">
-                            Menjaga kejujuran dan keterbukaan sebagai fondasi tak tergoyahkan dalam setiap tindakan hukum
-                            yang kami ambil.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- 2. Keberanian -->
-                <article
-                    class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 flex items-center justify-center text-xl mb-4"
-                            aria-hidden="true">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1 block">Pilar
-                            II</span>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2.5">Keberanian</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed m-0">
-                            Bertindak tegas, gigih, dan pantang menyerah dalam membela kepentingan klien, tanpa kompromi
-                            terhadap tegaknya keadilan.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- 3. Profesionalisme -->
-                <article
-                    class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 flex items-center justify-center text-xl mb-4"
-                            aria-hidden="true">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1 block">Pilar
-                            III</span>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2.5">Profesionalisme</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed m-0">
-                            Berpegang teguh pada kode etik profesi advokat, kompetensi yuridis teruji, dan ketelitian tinggi
-                            dalam setiap dokumen serta persidangan.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- 4. Inovasi -->
-                <article
-                    class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 flex items-center justify-center text-xl mb-4"
-                            aria-hidden="true">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1 block">Pilar
-                            IV</span>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2.5">Inovasi</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed m-0">
-                            Mengintegrasikan pendekatan hukum modern berbasis riset dengan strategi kontemporer yang relevan
-                            dengan dinamika era digital.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- 5. Kepedulian (Spans 2 columns on tablet/desktop for balanced grid) -->
-                <article
-                    class="md:col-span-2 lg:col-span-2 bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg p-6 sm:p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-full bg-ns-ivory border border-ns-border-light text-ns-navy-900 flex items-center justify-center text-xl mb-4"
-                            aria-hidden="true">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-ns-gold-700 mb-1 block">Pilar
-                            V</span>
-                        <h3 class="font-display font-bold text-xl text-ns-ink-900 mb-2.5">Kepedulian</h3>
-                        <p class="text-sm text-ns-ink-700 leading-relaxed m-0">
-                            Memahami bahwa hukum harus berpihak kepada kebenaran dan mereka yang membutuhkan. Kami
-                            senantiasa menghadirkan empati serta kehangatan kemanusiaan dalam setiap pendampingan hukum.
-                        </p>
-                    </div>
-                </article>
+                    </article>
+                @endforeach
             </div>
         </div>
     </section>

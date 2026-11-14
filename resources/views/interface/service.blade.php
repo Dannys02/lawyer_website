@@ -132,72 +132,30 @@
                         langkah hukum terukur dan dapat dipertanggungjawabkan.
                     </p>
 
+                    @php
+                        $reasons = json_decode($about->reasons_json ?? '[]', true) ?: [
+                            ['title' => 'Pendampingan Tajam, Solutif & Strategis', 'desc' => 'Merumuskan konstruksi hukum yang tepat sasaran sesuai duduk perkara.'],
+                            ['title' => 'Tim Profesional Berdedikasi Tinggi', 'desc' => 'Dukungan advokat dan konsultan yang kompeten di bidangnya.'],
+                            ['title' => 'Transparansi Biaya & Progres Perkara', 'desc' => 'Laporan perkembangan penanganan perkara disampaikan secara berkala.'],
+                            ['title' => 'Pendekatan Humanis pada Perkara Keluarga & Waris', 'desc' => 'Mengutamakan martabat dan ketenangan para pihak dalam sengketa sensitif.'],
+                            ['title' => 'Penguatan Kesadaran Hukum Masyarakat', 'desc' => 'Aktif memberikan edukasi hukum publik yang mencerdaskan.']
+                        ];
+                    @endphp
+
                     <ul class="space-y-3.5 list-none p-0 m-0">
-                        <li class="flex items-start gap-3.5 bg-ns-navy-800 border border-ns-gold-400/20 p-4 rounded-lg">
-                            <span
-                                class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-900 inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5"
-                                aria-hidden="true">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Pendampingan Tajam,
-                                    Solutif &amp; Strategis</strong>
-                                <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Merumuskan
-                                    konstruksi hukum yang tepat sasaran sesuai duduk perkara.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3.5 bg-ns-navy-800 border border-ns-gold-400/20 p-4 rounded-lg">
-                            <span
-                                class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-900 inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5"
-                                aria-hidden="true">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Tim Profesional
-                                    Berdedikasi Tinggi</strong>
-                                <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Dukungan advokat
-                                    dan konsultan yang kompeten di bidangnya.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3.5 bg-ns-navy-800 border border-ns-gold-400/20 p-4 rounded-lg">
-                            <span
-                                class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-900 inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5"
-                                aria-hidden="true">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Transparansi Biaya &amp;
-                                    Progres Perkara</strong>
-                                <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Laporan
-                                    perkembangan penanganan perkara disampaikan secara berkala.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3.5 bg-ns-navy-800 border border-ns-gold-400/20 p-4 rounded-lg">
-                            <span
-                                class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-900 inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5"
-                                aria-hidden="true">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Pendekatan Humanis pada
-                                    Perkara Keluarga &amp; Waris</strong>
-                                <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Mengutamakan
-                                    martabat dan ketenangan para pihak dalam sengketa sensitif.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3.5 bg-ns-navy-800 border border-ns-gold-400/20 p-4 rounded-lg">
-                            <span
-                                class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-900 inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5"
-                                aria-hidden="true">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <div>
-                                <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">Penguatan Kesadaran Hukum
-                                    Masyarakat</strong>
-                                <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">Aktif memberikan
-                                    edukasi hukum publik yang mencerdaskan.</span>
-                            </div>
-                        </li>
+                        @foreach ($reasons as $reason)
+                            <li class="flex items-start gap-3.5 bg-ns-navy-800 border border-ns-gold-400/20 p-4 rounded-lg">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-ns-gold-400 text-ns-navy-900 inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5"
+                                    aria-hidden="true">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                <div>
+                                    <strong class="block text-sm font-bold text-ns-light-100 mb-0.5">{{ $reason['title'] ?? '' }}</strong>
+                                    <span class="block text-xs sm:text-sm text-ns-light-300 leading-relaxed">{{ $reason['desc'] ?? '' }}</span>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 
@@ -209,31 +167,22 @@
                         <p class="text-xs sm:text-sm text-ns-light-300 leading-relaxed mb-4">
                             Kami melayani spektrum klien yang luas dengan pendekatan personal dan profesional:
                         </p>
+                        @php
+                            $segmentations = json_decode($about->segmentations_json ?? '[]', true) ?: [
+                                'Perorangan dan Keluarga',
+                                'UMKM & Bisnis Rintisan',
+                                'Perusahaan Swasta & Korporasi',
+                                'Instansi Pemerintah & BUMDes',
+                                'Lembaga Pendidikan, Yayasan, & Organisasi Sosial'
+                            ];
+                        @endphp
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            <div class="bg-ns-navy-900 border border-white/10 p-3 rounded flex items-center gap-3">
-                                <span class="font-display font-bold text-xs text-ns-gold-400">01</span>
-                                <span class="text-xs font-semibold text-ns-light-100">Perorangan dan Keluarga</span>
-                            </div>
-                            <div class="bg-ns-navy-900 border border-white/10 p-3 rounded flex items-center gap-3">
-                                <span class="font-display font-bold text-xs text-ns-gold-400">02</span>
-                                <span class="text-xs font-semibold text-ns-light-100">UMKM &amp; Bisnis Rintisan</span>
-                            </div>
-                            <div class="bg-ns-navy-900 border border-white/10 p-3 rounded flex items-center gap-3">
-                                <span class="font-display font-bold text-xs text-ns-gold-400">03</span>
-                                <span class="text-xs font-semibold text-ns-light-100">Perusahaan Swasta &amp;
-                                    Korporasi</span>
-                            </div>
-                            <div class="bg-ns-navy-900 border border-white/10 p-3 rounded flex items-center gap-3">
-                                <span class="font-display font-bold text-xs text-ns-gold-400">04</span>
-                                <span class="text-xs font-semibold text-ns-light-100">Instansi Pemerintah &amp;
-                                    BUMDes</span>
-                            </div>
-                            <div
-                                class="sm:col-span-2 bg-ns-navy-900 border border-white/10 p-3 rounded flex items-center gap-3">
-                                <span class="font-display font-bold text-xs text-ns-gold-400">05</span>
-                                <span class="text-xs font-semibold text-ns-light-100">Lembaga Pendidikan, Yayasan, &amp;
-                                    Organisasi Sosial</span>
-                            </div>
+                            @foreach ($segmentations as $idx => $seg)
+                                <div class="{{ $loop->last && count($segmentations) % 2 !== 0 ? 'sm:col-span-2 ' : '' }}bg-ns-navy-900 border border-white/10 p-3 rounded flex items-center gap-3">
+                                    <span class="font-display font-bold text-xs text-ns-gold-400">{{ sprintf('%02d', $idx + 1) }}</span>
+                                    <span class="text-xs font-semibold text-ns-light-100">{{ is_array($seg) ? ($seg['title'] ?? '') : $seg }}</span>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
 

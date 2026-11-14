@@ -37,8 +37,9 @@ class LawyerController extends Controller
     public function service()
     {
         $services = service::latest()->get();
+        $about = about::latest()->first();
         $segmentation = segmentation::first();
-        return view('interface.service', compact('services', 'segmentation'));
+        return view('interface.service', compact('services', 'about', 'segmentation'));
     }
 
     public function showService($id)

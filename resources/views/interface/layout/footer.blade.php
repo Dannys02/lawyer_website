@@ -131,6 +131,17 @@
                             </a>
                         </li>
                     </ul>
+
+                    <!-- Logo PERARI -->
+                    <div class="mt-4 pt-3.5 border-t border-white/10">
+                        <picture>
+                            <source srcset="{{ asset('interface/img/perari.webp') }}" type="image/webp">
+                            <img src="{{ asset('interface/img/perari-optimized.png') }}"
+                                alt="Logo PERARI"
+                                width="72" height="70" loading="lazy" decoding="async"
+                                class="w-16 sm:w-20 h-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+                        </picture>
+                    </div>
                 </div>
 
                 <!-- Google Maps (Side-by-Side in Footer) -->

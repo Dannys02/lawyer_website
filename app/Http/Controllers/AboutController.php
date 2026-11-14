@@ -34,12 +34,29 @@ class AboutController extends Controller
         $validated = $request->validate([
             'text_about' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'hero_tagline' => 'nullable|string|max:255',
+            'hero_title' => 'nullable|string|max:255',
+            'hero_slogan' => 'nullable|string|max:255',
+            'hero_description' => 'nullable|string',
+            'visi_title' => 'nullable|string|max:255',
+            'visi_text' => 'nullable|string',
+            'misi_text' => 'nullable|string',
+            'values_title' => 'nullable|array',
+            'values_desc' => 'nullable|array',
+            'reasons_title' => 'nullable|array',
+            'reasons_desc' => 'nullable|array',
+            'segmentations' => 'nullable|array',
         ]);
 
         try {
             if ($request->hasFile('image')) {
                 $validated['image'] = $request->file('image')->store('About', 'public');
             }
+
+            // Pack structured arrays to JSON
+            $validated['values_json'] = $this->packTitleDescArray($request->input('values_title', []), $request->input('values_desc', []));
+            $validated['reasons_json'] = $this->packTitleDescArray($request->input('reasons_title', []), $request->input('reasons_desc', []));
+            $validated['segmentations_json'] = $this->packStringArray($request->input('segmentations', []));
 
             about::create($validated);
             Cache::forget('chatbot:public-context');
@@ -66,6 +83,18 @@ class AboutController extends Controller
         $validated = $request->validate([
             'text_about' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'hero_tagline' => 'nullable|string|max:255',
+            'hero_title' => 'nullable|string|max:255',
+            'hero_slogan' => 'nullable|string|max:255',
+            'hero_description' => 'nullable|string',
+            'visi_title' => 'nullable|string|max:255',
+            'visi_text' => 'nullable|string',
+            'misi_text' => 'nullable|string',
+            'values_title' => 'nullable|array',
+            'values_desc' => 'nullable|array',
+            'reasons_title' => 'nullable|array',
+            'reasons_desc' => 'nullable|array',
+            'segmentations' => 'nullable|array',
         ]);
 
         try {
@@ -78,6 +107,11 @@ class AboutController extends Controller
             } else {
                 unset($validated['image']);
             }
+
+            // Pack structured arrays to JSON
+            $validated['values_json'] = $this->packTitleDescArray($request->input('values_title', []), $request->input('values_desc', []));
+            $validated['reasons_json'] = $this->packTitleDescArray($request->input('reasons_title', []), $request->input('reasons_desc', []));
+            $validated['segmentations_json'] = $this->packStringArray($request->input('segmentations', []));
 
             $about->update($validated);
             Cache::forget('chatbot:public-context');
@@ -105,5 +139,33 @@ class AboutController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage())->withInput();
         }
+    }
+
+    private function packTitleDescArray(array $titles, array $descs): ?string
+    {
+        $items = [];
+        foreach ($titles as $idx => $title) {
+            $t = trim($title ?? '');
+            $d = trim($descs[$idx] ?? '');
+            if ($t !== '' || $d !== '') {
+                $items[] = [
+                    'title' => $t,
+                    'desc' => $d,
+                ];
+            }
+        }
+        return !empty($items) ? json_encode($items, JSON_UNESCAPED_UNICODE) : null;
+    }
+
+    private function packStringArray(array $values): ?string
+    {
+        $cleaned = [];
+        foreach ($values as $val) {
+            $v = trim($val ?? '');
+            if ($v !== '') {
+                $cleaned[] = $v;
+            }
+        }
+        return !empty($cleaned) ? json_encode($cleaned, JSON_UNESCAPED_UNICODE) : null;
     }
 }
