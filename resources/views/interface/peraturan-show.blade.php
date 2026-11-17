@@ -174,7 +174,7 @@
                                         Deskripsi Peraturan
                                     </h3>
                                 </div>
-                                <div class="prose max-w-none text-sm text-ns-ink-800 leading-relaxed space-y-4">
+                                <div class="prose max-w-none text-sm text-ns-ink-800 leading-relaxed space-y-4 text-justify">
                                     {!! $peraturan->deskripsi !!}
                                 </div>
                             </div>
