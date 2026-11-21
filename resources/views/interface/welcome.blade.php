@@ -1,6 +1,10 @@
 @extends('interface.layout.app')
 @section('title', 'Pengacara Banyuwangi Safi | Advokat, Mediator & Konsultan Hukum')
 
+@push('styles')
+    <link rel="preload" as="image" type="image/webp" href="{{ asset('interface/img/LOGO_NS_2.webp') }}" fetchpriority="high">
+@endpush
+
 @section('content')
     <!--================ Start Home Banner Area (Editorial Navy & Gold) =================-->
     <section
@@ -12,8 +16,8 @@
                 <source srcset="{{ asset('interface/img/pengadilan.webp') }}" type="image/webp">
                 <img src="{{ asset('interface/img/pengadilan.jpg') }}" alt="" id="hero-parallax-bg"
                     width="1920" height="1280"
-                    class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 will-change-transform"
-                    fetchpriority="high">
+                    class="w-full h-[130%] -top-[15%] relative object-cover object-center opacity-20 lg:will-change-transform"
+                    decoding="async">
             </picture>
             {{-- <div class="absolute inset-0 bg-gradient-to-r from-ns-navy-950/95 via-ns-navy-900/90 to-ns-navy-800/85"></div> --}}
         </div>
@@ -60,10 +64,14 @@
                 <!-- Credential Card Sidebar (Logo Showcase) -->
                 <aside class="lg:col-span-5" aria-label="Lambang Resmi Kantor Hukum">
                     <div id="hero-credential-card"
-                        class="rounded-lg p-6 sm:p-8 transition-transform duration-100 ease-out will-change-transform min-h-[380px] sm:min-h-[420px] flex items-center justify-center">
-                        <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
-                            alt="Lambang Resmi Kantor Hukum Nurul Safii & Partners"
-                            class="w-full max-w-[260px] sm:max-w-[300px] h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
+                        class="rounded-lg p-6 sm:p-8 transition-transform duration-100 ease-out lg:will-change-transform min-h-[380px] sm:min-h-[420px] flex items-center justify-center">
+                        <picture>
+                            <source srcset="{{ asset('interface/img/LOGO_NS_2.webp') }}" type="image/webp">
+                            <img src="{{ asset('interface/img/LOGO_NS_2.png') }}"
+                                alt="Lambang Resmi Kantor Hukum Nurul Safii & Partners"
+                                width="300" height="396" fetchpriority="high"
+                                class="w-full max-w-[260px] sm:max-w-[300px] h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
+                        </picture>
                     </div>
                 </aside>
             </div>
@@ -81,8 +89,19 @@
                     <div class="w-full max-w-md">
                         <div
                             class="relative h-64 sm:h-76 md:h-80 rounded-lg overflow-hidden bg-ns-navy-900 border-2 border-ns-gold-500/60 shadow-lg flex items-center justify-center">
-                            <img src="{{ asset('storage/' . ($about->image ?? $aboutData->image)) }}"
-                                alt="Profil Kantor Hukum Nurul Safii" class="max-w-[200px] sm:max-w-[240px] object-cover">
+                            @php
+                                $aboutImg = $about->image ?? ($aboutData->image ?? '');
+                                $aboutWebp = preg_replace('/\.(png|jpg|jpeg)$/i', '.webp', $aboutImg);
+                            @endphp
+                            <picture>
+                                @if (file_exists(public_path('storage/' . $aboutWebp)))
+                                    <source srcset="{{ asset('storage/' . $aboutWebp) }}" type="image/webp">
+                                @endif
+                                <img src="{{ asset('storage/' . $aboutImg) }}"
+                                    alt="Profil Kantor Hukum Nurul Safii"
+                                    width="240" height="317" loading="lazy" decoding="async"
+                                    class="max-w-[200px] sm:max-w-[240px] object-cover">
+                            </picture>
                         </div>
 
                         <!-- Caption / Identitas Pendiri & Managing Partner -->
@@ -196,10 +215,19 @@
                 @forelse ($services as $index => $item)
                     <article
                         class="bg-white border border-[#C8C4BC] border-t-4 border-t-ns-navy-900 rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-t-ns-gold-500 hover:shadow-xl group">
-                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 overflow-hidden">
-                            <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
-                                width="480" height="320" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <a href="{{ route('service.show', $item->id) }}" class="block relative bg-ns-navy-800 overflow-hidden"
+                            aria-label="Pelajari layanan {{ $item->title }}">
+                            @php
+                                $serviceWebp = preg_replace('/\.(png|jpg|jpeg)$/i', '.webp', $item->image);
+                            @endphp
+                            <picture>
+                                @if (file_exists(public_path('storage/' . $serviceWebp)))
+                                    <source srcset="{{ asset('storage/' . $serviceWebp) }}" type="image/webp">
+                                @endif
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi {{ $item->title }}"
+                                    width="480" height="320" loading="lazy" decoding="async"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            </picture>
                         </a>
                         <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-white">
                             <h3 class="font-display font-bold text-base sm:text-lg text-ns-ink-900 mb-4 line-clamp-2 leading-snug">
@@ -209,7 +237,8 @@
                             </h3>
                             <div class="pt-3 border-t border-ns-border-light mt-auto">
                                 <a href="{{ route('service.show', $item->id) }}"
-                                    class="inline-flex items-center gap-1.5 text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
+                                    class="inline-flex items-center gap-1.5 text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition"
+                                    aria-label="Lihat detail layanan {{ $item->title }}">
                                     <span>Lihat Detail Layanan</span>
                                     <span aria-hidden="true">&rarr;</span>
                                 </a>
@@ -575,8 +604,10 @@
                             </h3>
                             <div class="pt-3 border-t border-ns-border-light mt-auto">
                                 <a href="{{ $row->url }}" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition">
-                                    Baca Selengkapnya &rarr;
+                                    class="inline-flex items-center text-xs font-bold text-ns-navy-900 hover:text-ns-gold-700 transition"
+                                    aria-label="Baca selengkapnya tentang berita {{ $row->title }}">
+                                    <span>Baca Berita Selengkapnya</span>
+                                    <span aria-hidden="true" class="ml-1">&rarr;</span>
                                 </a>
                             </div>
                         </div>

@@ -3,7 +3,10 @@
         <!-- Brand Logo -->
         <a class="flex items-center py-2 flex-shrink-0" href="{{ route('welcome') }}"
             aria-label="Beranda Kantor Hukum Nurul Safii & Partners">
-            <img src="{{ asset('interface/img/LOGO_NS.png') }}" alt="Logo Kantor Hukum Nurul Safii & Partners"
+            <img src="{{ asset('interface/img/LOGO_NS_optimized.png') }}"
+                srcset="{{ asset('interface/img/LOGO_NS_optimized.png') }} 1x, {{ asset('interface/img/LOGO_NS.png') }} 2x"
+                alt="Logo Kantor Hukum Nurul Safii & Partners"
+                width="353" height="70"
                 class="h-10 sm:h-11 w-auto object-contain">
         </a>
 

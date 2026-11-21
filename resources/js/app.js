@@ -1,10 +1,14 @@
 import './bootstrap';
 import Lenis from 'lenis';
 
-// Inisialisasi Smooth Scroll (Hanya untuk Halaman Interface Publik)
+// Inisialisasi Smooth Scroll (Hanya untuk Desktop pada Halaman Interface Publik)
 document.addEventListener('DOMContentLoaded', () => {
     const isInterfacePage = document.body.classList.contains('is-interface-page');
     if (!isInterfacePage) return;
+
+    // Matikan Lenis pada mobile & tablet (< 1024px) untuk performa instan dan scroll native yang mulus
+    const isMobileDevice = window.innerWidth < 1024 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    if (isMobileDevice) return;
 
     // Cek preferensi pengguna yang mematikan reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

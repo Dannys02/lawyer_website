@@ -8,8 +8,11 @@
             <div class="loader-ring-pulse" aria-hidden="true"></div>
             <div class="loader-ring-spin" aria-hidden="true"></div>
 
+            @php
+                $setting = \App\Models\about::first();
+            @endphp
             <div class="loader-logo-frame">
-                <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Lambang Kantor Hukum Nurul Safii"
+                <img src="{{ $setting && $setting->image ? asset('storage/' . $setting->image) : asset('interface/img/LOGO_NS_2.png') }}" alt="Lambang Kantor Hukum Nurul Safii"
                     class="loader-logo-img" />
             </div>
         </div>
@@ -51,7 +54,7 @@
         align-items: center;
         opacity: 1;
         visibility: visible;
-        transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.45s ease;
+        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s ease;
         pointer-events: all;
     }
 
@@ -319,7 +322,7 @@
                     if (window.lenis && typeof window.lenis.start === 'function') {
                         window.lenis.start();
                     }
-                }, 450);
+                }, 300);
             } else {
                 document.documentElement.classList.remove('is-locked-loading');
                 document.body.classList.remove('is-locked-loading');
@@ -333,16 +336,17 @@
             }
         }
 
-        // Dismiss saat seluruh resource selesai dimuat
-        if (document.readyState === 'complete') {
-            setTimeout(dismissLoader, 300);
+        // Dismiss segera setelah HTML siap (tidak menunggu semua gambar selesai diunduh),
+        // agar konten utama cepat terlihat terutama di jaringan mobile.
+        if (document.readyState !== 'loading') {
+            setTimeout(dismissLoader, 150);
         } else {
-            window.addEventListener('load', function() {
-                setTimeout(dismissLoader, 350);
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(dismissLoader, 150);
             });
         }
 
-        // Fallback safety timeout jika ada aset lambat
-        setTimeout(dismissLoader, 4000);
+        // Fallback safety timeout
+        setTimeout(dismissLoader, 2000);
     })();
 </script>

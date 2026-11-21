@@ -154,3 +154,13 @@
     margin: 1.5rem 0;
   }
 }
+
+/* Performa mobile: section di bawah lipatan layar baru di-render saat mendekati viewport.
+   Tidak mengubah tampilan, hanya menunda kerja render browser. */
+@media (max-width: 1023px) {
+    #main-content > section:nth-of-type(n+3),
+    body.is-interface-page > footer {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 900px;
+    }
+}

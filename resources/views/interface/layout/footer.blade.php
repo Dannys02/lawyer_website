@@ -70,7 +70,7 @@
                         </a>
                         <a href="mailto:{{ $footerEmail }}" aria-label="Kirim Email ke Kantor Hukum Nurul Safii"
                             class="w-9 h-9 rounded-lg bg-ns-navy-900 border border-ns-gold-500/30 text-ns-light-100 hover:bg-ns-gold-400 hover:text-ns-navy-950 hover:border-ns-gold-400 transition flex items-center justify-center text-sm shadow-sm">
-                            <i class="lnr lnr-envelope" aria-hidden="true"></i>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -113,12 +113,12 @@
                         Kontak Kantor</h2>
                     <ul class="space-y-3 text-xs sm:text-sm list-none p-0 m-0">
                         <li class="flex items-start gap-2.5">
-                            <i class="lnr lnr-map-marker text-ns-gold-400 text-base mt-0.5 flex-shrink-0"
+                            <i class="fas fa-map-marker-alt text-ns-gold-400 text-base mt-0.5 flex-shrink-0"
                                 aria-hidden="true"></i>
                             <span class="text-ns-light-300/90 leading-relaxed text-xs">{{ $footerAddress }}</span>
                         </li>
                         <li class="flex items-center gap-2.5">
-                            <i class="lnr lnr-phone-handset text-ns-gold-400 text-sm flex-shrink-0"
+                            <i class="fas fa-phone-alt text-ns-gold-400 text-sm flex-shrink-0"
                                 aria-hidden="true"></i>
                             <a href="{{ $footerWa }}" target="_blank" rel="noopener noreferrer"
                                 class="hover:text-ns-gold-400 transition-colors text-ns-light-100 text-xs sm:text-sm">
@@ -126,7 +126,7 @@
                             </a>
                         </li>
                         <li class="flex items-center gap-2.5">
-                            <i class="lnr lnr-envelope text-ns-gold-400 text-sm flex-shrink-0" aria-hidden="true"></i>
+                            <i class="fas fa-envelope text-ns-gold-400 text-sm flex-shrink-0" aria-hidden="true"></i>
                             <a href="mailto:{{ $footerEmail }}"
                                 class="hover:text-ns-gold-400 transition-colors text-ns-light-100 break-all text-xs">
                                 {{ $footerEmail }}
