@@ -60,7 +60,8 @@ class LegalPatnershipController extends Controller
             legal_patnership::create($data);
             return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership created successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menambahkan data. Silakan coba lagi.')->withInput();
         }
 
     }
@@ -101,7 +102,8 @@ class LegalPatnershipController extends Controller
             $legal_patnership->update($data);
             return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership updated successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
+            report($e);
+            return redirect()->back()->with('error', 'Gagal memperbarui data. Silakan coba lagi.')->withInput();
         }
     }
 
@@ -119,7 +121,8 @@ class LegalPatnershipController extends Controller
             $legal_patnership->delete();
             return redirect()->route('legal_patnership.index')->with('success', 'Legal Patnership deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menghapus data. Silakan coba lagi.');
         }
     }
 }

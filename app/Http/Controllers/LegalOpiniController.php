@@ -71,7 +71,8 @@ class LegalOpiniController extends Controller
 
             return redirect()->route('legal_opini.index')->with('success', 'Artikel Hukum berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Artikel Hukum: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Artikel Hukum. Silakan coba lagi.');
         }
     }
 
@@ -122,7 +123,8 @@ class LegalOpiniController extends Controller
 
             return redirect()->route('legal_opini.index')->with('success', 'Artikel Hukum berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui Artikel Hukum: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui Artikel Hukum. Silakan coba lagi.');
         }
     }
 
@@ -140,7 +142,8 @@ class LegalOpiniController extends Controller
 
             return redirect()->route('legal_opini.index')->with('success', 'Artikel Hukum berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus Artikel Hukum: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menghapus Artikel Hukum. Silakan coba lagi.');
         }
     }
 }

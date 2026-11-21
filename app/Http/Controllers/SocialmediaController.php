@@ -46,7 +46,8 @@ class SocialmediaController extends Controller
 
             return redirect()->route('socialmedia.index')->with('success', 'Data Media Sosial berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menambahkan data. Silakan coba lagi.')->withInput();
         }
     }
 
@@ -79,7 +80,8 @@ class SocialmediaController extends Controller
 
             return redirect()->route('socialmedia.index')->with('success', 'Data Media Sosial berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
+            report($e);
+            return redirect()->back()->with('error', 'Gagal memperbarui data. Silakan coba lagi.')->withInput();
         }
     }
 
@@ -94,7 +96,8 @@ class SocialmediaController extends Controller
 
             return redirect()->route('socialmedia.index')->with('success', 'Data Media Sosial berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menghapus data. Silakan coba lagi.');
         }
     }
 }

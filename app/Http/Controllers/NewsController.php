@@ -61,7 +61,8 @@ class NewsController extends Controller
 
         return redirect()->route('news.index')->with('success', 'Berita berhasil ditambahkan.');
     } catch (\Exception $e) {
-        return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Berita: ' . $e->getMessage());
+        report($e);
+        return redirect()->back()->withInput()->with('error', 'Gagal menambahkan Berita. Silakan coba lagi.');
     }
 }
 
@@ -104,7 +105,8 @@ class NewsController extends Controller
 
             return redirect()->route('news.index')->with('success', 'Berita berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui Berita: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui Berita. Silakan coba lagi.');
         }
     }
 
@@ -123,7 +125,8 @@ class NewsController extends Controller
 
             return redirect()->route('news.index')->with('success', 'Berita berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus Berita: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menghapus Berita. Silakan coba lagi.');
         }
     }
 }

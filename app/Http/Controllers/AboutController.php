@@ -33,7 +33,7 @@ class AboutController extends Controller
     {
         $validated = $request->validate([
             'text_about' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'hero_tagline' => 'nullable|string|max:255',
             'hero_title' => 'nullable|string|max:255',
             'hero_slogan' => 'nullable|string|max:255',
@@ -50,7 +50,7 @@ class AboutController extends Controller
 
         try {
             if ($request->hasFile('image')) {
-                $validated['image'] = $request->file('image')->store('About', 'public');
+                $validated['image'] = $request->file('image')->store('about', 'public');
             }
 
             // Pack structured arrays to JSON
@@ -63,7 +63,8 @@ class AboutController extends Controller
 
             return redirect()->route('abouts.index')->with('success', 'Data Tentang Kami berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menambahkan data. Silakan coba lagi.')->withInput();
         }
     }
 
@@ -82,7 +83,7 @@ class AboutController extends Controller
     {
         $validated = $request->validate([
             'text_about' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'hero_tagline' => 'nullable|string|max:255',
             'hero_title' => 'nullable|string|max:255',
             'hero_slogan' => 'nullable|string|max:255',
@@ -99,7 +100,7 @@ class AboutController extends Controller
 
         try {
             if ($request->hasFile('image')) {
-                $validated['image'] = $request->file('image')->store('About', 'public');
+                $validated['image'] = $request->file('image')->store('about', 'public');
 
                 if ($about->image && $validated['image'] !== $about->image) {
                     Storage::disk('public')->delete($about->image);
@@ -118,7 +119,8 @@ class AboutController extends Controller
 
             return redirect()->route('abouts.index')->with('success', 'Data Tentang Kami berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
+            report($e);
+            return redirect()->back()->with('error', 'Gagal memperbarui data. Silakan coba lagi.')->withInput();
         }
     }
 
@@ -137,7 +139,8 @@ class AboutController extends Controller
 
             return redirect()->route('abouts.index')->with('success', 'Data Tentang Kami berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+            report($e);
+            return redirect()->back()->with('error', 'Gagal menghapus data. Silakan coba lagi.');
         }
     }
 
