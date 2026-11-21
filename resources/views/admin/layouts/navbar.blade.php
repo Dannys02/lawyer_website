@@ -32,7 +32,7 @@
                     <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white"></span>
                 </div>
                 <div class="hidden lg:flex flex-col text-left">
-                    <span class="text-slate-900 font-bold text-xs leading-tight">Admin Lawyer</span>
+                    <span class="text-slate-900 font-bold text-xs leading-tight">{{ Auth::user()->name ?? 'Admin Lawyer' }}</span>
                     <span class="text-amber-700 font-medium text-[11px]">Administrator</span>
                 </div>
                 <i class="ti ti-chevron-down text-xs text-slate-500 hidden lg:block"></i>
@@ -45,12 +45,17 @@
                     <img src="{{ asset('interface/img/LOGO_NS_2.png') }}" alt="Admin"
                         class="w-10 h-10 rounded-full object-contain bg-ns-navy-900 p-1 border border-amber-400">
                     <div class="min-w-0 flex-1">
-                        <p class="text-sm font-bold text-slate-900 truncate">Admin Lawyer</p>
+                        <p class="text-sm font-bold text-slate-900 truncate">{{ Auth::user()->name ?? 'Admin Lawyer' }}</p>
                         <p class="text-xs text-slate-500 truncate">{{ Auth::user()->email ?? 'admin.lawyer@gmail.com' }}</p>
                     </div>
                 </div>
 
                 <div class="py-1">
+                    <a href="{{ route('profile.edit') }}"
+                        class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-amber-800 transition">
+                        <i class="ti ti-user-cog text-base text-amber-700"></i>
+                        <span>Profil &amp; Keamanan Akun</span>
+                    </a>
                     <a href="{{ route('welcome') }}" target="_blank"
                         class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-amber-800 transition">
                         <i class="ti ti-world text-base text-amber-700"></i>

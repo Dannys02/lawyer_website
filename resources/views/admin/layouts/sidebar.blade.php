@@ -111,5 +111,21 @@
                 </li>
             </ul>
         </div>
+
+        <div>
+            <span class="px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-2.5">
+                Akun
+            </span>
+            <ul class="space-y-1.5">
+                <li>
+                    <a href="{{ route('profile.edit') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ Route::is('profile.*') ? 'bg-gradient-to-r from-ns-gold-400 to-ns-gold-500 text-ns-navy-950 font-bold shadow-lg shadow-ns-gold-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-ns-gold-400 hover:translate-x-1' }}">
+                        <i
+                            class="ti ti-user-cog text-lg {{ Route::is('profile.*') ? 'text-ns-navy-950' : 'text-ns-gold-400' }}"></i>
+                        <span>Profil &amp; Keamanan</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </aside>

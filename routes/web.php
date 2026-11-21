@@ -42,7 +42,7 @@ Route::post('reviews', [App\Http\Controllers\ReviewsController::class, 'store'])
     ->name('reviews.store');
 
 // Admin panel management (protected with auth)
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::resource('legal_opini', App\Http\Controllers\LegalOpiniController::class);
     Route::resource('legal_patnership', App\Http\Controllers\LegalPatnershipController::class);
     Route::resource('peraturan', App\Http\Controllers\PeraturanController::class);
@@ -51,4 +51,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('news', NewsController::class);
     Route::resource('abouts', App\Http\Controllers\AboutController::class);
     Route::resource('socialmedia', App\Http\Controllers\SocialmediaController::class);
+
+    // Profil admin: ubah email & password (dibatasi 6 percobaan/menit untuk cegah brute-force)
+    Route::get('profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])
+        ->middleware('throttle:6,1')->name('profile.update');
 });
